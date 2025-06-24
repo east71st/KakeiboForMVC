@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="jp">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - KakeiboForMVC</title>
+	<link rel="stylesheet" href="~/css/reset.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
+</head>
+<body>
+	<header>
+		<!-- メニューバーの表示 -->
+		<menu>
+			<ul class="menuItems">
+				<li class="menuItem"><a href="/Kakeibo/Input">入力</a></li>
+				<li class="menuItem"><a href="/Kakeibo/Display">表示</a></li>
+				<li class="menuItem"><a href="/Kakeibo/Update">修正</a></li>
+				<li class="menuItem">
+					<a href="#">設定</a>
+					<ul class="dropdownLists">
+						<li class="dropdownList"><a href="http://localhost:8080/kakeibo/HimokuServlet">費目設定</a></li>
+						<li class="dropdownList"><a href="http://localhost:8080/kakeibo/#">その他</a></li>
+					</ul>
+				</li>
+			</ul>
+		</menu>
+	</header>
+
+
+
+
+
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+
+	<footer></footer>
+</body>
+</html>

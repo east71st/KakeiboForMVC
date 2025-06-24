@@ -1,0 +1,113 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Linq;
+using KakeiboForMVC.Data;
+
+namespace KakeiboForMVC.Models
+{
+    public class KakeiboSeedData
+    {
+        public static void Initialize(IServiceProvider serviceProvider)
+        {
+            using (var context = new KakeiboForMVCContext(
+                serviceProvider.GetRequiredService<
+                    DbContextOptions<KakeiboForMVCContext>>()))
+            {
+                // Look for any KAKEIBO.
+                if (context.KAKEIBO.Any())
+                {
+                    return;   // DB has been seeded
+                }
+
+                context.KAKEIBO.AddRange(
+                    new KAKEIBO
+                    {
+                        HIDUKE = DateTime.Parse("2025-06-01"),
+                        HIMOKU_ID = 1,
+                        MEISAI = "給与",
+                        NYUKINGAKU = 200000
+                    },
+                    new KAKEIBO
+                    {
+                        HIDUKE = DateTime.Parse("2025-06-02"),
+                        HIMOKU_ID = 2,
+                        MEISAI = "家賃",
+                        SHUKINGAKU = 65000
+                    },
+                    new KAKEIBO
+                    {
+                        HIDUKE = DateTime.Parse("2025-06-03"),
+                        HIMOKU_ID = 3,
+                        MEISAI = "電気代",
+                        SHUKINGAKU = 15000
+                    },
+                    new KAKEIBO
+                    {
+                        HIDUKE = DateTime.Parse("2025-06-03"),
+                        HIMOKU_ID = 4,
+                        MEISAI = "水道代",
+                        SHUKINGAKU = 8000,
+                    },
+                    new KAKEIBO
+                    {
+                        HIDUKE = DateTime.Parse("2025-06-03"),
+                        HIMOKU_ID = 5,
+                        MEISAI = "ガス代",
+                        SHUKINGAKU = 15000
+                    },
+                    new KAKEIBO
+                    {
+                        HIDUKE = DateTime.Parse("2025-06-04"),
+                        HIMOKU_ID = 6,
+                        MEISAI = "保険代",
+                        SHUKINGAKU = 50000
+                    },
+                    new KAKEIBO
+                    {
+                        HIDUKE = DateTime.Parse("2025-06-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "米",
+                        SHUKINGAKU = 5000
+                    },
+                    new KAKEIBO
+                    {
+                        HIDUKE = DateTime.Parse("2025-06-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "納豆",
+                        SHUKINGAKU = 100
+                    },
+                    new KAKEIBO
+                    {
+                        HIDUKE = DateTime.Parse("2025-06-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "牛乳",
+                        SHUKINGAKU = 200
+                    },
+                    new KAKEIBO
+                    {
+                        HIDUKE = DateTime.Parse("2025-06-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "卵",
+                        SHUKINGAKU = 200
+                    },
+                    new KAKEIBO
+                    {
+                        HIDUKE = DateTime.Parse("2025-06-05"),
+                        HIMOKU_ID = 8,
+                        MEISAI = "ティッシュ",
+                        SHUKINGAKU = 250
+                    },
+                    new KAKEIBO
+                    {
+                        HIDUKE = DateTime.Parse("2025-06-05"),
+                        HIMOKU_ID = 8,
+                        MEISAI = "洗剤",
+                        SHUKINGAKU = 350
+                    }
+                );
+                context.SaveChanges();
+            }
+        }
+    }
+}

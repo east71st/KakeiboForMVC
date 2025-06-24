@@ -1,0 +1,80 @@
+﻿@model KakeiboForMVC.Models.DisplayViewModel
+<div id="main">
+	<!-- コンソールの表示 -->
+	<section id="console">
+		<form action="Display" method="post">
+			<table>
+				<tr>
+					<td>期間</td>
+					<td>
+						<input asp-for="FirstDate" type="date" style="width:10em" required>～
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input asp-for="LastDate" type="date" style="width:10em" required>
+					</td>
+				</tr>
+				<tr>
+					<td>費目</td>
+					<td>
+						<select asp-for="HimokuId" asp-items="Model.HimokuNameSelect" style="width:10em">
+							<option value="0">全て</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>明細</td>
+					<td rowspan="4">
+						<textarea asp-for="Meisai" rows="4" style="width:10em"></textarea>
+					</td>
+				</tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type="submit" value="表示">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</section>
+
+	<!-- 家計簿データテーブルの表示 -->
+	<section id="tableSection">
+		<div id="tableArea">
+			<table id="kakeiboTable">
+				<thead>
+					<tr class="headRow">
+						<th class="fixdRowCol" style="width: 5em;">ID</th>
+						<th class="fixdRow" style="width: 8em;">日付</th>
+						<th class="fixdRow" style="width: 20em;">費目</th>
+						<th class="fixdRow" style="width: 50em;">明細</th>
+						<th class="fixdRow" style="width: 10em;">収入</th>
+						<th class="fixdRow" style="width: 10em;">支出</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@if (Model.KakeiboList != null)
+					{
+						foreach (var item in Model.KakeiboList)
+						{
+							<tr class="bodyRow">
+								<th class="fixdCol numberCol">@item.Id</th>
+								<td class="dateCol">@item.Hiduke.ToString("yyyy-MM-dd")</td>
+								<td class="textCol">@item.HimokuName</td>
+								<td class="textCol">@item.Meisai</td>
+								<td class="numberCol">@item.NyukinGaku?.ToString("#,#")</td>
+								<td class="numberCol">@item.ShukinGaku?.ToString("#,#")</td>
+							</tr>
+						}
+					}
+				</tbody>
+			</table>
+		</div>
+	</section>
+</div>

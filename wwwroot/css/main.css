@@ -1,0 +1,235 @@
+@charset "UTF-8";
+
+body {
+	width: 100%;
+	height: 100vh;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+}
+
+/*メニューバーの設定*/
+header {
+	height: 5vh;
+	position: sticky;
+	top: 0px;
+	left: 0px;
+	z-index: 2;
+}
+
+.menuItems {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.menuItem {
+	flex: 1 0 140px;
+	height: 5vh;
+	position: relative;
+	list-style: none;
+	background-color: rgb(64, 0, 0);
+	transition: all .3s;
+}
+
+.menuItem:hover {
+	background-color: rgb(192, 192, 192);
+}
+
+.menuItem a {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	text-decoration-line: none;
+	color: rgb(255, 255, 255);
+	transition: all .3s;
+}
+
+.menuItem:hover a {
+	color: rgb(96, 0, 0);
+}
+
+.dropdownLists {
+	display: none;
+	width: 100%;
+	position: absolute;
+	top: 5vh;
+	left: 0;
+}
+
+.menuItem:hover .dropdownLists {
+	display: block;
+}
+
+.dropdownList {
+	height: 5vh;
+	position: relative;
+	list-style: none;
+	background-color: rgb(64, 0, 0);
+	transition: all .3s;
+}
+
+.menuItem:hover .dropdownList:hover {
+	background-color: rgb(160, 160, 160);
+}
+
+.menuItem:hover .dropdownList a {
+	color: rgb(255, 255, 255);
+	position: relative;
+}
+
+.menuItem:hover .dropdownList:hover a {
+	color: rgb(96, 0, 0);
+}
+
+#main {
+	height: 90vh;
+	display: flex;
+	flex-direction: row;
+}
+
+/*コンソールの設定*/
+#console {
+	width: auto;
+	display: flex;
+	padding: 10px 10px;
+	background-color: rgb(96, 96, 96);
+}
+
+#console td {
+	padding: 2px;
+	color: rgb(255,255,255);
+}
+
+#kingaku {
+	width: 9em;
+}
+
+/*テーブルの設定*/
+#tableSection {
+	display: flex;
+	margin: 2vh 15px;
+}
+
+#tableArea {
+	overflow:auto;
+}
+
+#kakeiboTable {
+	min-width: 560px;
+}
+
+.fixdRowCol {
+	position: sticky;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	padding: 5px;
+	text-align: center;
+}
+
+.fixdRowCol::before {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	content: "";
+	border: 1px solid black;
+	background-color: rgb(192, 192, 192);
+}
+
+.fixdRow {
+	position: sticky;
+	top: 0;
+	left: 0;
+	padding: 5px;
+	text-align: center;
+	border-right: 1px solid black;
+	border-left: 1px solid black;
+}
+
+.fixdRow::before {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	content: "";
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	background-color: rgb(192, 192, 192);
+}
+
+.fixdCol {
+	position: sticky;
+	top: 0;
+	left: 0;
+	padding: 5px;
+	text-align: center;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+.fixdCol::before {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	content: "";
+	border-right: 1px solid black;
+	border-left: 1px solid black;
+	background-color: rgb(224, 224, 224);
+}
+
+.bodyRow td {
+	border: 1px solid black;
+	background-color: rgb(255, 255, 255);
+}
+
+.bottomRow td {
+	border: 1px solid black;
+	background-color: rgb(224, 224, 224);
+}
+
+.numberCol {
+	padding: 5px;
+	text-align: right;
+}
+
+.dateCol {
+	padding: 5px;
+	text-align: center
+}
+
+.textCol {
+	padding: 5px;
+	text-align: left;
+}
+
+.innerBoxCol {
+	padding: 3px;
+}
+
+/*フッターの設定*/
+footer {
+	width: 100%;
+	height: 5vh;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	z-index: 2;
+	background-color: rgb(64, 0, 0);
+}
+
+#errorDisplay {
+	padding: 10px;
+	vertical-align: middle;
+	color: rgb(255, 255, 255);
+}

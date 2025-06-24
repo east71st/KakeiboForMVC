@@ -1,0 +1,53 @@
+﻿@model KakeiboForMVC.Models.KAKEIBO
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>KAKEIBO</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="HIDUKE" class="control-label"></label>
+                <input asp-for="HIDUKE" class="form-control" />
+                <span asp-validation-for="HIDUKE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HIMOKU_ID" class="control-label"></label>
+                <input asp-for="HIMOKU_ID" class="form-control" />
+                <span asp-validation-for="HIMOKU_ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MEISAI" class="control-label"></label>
+                <input asp-for="MEISAI" class="form-control" />
+                <span asp-validation-for="MEISAI" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NYUKINGAKU" class="control-label"></label>
+                <input asp-for="NYUKINGAKU" class="form-control" />
+                <span asp-validation-for="NYUKINGAKU" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SHUKINGAKU" class="control-label"></label>
+                <input asp-for="SHUKINGAKU" class="form-control" />
+                <span asp-validation-for="SHUKINGAKU" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
