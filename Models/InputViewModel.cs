@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KakeiboForMVC.Models
 {
+    /// <summary>
+    /// 入力ビューモデル
+    /// </summary>
     public class InputViewModel
     {
         /// <summary>

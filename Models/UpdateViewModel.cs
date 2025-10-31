@@ -1,14 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
-using Humanizer;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace KakeiboForMVC.Models
 {
-    /// <summary>
-    /// 表示画面ビューモデル
-    /// </summary>
-    public class DisplayViewModel
+    public class UpdateViewModel
     {
         /// <summary>
         /// 検索開始期間
@@ -20,7 +15,7 @@ namespace KakeiboForMVC.Models
         /// 検索終了期間
         /// </summary>
         [DataType(DataType.Date)]
-        public DateTime? LastDate { get; set; } 
+        public DateTime? LastDate { get; set; }
 
         /// <summary>
         /// 検索費目ID
@@ -28,14 +23,9 @@ namespace KakeiboForMVC.Models
         public int? HimokuId { get; set; }
 
         /// <summary>
-        /// 費目名
-        /// </summary>
-        public string? HimokuName { get; set; }
-
-        /// <summary>
         /// 検索明細
         /// </summary>
-        public string? Meisai {  get; set; }
+        public string? Meisai { get; set; }
 
         /// <summary>
         /// 表示家計簿データ
@@ -45,6 +35,6 @@ namespace KakeiboForMVC.Models
         /// <summary>
         /// 費目名のセレクトリスト
         /// </summary>
-        public List<SelectListItem>? HimokuNameSelect { get; set; } 
+        public List<SelectListItem>? HimokuNameSelect { get; set; }
     }
 }

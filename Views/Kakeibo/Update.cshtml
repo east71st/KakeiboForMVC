@@ -1,15 +1,14 @@
-﻿@using KakeiboForMVC.Controllers
+﻿@model KakeiboForMVC.Models.DisplayViewModel
 
-@model KakeiboForMVC.Models.DisplayViewModel
-<div id="main">	
+<div id="main">
 	<!-- コンソールの表示 -->
 	<section id="console">
-		<form action="Display" method="post">
+		<form action="Update" method="get">
 			<table>
 				<tr>
 					<td>期間</td>
 					<td>
-						<input asp-for="FirstDate" type="date" style="width:10em" required>～
+						<input asp-for="FirstDate" id="firstDateText" type="date" style="width:10em" required>～
 					</td>
 				</tr>
 				<tr>
@@ -57,6 +56,8 @@
 						<th class="fixdRow" style="width: 50em;">明細</th>
 						<th class="fixdRow" style="width: 10em;">収入</th>
 						<th class="fixdRow" style="width: 10em;">支出</th>
+						<th class="fixdRow" style="width: auto;">更新</th>
+						<th class="fixdRow" style="width: auto;">削除</th>
 					</tr>
 				</thead>
 
@@ -66,12 +67,18 @@
 						foreach (var item in Model.KakeiboList)
 						{
 							<tr class="bodyRow">
-								<th class="fixdCol numberCol">@item.Id</th>
-								<td class="dateCol">@item.Hiduke.?ToString("yyyy-MM-dd")</td>
-								<td class="textCol">@item.HimokuName</td>
-								<td class="textCol">@item.Meisai</td>
-								<td class="numberCol">@item.NyukinGaku?.ToString("#,#")</td>
-								<td class="numberCol">@item.ShukinGaku?.ToString("#,#")</td>
+								<form action="Update" name="updateForm" method="post">
+									<th class="fixdCol numberCol">@item.Id</th>
+									<td class="innerBoxCol"><input asp-for="@item.Hiduke" type="date" style="width: 100%; box-sizing: border-box;" /></td>
+									<td class="innerBoxCol">
+										<select asp-for="@item.HimokuId" asp-items="Model.HimokuNameSelect" style="width: 100%; box-sizing: border-box;"></select>
+									</td>
+									<td class="innerBoxCol"><input asp-for="@item.Meisai" type="text" style="width: 100%; box-sizing: border-box;" /></td>
+									<td class="innerBoxCol"><input asp-for="@item.NyukinGaku" type="text" style="width: 100%; box-sizing: border-box; text-align: right;" /></td>
+									<td class="innerBoxCol"><input asp-for="@item.ShukinGaku" type="text" style="width: 100%; box-sizing: border-box; text-align: right;" /></td>
+									<td class="innerBoxCol"><input name="update" type="button" data-id="@item.Id" value="更新" box-sizing: border-box;" /></td>
+									<td class="innerBoxCol"><input name="delete" type="button" data-id="@item.Id" value="削除" box-sizing: border-box;" /></td>
+								</form>
 							</tr>
 						}
 					}
@@ -79,4 +86,6 @@
 			</table>
 		</div>
 	</section>
+
 </div>
+<script src="~/js/update.js" asp-append-version="true"></script>

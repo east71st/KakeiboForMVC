@@ -3,24 +3,27 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KakeiboForMVC.Models
 {
+    /// <summary>
+    /// 家計簿テーブル
+    /// </summary>
     public class KAKEIBO
     {
         /// <summary>
         /// 家計簿ID
         /// </summary>
         [Key]
-        public int ID { get; set; }
+        public required int ID { get; set; }
 
         /// <summary>
         /// 日付
         /// </summary>
         [DataType(DataType.Date)]
-        public DateTime HIDUKE { get; set; }
+        public required DateTime HIDUKE { get; set; }
 
         /// <summary>
         /// 費目D
         /// </summary>
-        public int HIMOKU_ID { get; set; }
+        public required int HIMOKU_ID { get; set; }
 
         /// <summary>
         /// 明細

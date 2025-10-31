@@ -2,7 +2,7 @@
 <div id="main">
 	<!-- コンソールの表示 -->
 	<section id="console">
-		<form action="Input" method="post">
+		<form action="Input" method="get">
 			<table>
 				<tr>
 					<td>日付</td>
@@ -61,7 +61,7 @@
 						{
 							<tr class="bodyRow">
 								<th class="fixdCol numberCol">@item.Id</th>
-								<td class="dateCol">@item.Hiduke.ToString("yyyy-MM-dd")</td>
+								<td class="dateCol">@item.Hiduke.?ToString("yyyy-MM-dd")</td>
 								<td class="textCol">@item.HimokuName</td>
 								<td class="textCol">@item.Meisai</td>
 								<td class="numberCol">@item.NyukinGaku?.ToString("#,#")</td>

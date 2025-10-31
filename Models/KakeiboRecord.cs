@@ -1,21 +1,24 @@
 ﻿namespace KakeiboForMVC.Models
 {
+    /// <summary>
+    /// 家計簿テーブルの行データ
+    /// </summary>
     public class KakeiboRecord
     {
         /// <summary>
         /// 家計簿ID
         /// </summary>
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         /// <summary>
         /// 日付
         /// </summary>
-        public DateTime Hiduke { get; set; }
+        public DateTime? Hiduke { get; set; }
 
         /// <summary>
         /// 費目ID
         /// </summary>
-        public int HimokuId { get; set; }
+        public int? HimokuId { get; set; }
 
         /// <summary>
         /// 費目名

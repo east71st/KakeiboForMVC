@@ -23,6 +23,7 @@ namespace KakeiboForMVC.Models
                 context.KAKEIBO.AddRange(
                     new KAKEIBO
                     {
+                        ID = 1,
                         HIDUKE = DateTime.Parse("2025-06-01"),
                         HIMOKU_ID = 1,
                         MEISAI = "給与",
@@ -30,6 +31,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
+                        ID= 2,
                         HIDUKE = DateTime.Parse("2025-06-02"),
                         HIMOKU_ID = 2,
                         MEISAI = "家賃",
@@ -37,6 +39,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
+                        ID = 3,
                         HIDUKE = DateTime.Parse("2025-06-03"),
                         HIMOKU_ID = 3,
                         MEISAI = "電気代",
@@ -44,6 +47,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
+                        ID = 4,
                         HIDUKE = DateTime.Parse("2025-06-03"),
                         HIMOKU_ID = 4,
                         MEISAI = "水道代",
@@ -51,6 +55,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
+                        ID = 5,
                         HIDUKE = DateTime.Parse("2025-06-03"),
                         HIMOKU_ID = 5,
                         MEISAI = "ガス代",
@@ -58,6 +63,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
+                        ID = 6,
                         HIDUKE = DateTime.Parse("2025-06-04"),
                         HIMOKU_ID = 6,
                         MEISAI = "保険代",
@@ -65,6 +71,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
+                        ID = 7,
                         HIDUKE = DateTime.Parse("2025-06-05"),
                         HIMOKU_ID = 7,
                         MEISAI = "米",
@@ -72,6 +79,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
+                        ID = 7,
                         HIDUKE = DateTime.Parse("2025-06-05"),
                         HIMOKU_ID = 7,
                         MEISAI = "納豆",
@@ -79,6 +87,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
+                        ID = 7,
                         HIDUKE = DateTime.Parse("2025-06-05"),
                         HIMOKU_ID = 7,
                         MEISAI = "牛乳",
@@ -86,6 +95,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
+                        ID = 7,
                         HIDUKE = DateTime.Parse("2025-06-05"),
                         HIMOKU_ID = 7,
                         MEISAI = "卵",
@@ -93,6 +103,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
+                        ID = 8,
                         HIDUKE = DateTime.Parse("2025-06-05"),
                         HIMOKU_ID = 8,
                         MEISAI = "ティッシュ",
@@ -100,6 +111,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
+                        ID = 8,
                         HIDUKE = DateTime.Parse("2025-06-05"),
                         HIMOKU_ID = 8,
                         MEISAI = "洗剤",

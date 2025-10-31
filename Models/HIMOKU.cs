@@ -2,13 +2,16 @@
 
 namespace KakeiboForMVC.Models
 {
+    /// <summary>
+    /// 費目テーブル
+    /// </summary>
     public class HIMOKU
     {
         /// <summary>
         /// 費目ID
         /// </summary>
         [Key]
-        public int ID { get; set; }
+        public required int ID { get; set; }
 
         /// <summary>
         /// 費目名
