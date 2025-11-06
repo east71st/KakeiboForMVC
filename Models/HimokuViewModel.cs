@@ -11,8 +11,24 @@ namespace KakeiboForMVC.Models
         /// 費目名
         /// </summary>
         [Display(Name = "費目名")]
+        [Required(ErrorMessage = "{0}が未入力です。")]
         [StringLength(20, ErrorMessage = "{0}の文字数が{1}を超えています。")]
         public string? Name { get; set; }
+
+        /// <summary>
+        /// 費目ID
+        /// </summary>
+        [Display(Name = "ID")]
+        [Required(ErrorMessage = "{0}が未入力です。")]
+        public int? UpdateId { get; set; }
+
+        /// <summary>
+        /// 費目名
+        /// </summary>
+        [Display(Name = "費目名")]
+        [Required(ErrorMessage = "{0}が未入力です。")]
+        [StringLength(20, ErrorMessage = "{0}の文字数が{1}を超えています。")]
+        public string? UpdateName { get; set; }
 
         /// <summary>
         /// 費目データリスト

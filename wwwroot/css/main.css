@@ -322,6 +322,13 @@ button {
     vertical-align: middle;
 }
 
+#table input,
+#table select {
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+}
+
 #error-display {
     padding: 1rem;
     vertical-align: middle;

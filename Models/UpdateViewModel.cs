@@ -9,6 +9,16 @@ namespace KakeiboForMVC.Models
     public class UpdateViewModel : DisplayViewModel
     {
         /// <summary>
+        /// アクション区分
+        /// </summary>
+        public int? Action { get; set; }
+
+        /// <summary>
+        /// 確認ダイアログ表示フラグ
+        /// </summary>
+        public bool ShowDialog { get; set; } = false;
+
+        /// <summary>
         /// 家計簿ID
         /// </summary>
         [Display(Name = "ID")]
@@ -18,8 +28,8 @@ namespace KakeiboForMVC.Models
         /// <summary>
         /// 日付
         /// </summary>
-        [DataType(DataType.Date)]
         [Display(Name = "日付")]
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "{0}が未設定です。")]
         public DateTime? UpdateHiduke { get; set; }
 

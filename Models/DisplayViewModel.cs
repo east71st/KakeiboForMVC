@@ -11,16 +11,16 @@ namespace KakeiboForMVC.Models
         /// <summary>
         /// 検索開始日
         /// </summary>
-        [DataType(DataType.Date)]
         [Display(Name = "検索開始日")]
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "{0}が未入力です。")]
         public DateTime? FirstDate { get; set; }
 
         /// <summary>
         /// 検索最終日
         /// </summary>
-        [DataType(DataType.Date)]
         [Display(Name = "検索最終日")]
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "{0}が未入力です。")]
         public DateTime? LastDate { get; set; }
 
@@ -50,7 +50,7 @@ namespace KakeiboForMVC.Models
         public List<SelectListItem> HimokuNameSelect { get; set; } = [];
 
         /// <summary>
-        /// 家計簿データリスト
+        /// 家計簿テーブルリスト
         /// </summary>
         public List<KakeiboRecord> KakeiboList { get; set; } = [];
     }

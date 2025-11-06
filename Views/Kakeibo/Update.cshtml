@@ -4,25 +4,27 @@
     <div class="container">
         <!-- コンソールの表示 -->
         <div id="console">
-            <form action="Update" method="get">
+            <form id="displayForm" action="Update" method="get">
                 <div class="flex-row">
                     <div style="width: 2rem; margin-right: 0.5rem;">期間</div>
-                    <input asp-for="FirstDate" type="date" id="firstDate" required style="width: 7rem;">
+                    <input asp-for="FirstDate" id="firstDate" type="date" required style="width: 7rem;">
                     <div style="margin-left: 0.3rem; margin-right: 0.3rem;">～</div>
-                    <input asp-for="LastDate" type="date" id="lastDate" required style="width: 7rem;">
+                    <input asp-for="LastDate" id="lastDate" type="date" required style="width: 7rem;">
                 </div>
                 <div class="flex-row">
                     <div style="width: 2rem; margin-right: 0.5rem;">費目</div>
-                    <select asp-for="HimokuId" asp-items="Model.HimokuNameSelect" id="himokuIdSelect">
+                    <select asp-for="HimokuId" id="himokuId" asp-items="Model.HimokuNameSelect">
                         <option value="0">全て</option>
                     </select>
                 </div>
                 <div class="flex-row">
                     <div style="width: 2rem; margin-right: 0.5rem;" required>明細</div>
-                    <input asp-for="Meisai" id="meisaiText" type="text" maxlength="100" style="width: 15rem;">
+                    <input asp-for="Meisai" id="meisai" type="text" maxlength="100" style="width: 15rem;">
                 </div>
                 <div class="flex-row" style="justify-content: flex-start">
-                    <input type="submit" value="検索" style="margin-left: 2.5rem;">
+                    <button id="displayButton" type="button" style="margin-left: 2.5rem;">
+                        検索
+                    </button>
                 </div>
                 @if (Model.ErrorMessages.Count > 0)
                 {
@@ -40,6 +42,10 @@
 
         <!-- 家計簿データテーブルの表示 -->
         <div id="table-section">
+            <form id="updateForm" method="post"></form>
+            <form id="deleteForm" method="post"></form>
+            <input asp-for="ShowDialog" id="showDialog" type="hidden" />
+            <input asp-for="UpdateId" id="deleteId" type="hidden" />
             <div id="table-area">
                 <table id="table">
                     <thead>
@@ -60,27 +66,25 @@
                         {
                             foreach (var item in Model.KakeiboList)
                             {
-                                <form id="form-@item.Id" method="post">
                                 <tr class="body-row">
                                     <th class="fixd-col number-col">@item.Id</th>
                                     <td class="inner-box-col">
-                                        <input asp-for="@item.Hiduke" id="hiduke-@item.Id" type="date" style="width: 100%; box-sizing: border-box; border:none;" />
+                                        <input asp-for="@item.Hiduke" id="hiduke-@item.Id" type="date" />
                                     </td>
                                     <td class="inner-box-col">
-                                        <select asp-for="@item.HimokuId" id="himokuid-@item.Id" asp-items="Model.HimokuNameSelect" style="width: 100%; box-sizing: border-box; border:none;"></select>
+                                        <select asp-for="@item.HimokuId" id="himokuid-@item.Id" asp-items="Model.HimokuNameSelect"></select>
                                     </td>
                                     <td class="inner-box-col">
-                                        <input asp-for="@item.Meisai" id="meisai-@item.Id" type="text" style="width: 100%; box-sizing: border-box; border:none;" />
+                                        <input asp-for="@item.Meisai" id="meisai-@item.Id" type="text" />
                                     </td>
                                     <td class="inner-box-col">
-                                        <input asp-for="@item.NyukinGaku" id="nyukingaku-@item.Id" type="text" style="width: 100%; box-sizing: border-box; border:none; text-align: right;" />
+                                        <input asp-for="@item.NyukinGaku" id="nyukingaku-@item.Id" type="text" style="text-align: right;" />
                                     </td>
                                     <td class="inner-box-col">
-                                        <input asp-for="@item.ShukinGaku" id="shukingaku-@item.Id" type="text" style="width: 100%; box-sizing: border-box; border:none; text-align: right;" />
+                                        <input asp-for="@item.ShukinGaku" id="shukingaku-@item.Id" type="text" style="text-align: right;" />
                                     </td>
                                     <td class="inner-box-col">
-                                        <button class="update" type="button"
-                                                data-form-id="form-@item.Id"
+                                        <button class="updateButtons" type="button"
                                                 data-id="@item.Id"
                                                 data-hiduke-id="hiduke-@item.Id"
                                                 data-himokuid-id="himokuid-@item.Id"
@@ -91,14 +95,12 @@
                                         </button>
                                     </td>
                                     <td class="inner-box-col">
-                                        <button class="delete" type="button"
-                                                data-form-id="form-@item.Id"
+                                        <button class="deleteButtons" type="button"
                                                 data-id="@item.Id">
                                             削除
                                         </button>
                                     </td>
                                 </tr>
-                                </form>
                             }
                         }
                     </tbody>

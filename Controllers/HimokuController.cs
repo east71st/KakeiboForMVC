@@ -46,14 +46,39 @@ namespace KakeiboForMVC.Controllers
         /// <param name="viewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Input([FromForm] HimokuViewModel viewModel)
+        public async Task<IActionResult> Input([FromQuery] HimokuViewModel viewModel)
         {
+            // -----------------------入力チェック開始-----------------------
+
+            var isError = false;
+
+            // バリデーションチェック
+            ModelState.Remove(nameof(viewModel.UpdateId));
+            ModelState.Remove(nameof(viewModel.UpdateName));
             if (!ModelState.IsValid)
             {
+                isError = true;
+            }
+
+            // 同じ費目名が既に登録されている場合は、エラー
+            var result = await _context.HIMOKU.Where(x => x.NAME == viewModel.Name).FirstOrDefaultAsync();
+            if (result != null)
+            {
+                ModelState.AddModelError(string.Empty, $"{viewModel.Name}は既に登録されています。");
+
+                isError = true;
+            }
+
+            if (isError)
+            {
+                // 費目テーブルの取得
+                viewModel = await GetDisplayViewModel(viewModel);
                 // エラーメッセージの取得
                 viewModel.ErrorMessages.AddRange(Common.GetErrorMessage(ModelState));
                 return View(nameof(Update), viewModel);
             }
+
+            // -----------------------入力チェック終了-----------------------
 
             HIMOKU himoku = new()
             {
@@ -76,12 +101,12 @@ namespace KakeiboForMVC.Controllers
         /// <param name="viewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Update([FromQuery] HimokuUpdateViewModel viewModel)
+        public async Task<IActionResult> Update([FromQuery] HimokuViewModel viewModel)
         {
             // -----------------------入力チェック開始-----------------------
 
             // 選択したデータが存在しない場合はエラー
-            var result = await _context.KAKEIBO.FindAsync(viewModel.UpdateId);
+            var result = await _context.HIMOKU.Where(x => x.ID == viewModel.UpdateId).FirstOrDefaultAsync();
             if (result == null)
             {
                 ModelState.AddModelError(string.Empty, "選択したデータが存在しません。既に、削除された可能性があります。");
@@ -91,15 +116,8 @@ namespace KakeiboForMVC.Controllers
                 return View(viewModel);
             }
 
-            // 表示条件に関するデータのバリデーションチェック
-            if (ModelState.GetFieldValidationState(nameof(viewModel.Name)) == ModelValidationState.Invalid)
-            {
-                // エラーメッセージの取得
-                viewModel.ErrorMessages.AddRange(Common.GetErrorMessage(ModelState));
-                return View(viewModel);
-            }
-
             // バリデーションチェック
+            ModelState.Remove(nameof(viewModel.Name));
             if (!ModelState.IsValid)
             {
                 // エラーメッセージの取得
@@ -109,19 +127,43 @@ namespace KakeiboForMVC.Controllers
 
             // -----------------------入力チェック終了-----------------------
 
-            HIMOKU Himoku = new()
-            {
-                ID = viewModel.UpdateId!.Value,
-                NAME = viewModel.UpdateName!,
-            };
+            result.ID = viewModel.UpdateId!.Value;
+            result.NAME = viewModel.UpdateName!;
 
-            _context.Update(Himoku);
+            _context.Update(result);
             await _context.SaveChangesAsync();
 
             // 費目テーブルの取得
-            viewModel = (HimokuUpdateViewModel)await GetDisplayViewModel(viewModel);
+            viewModel = await GetDisplayViewModel(viewModel);
 
             return View(viewModel);
+        }
+
+        /// <summary>
+        /// 削除処理
+        /// </summary>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> Delete([FromQuery] HimokuViewModel viewModel)
+        {
+            // 選択したデータが存在しない場合はエラー
+            var result = await _context.HIMOKU.Where(x => x.ID == viewModel.UpdateId).FirstOrDefaultAsync();
+            if (result == null)
+            {
+                ModelState.AddModelError(string.Empty, "選択したデータが存在しません。既に、削除された可能性があります。");
+
+                // エラーメッセージの取得
+                viewModel.ErrorMessages.AddRange(Common.GetErrorMessage(ModelState));
+                return View(nameof(Update), viewModel);
+            }
+
+            _context.HIMOKU.Remove(result);
+            await _context.SaveChangesAsync();
+
+            // 費目名セレクトリストと家計簿テーブルの取得
+            viewModel = await GetDisplayViewModel(viewModel);
+
+            return View(nameof(Update), viewModel);
         }
 
         /// <summary>
@@ -146,33 +188,6 @@ namespace KakeiboForMVC.Controllers
             }
 
             return viewModel;
-        }
-
-        /// <summary>
-        /// 削除処理
-        /// </summary>
-        /// <param name="viewModel"></param>
-        /// <returns></returns>
-        public async Task<IActionResult> Delete([FromQuery] HimokuUpdateViewModel viewModel)
-        {
-            // 選択したデータが存在しない場合はエラー
-            var result = await _context.HIMOKU.FindAsync(viewModel.UpdateId);
-            if (result == null)
-            {
-                ModelState.AddModelError(string.Empty, "選択したデータが存在しません。既に、削除された可能性があります。");
-
-                // エラーメッセージの取得
-                viewModel.ErrorMessages.AddRange(Common.GetErrorMessage(ModelState));
-                return View(nameof(Update), viewModel);
-            }
-
-            _context.HIMOKU.Remove(result);
-            await _context.SaveChangesAsync();
-
-            // 費目名セレクトリストと家計簿テーブルの取得
-            viewModel = (HimokuUpdateViewModel)await GetDisplayViewModel(viewModel);
-
-            return View(nameof(Update), viewModel);
         }
     }
 }

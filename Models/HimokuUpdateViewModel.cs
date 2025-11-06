@@ -5,7 +5,7 @@ namespace KakeiboForMVC.Models
     /// <summary>
     /// 費目修正ビューモデル
     /// </summary>
-    public class HimokuUpdateViewModel : HimokuViewModel
+    public class HimokuUpdateViewModel : IErrorMessagesViewModel
     {
         /// <summary>
         /// 費目ID
@@ -17,9 +17,14 @@ namespace KakeiboForMVC.Models
         /// <summary>
         /// 費目名
         /// </summary>
-        [Required(ErrorMessage = "{0}が未入力です。")]
         [Display(Name = "費目名")]
+        [Required(ErrorMessage = "{0}が未入力です。")]
         [StringLength(20, ErrorMessage = "{0}の文字数が{1}を超えています。")]
         public string? UpdateName { get; set; }
+
+        /// <summary>
+        /// エラーメッセージ
+        /// </summary>
+        public List<string> ErrorMessages { get; set; } = [];
     }
 }

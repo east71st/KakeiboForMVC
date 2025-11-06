@@ -151,16 +151,16 @@ namespace KakeiboForMVC.Controllers
         /// 修正画面　初期表示
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> Update()
+        [HttpGet]
+        public async Task<IActionResult> Update([FromQuery] UpdateViewModel viewModel)
         {
             var year = DateTime.Today.Year;
             var month = DateTime.Today.Month;
-            UpdateViewModel viewModel = new()
-            {
-                FirstDate = new DateTime(year, month, 1),
-                LastDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
-                HimokuNameSelect = await GetHimokuNameSelect(_context),
-            };
+            viewModel.FirstDate ??= new DateTime(year, month, 1);
+            viewModel.LastDate ??= new DateTime(year, month, DateTime.DaysInMonth(year, month));
+
+            // 費目名セレクトリストの取得
+            viewModel.HimokuNameSelect = await GetHimokuNameSelect(_context);
 
             // 費目名セレクトリストと家計簿テーブルの取得
             viewModel = (UpdateViewModel)await GetDisplayViewModel(viewModel);
@@ -174,12 +174,12 @@ namespace KakeiboForMVC.Controllers
         /// <param name="viewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Update([FromQuery] UpdateViewModel viewModel)
+        public async Task<IActionResult> Update([FromQuery] UpdateViewModel viewModel, bool _)
         {
             // -----------------------入力チェック開始-----------------------
 
             // 選択したデータが存在しない場合はエラー
-            var result = await _context.KAKEIBO.FindAsync(viewModel.UpdateId);
+            var result = await _context.KAKEIBO.Where(x => x.ID == viewModel.UpdateId).FirstOrDefaultAsync();
             if (result == null)
             {
                 ModelState.AddModelError(string.Empty, "選択したデータが存在しません。既に、削除された可能性があります。");
@@ -238,17 +238,14 @@ namespace KakeiboForMVC.Controllers
 
             // -----------------------入力チェック終了-----------------------
 
-            KAKEIBO kakeibo = new()
-            {
-                ID = viewModel.UpdateId!.Value,
-                HIDUKE = viewModel.UpdateHiduke!.Value,
-                HIMOKU_ID = viewModel.UpdateHimokuId!.Value,
-                MEISAI = viewModel.UpdateMeisai,
-                NYUKINGAKU = viewModel.UpdateNyukinGaku,
-                SHUKINGAKU = viewModel.UpdateShukinGaku,
-            };
+            result.ID = viewModel.UpdateId!.Value;
+            result.HIDUKE = viewModel.UpdateHiduke!.Value;
+            result.HIMOKU_ID = viewModel.UpdateHimokuId!.Value;
+            result.MEISAI = viewModel.UpdateMeisai;
+            result.NYUKINGAKU = viewModel.UpdateNyukinGaku;
+            result.SHUKINGAKU = viewModel.UpdateShukinGaku;
 
-            _context.Update(kakeibo);
+            _context.Update(result);
             await _context.SaveChangesAsync();
 
             // 費目名セレクトリストと家計簿テーブルの取得
@@ -262,10 +259,11 @@ namespace KakeiboForMVC.Controllers
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
+        [HttpPost]
         public async Task<IActionResult> Delete([FromQuery] UpdateViewModel viewModel)
         {
             // 選択したデータが存在しない場合はエラー
-            var result = await _context.KAKEIBO.FindAsync(viewModel.UpdateId);
+            var result = await _context.KAKEIBO.Where(x => x.ID == viewModel.UpdateId).FirstOrDefaultAsync();
             if (result == null)
             {
                 ModelState.AddModelError(string.Empty, "選択したデータが存在しません。既に、削除された可能性があります。");
@@ -277,9 +275,22 @@ namespace KakeiboForMVC.Controllers
                 return View(nameof(Update), viewModel);
             }
 
+            // 確認ダイアログが表示されていない場合は、表示フラグを立てて再表示
+            if (!viewModel.ShowDialog)
+            {
+                ModelState.Remove(nameof(viewModel.ShowDialog));
+                viewModel.ShowDialog = true;
+
+                // 費目名セレクトリストと家計簿テーブルの取得
+                viewModel = (UpdateViewModel)await GetDisplayViewModel(viewModel);
+                return View(nameof(Update), viewModel);
+            }
+
             _context.KAKEIBO.Remove(result);
             await _context.SaveChangesAsync();
 
+            ModelState.Remove(nameof(viewModel.ShowDialog));
+            viewModel.ShowDialog = false;
             // 費目名セレクトリストと家計簿テーブルの取得
             viewModel = (UpdateViewModel)await GetDisplayViewModel(viewModel);
 
@@ -296,13 +307,15 @@ namespace KakeiboForMVC.Controllers
         {
             viewModel.HimokuNameSelect = await GetHimokuNameSelect(context);
 
-            var query = context.
+            var result = context.
                 KAKEIBO.OrderByDescending(x => x.ID).
                 Select(x => x);
 
+            // 費目名辞書の取得
             var himokuNameDict = await GetHimokuNameDict(context);
 
-            foreach (var item in await query.ToListAsync())
+            // 家計簿テーブルの取得
+            foreach (var item in await result.ToListAsync())
             {
                 KakeiboRecord record = new()
                 {
@@ -325,35 +338,39 @@ namespace KakeiboForMVC.Controllers
         /// <returns></returns>
         private async Task<DisplayViewModel> GetDisplayViewModel(DisplayViewModel viewModel)
         {
+            // 費目名セレクトリストの取得
             viewModel.HimokuNameSelect = await GetHimokuNameSelect(_context);
 
+            // 費目名辞書の取得
             var himokuNameDict = await GetHimokuNameDict(_context);
 
-            var query = _context.KAKEIBO.Select(x => x);
+            var result = _context.KAKEIBO.Select(x => x);
 
+            //検索条件の適用
             if (viewModel.FirstDate != null)
             {
-                query = query.Where(x => x.HIDUKE >= viewModel.FirstDate);
+                result = result.Where(x => x.HIDUKE >= viewModel.FirstDate);
             }
 
             if (viewModel.LastDate != null)
             {
-                query = query.Where(x => x.HIDUKE <= viewModel.LastDate);
+                result = result.Where(x => x.HIDUKE <= viewModel.LastDate);
             }
 
             if (viewModel.HimokuId != null && himokuNameDict.ContainsKey(viewModel.HimokuId.Value))
             {
-                query = query.Where(x => x.HIMOKU_ID == viewModel.HimokuId);
+                result = result.Where(x => x.HIMOKU_ID == viewModel.HimokuId);
             }
 
             if (!string.IsNullOrWhiteSpace(viewModel.Meisai))
             {
-                query = query.Where(x => !string.IsNullOrEmpty(x.MEISAI) && x.MEISAI.Contains(viewModel.Meisai));
+                result = result.Where(x => !string.IsNullOrEmpty(x.MEISAI) && x.MEISAI.Contains(viewModel.Meisai));
             }
 
-            query = query.OrderBy(x => x.HIDUKE).ThenBy(x => x.HIMOKU_ID).ThenBy(x => x.MEISAI);
+            result = result.OrderBy(x => x.HIDUKE).ThenBy(x => x.HIMOKU_ID).ThenBy(x => x.MEISAI);
 
-            foreach (var item in await query.ToListAsync())
+            // 家計簿テーブルの取得
+            foreach (var item in await result.ToListAsync())
             {
                 KakeiboRecord record = new()
                 {

@@ -1,15 +1,30 @@
 ﻿class Update {
 
     /**
+     * 入力フォーム
+     */
+    #inputForm = null;
+    /**
      * 検索開始日デートボックス
      */
     #nameText = null;
+    /**
+     * 登録ボタン
+     */
+    #inputButton = null;
 
+    /**
+     * 更新フォーム
+     */
+    #updateForm = null;
+    /**
+     * 削除フォーム
+     */
+    #deleteForm = null;
     /**
      * 更新ボタン
      */
     #updeteButtons = null;
-
     /**
      * 削除ボタン
      */
@@ -24,10 +39,15 @@
      * 初期化
      */
     init() {
+        this.#inputForm = document.getElementById('inputForm');
         this.#nameText = document.getElementById('nameText');
-        this.#updeteButtons = document.querySelectorAll('.update');
-        this.#deleteButtons = document.querySelectorAll('.delete');
+        this.#inputButton = document.getElementById('inputButton');
+        this.#updateForm = document.getElementById('updateForm');
+        this.#deleteForm = document.getElementById('deleteForm');
+        this.#updeteButtons = document.querySelectorAll('.updateButtons');
+        this.#deleteButtons = document.querySelectorAll('.deleteButtons');
 
+        this.#inputButton.addEventListener('click', e => this.#inputButtonOnClick(e));
         this.#updeteButtons.forEach(x => x.addEventListener('click', e => this.#updateButtonOnClick(e)));
         this.#deleteButtons.forEach(x => x.addEventListener('click', e => this.#deleteButtonOnClick(e)));
 
@@ -36,21 +56,28 @@
     }
 
     /**
+     * 登録ボタンを押下してInputにPost
+     * @param {Event} e
+     */
+    #inputButtonOnClick(e) {
+        this.#inputForm.action = '/Himoku/Input/?' +
+            `Name=${this.#nameText.value}`;
+        this.#inputForm.submit();
+    }
+
+    /**
      * 編集ボタンを押下してUpdateにPost
      * @param {Event} e
      */
     #updateButtonOnClick(e) {
-        const name = this.#nameText.value;
-
         const updateId = e.target.dataset.id;
         const updateName = document.getElementById(e.target.dataset.nameId).value;
 
-        const form = document.getElementById(e.target.dataset.formId);
-        form.action = '/Himoku/Update/?' +
-            `Name=${name}&` +
+        this.#updateForm.action = '/Himoku/Update/?' +
+            `Name=${this.#nameText.value}&` +
             `UpdateId=${updateId}&` +
-            `UpdateName=${updateName}&`;
-        form.submit();
+            `UpdateName=${updateName}`;
+        this.#updateForm.submit();
     }
 
     /**
@@ -58,15 +85,12 @@
      * @param {Event} e
      */
     #deleteButtonOnClick(e) {
-        const name = this.#nameText.value;
-
         const deleteId = e.target.dataset.id;
 
-        const form = document.getElementById(e.target.dataset.formId);
-        form.action = '/Himoku/Delete/?' +
-            `Name=${name}&` +
-            `UpdateId=${deleteId}&`;
-        form.submit();
+        this.#deleteForm.action = '/Himoku/Delete/?' +
+            `Name=${this.#nameText.value}&` +
+            `UpdateId=${deleteId}`;
+        this.#deleteForm.submit();
     }
 
     /**

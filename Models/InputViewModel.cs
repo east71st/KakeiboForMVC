@@ -12,8 +12,8 @@ namespace KakeiboForMVC.Models
         /// <summary>
         /// 日付
         /// </summary>
-        [DataType(DataType.Date)]
         [Display(Name = "日付")]
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "{0}が未入力です。")]
         public DateTime? Hiduke { get; set; }
 
@@ -50,7 +50,7 @@ namespace KakeiboForMVC.Models
         public List<SelectListItem> HimokuNameSelect { get; set; } = [];
 
         /// <summary>
-        /// 家計簿データリスト
+        /// 家計簿テーブルリスト
         /// </summary>
         public List<KakeiboRecord> KakeiboList { get; set; } = [];
     }
