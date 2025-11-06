@@ -1,91 +1,111 @@
-﻿@model KakeiboForMVC.Models.DisplayViewModel
+﻿@model KakeiboForMVC.Models.UpdateViewModel
 
 <div id="main">
-	<!-- コンソールの表示 -->
-	<section id="console">
-		<form action="Update" method="get">
-			<table>
-				<tr>
-					<td>期間</td>
-					<td>
-						<input asp-for="FirstDate" id="firstDateText" type="date" style="width:10em" required>～
-					</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td>
-						<input asp-for="LastDate" type="date" style="width:10em" required>
-					</td>
-				</tr>
-				<tr>
-					<td>費目</td>
-					<td>
-						<select asp-for="HimokuId" asp-items="Model.HimokuNameSelect" style="width:10em">
-							<option value="0">全て</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>明細</td>
-					<td rowspan="4">
-						<textarea asp-for="Meisai" rows="4" style="width:10em"></textarea>
-					</td>
-				</tr>
-				<tr><td>&nbsp;</td></tr>
-				<tr><td>&nbsp;</td></tr>
-				<tr><td>&nbsp;</td></tr>
-				<tr>
-					<td></td>
-					<td>
-						<input type="submit" value="表示">
-					</td>
-				</tr>
-			</table>
-		</form>
-	</section>
+    <div class="container">
+        <!-- コンソールの表示 -->
+        <div id="console">
+            <form action="Update" method="get">
+                <div class="flex-row">
+                    <div style="width: 2rem; margin-right: 0.5rem;">期間</div>
+                    <input asp-for="FirstDate" type="date" id="firstDate" required style="width: 7rem;">
+                    <div style="margin-left: 0.3rem; margin-right: 0.3rem;">～</div>
+                    <input asp-for="LastDate" type="date" id="lastDate" required style="width: 7rem;">
+                </div>
+                <div class="flex-row">
+                    <div style="width: 2rem; margin-right: 0.5rem;">費目</div>
+                    <select asp-for="HimokuId" asp-items="Model.HimokuNameSelect" id="himokuIdSelect">
+                        <option value="0">全て</option>
+                    </select>
+                </div>
+                <div class="flex-row">
+                    <div style="width: 2rem; margin-right: 0.5rem;" required>明細</div>
+                    <input asp-for="Meisai" id="meisaiText" type="text" maxlength="100" style="width: 15rem;">
+                </div>
+                <div class="flex-row" style="justify-content: flex-start">
+                    <input type="submit" value="検索" style="margin-left: 2.5rem;">
+                </div>
+                @if (Model.ErrorMessages.Count > 0)
+                {
+                    <div class="error-message-area">
+                        <ul>
+                            @foreach (var item in Model.ErrorMessages)
+                            {
+                                <li>@item</li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </form>
+        </div>
 
-	<!-- 家計簿データテーブルの表示 -->
-	<section id="tableSection">
-		<div id="tableArea">
-			<table id="kakeiboTable">
-				<thead>
-					<tr class="headRow">
-						<th class="fixdRowCol" style="width: 5em;">ID</th>
-						<th class="fixdRow" style="width: 8em;">日付</th>
-						<th class="fixdRow" style="width: 20em;">費目</th>
-						<th class="fixdRow" style="width: 50em;">明細</th>
-						<th class="fixdRow" style="width: 10em;">収入</th>
-						<th class="fixdRow" style="width: 10em;">支出</th>
-						<th class="fixdRow" style="width: auto;">更新</th>
-						<th class="fixdRow" style="width: auto;">削除</th>
-					</tr>
-				</thead>
+        <!-- 家計簿データテーブルの表示 -->
+        <div id="table-section">
+            <div id="table-area">
+                <table id="table">
+                    <thead>
+                        <tr class="head-row">
+                            <th class="fixed-row-col" style="width: 5rem;">ID</th>
+                            <th class="fixed-row" style="width: 8rem;">日付</th>
+                            <th class="fixed-row" style="width: 20rem;">費目</th>
+                            <th class="fixed-row" style="width: 50rem;">明細</th>
+                            <th class="fixed-row" style="width: 10rem;">収入</th>
+                            <th class="fixed-row" style="width: 10rem;">支出</th>
+                            <th class="fixed-row" style="width: 3.5rem;">更新</th>
+                            <th class="fixed-row" style="width: 3.5rem;">削除</th>
+                        </tr>
+                    </thead>
 
-				<tbody>
-					@if (Model.KakeiboList != null)
-					{
-						foreach (var item in Model.KakeiboList)
-						{
-							<tr class="bodyRow">
-								<form action="Update" name="updateForm" method="post">
-									<th class="fixdCol numberCol">@item.Id</th>
-									<td class="innerBoxCol"><input asp-for="@item.Hiduke" type="date" style="width: 100%; box-sizing: border-box;" /></td>
-									<td class="innerBoxCol">
-										<select asp-for="@item.HimokuId" asp-items="Model.HimokuNameSelect" style="width: 100%; box-sizing: border-box;"></select>
-									</td>
-									<td class="innerBoxCol"><input asp-for="@item.Meisai" type="text" style="width: 100%; box-sizing: border-box;" /></td>
-									<td class="innerBoxCol"><input asp-for="@item.NyukinGaku" type="text" style="width: 100%; box-sizing: border-box; text-align: right;" /></td>
-									<td class="innerBoxCol"><input asp-for="@item.ShukinGaku" type="text" style="width: 100%; box-sizing: border-box; text-align: right;" /></td>
-									<td class="innerBoxCol"><input name="update" type="button" data-id="@item.Id" value="更新" box-sizing: border-box;" /></td>
-									<td class="innerBoxCol"><input name="delete" type="button" data-id="@item.Id" value="削除" box-sizing: border-box;" /></td>
-								</form>
-							</tr>
-						}
-					}
-				</tbody>
-			</table>
-		</div>
-	</section>
-
+                    <tbody>
+                        @if (Model.KakeiboList != null)
+                        {
+                            foreach (var item in Model.KakeiboList)
+                            {
+                                <form id="form-@item.Id" method="post">
+                                <tr class="body-row">
+                                    <th class="fixd-col number-col">@item.Id</th>
+                                    <td class="inner-box-col">
+                                        <input asp-for="@item.Hiduke" id="hiduke-@item.Id" type="date" style="width: 100%; box-sizing: border-box; border:none;" />
+                                    </td>
+                                    <td class="inner-box-col">
+                                        <select asp-for="@item.HimokuId" id="himokuid-@item.Id" asp-items="Model.HimokuNameSelect" style="width: 100%; box-sizing: border-box; border:none;"></select>
+                                    </td>
+                                    <td class="inner-box-col">
+                                        <input asp-for="@item.Meisai" id="meisai-@item.Id" type="text" style="width: 100%; box-sizing: border-box; border:none;" />
+                                    </td>
+                                    <td class="inner-box-col">
+                                        <input asp-for="@item.NyukinGaku" id="nyukingaku-@item.Id" type="text" style="width: 100%; box-sizing: border-box; border:none; text-align: right;" />
+                                    </td>
+                                    <td class="inner-box-col">
+                                        <input asp-for="@item.ShukinGaku" id="shukingaku-@item.Id" type="text" style="width: 100%; box-sizing: border-box; border:none; text-align: right;" />
+                                    </td>
+                                    <td class="inner-box-col">
+                                        <button class="update" type="button"
+                                                data-form-id="form-@item.Id"
+                                                data-id="@item.Id"
+                                                data-hiduke-id="hiduke-@item.Id"
+                                                data-himokuid-id="himokuid-@item.Id"
+                                                data-meisai-id="meisai-@item.Id"
+                                                data-nyukingaku-id="nyukingaku-@item.Id"
+                                                data-shukingaku-id="shukingaku-@item.Id">
+                                            更新
+                                        </button>
+                                    </td>
+                                    <td class="inner-box-col">
+                                        <button class="delete" type="button"
+                                                data-form-id="form-@item.Id"
+                                                data-id="@item.Id">
+                                            削除
+                                        </button>
+                                    </td>
+                                </tr>
+                                </form>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
-<script src="~/js/update.js" asp-append-version="true"></script>
+
+<script src="~/js/Kakeibo/Update.js" asp-append-version="true"></script>

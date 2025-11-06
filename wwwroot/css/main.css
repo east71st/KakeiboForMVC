@@ -1,148 +1,236 @@
 @charset "UTF-8";
 
+/*定数*/
+:root {
+    --screen-width-default: 1920px;
+    --screen-width-min: calc(var(--screen-width-default) / 2);
+    --screen-width-max: 1920px;
+    --screen-height-default: 1080px;
+    --screen-height-min: calc(var(--screen-height-default) / 2);
+    --screen-height-max: 1080px;
+    --font-size-default: 18px;
+    --font-size-min: 9px;
+    --font-size-max: 24px;
+    --font-size-fluid: calc(var(--font-size-default) / var(--screen-width-default) * 100vw);
+    --font-size-m: clamp(var(--font-size-min), var(--font-size-fluid), var(--font-size-max));
+    --font-size-ss: calc(var(--font-size-m) * 0.6);
+    --font-size-s: calc(var(--font-size-m) * 0.8);
+    --font-size-l: calc(var(--font-size-m) * 1.2);
+    --font-size-ll: calc(var(--font-size-m) * 1.4);
+}
+
+/*フォントサイズの設定*/
+.font-size-ss {
+    font-size: var(--font-size-ss);
+}
+
+.font-size-s {
+    font-size: var(--font-size-s);
+}
+
+.font-size-m {
+    font-size: var(--font-size-m);
+}
+
+.font-size-l {
+    font-size: var(--font-size-l);
+}
+
+.font-size-ll {
+    font-size: var(--font-size-ll);
+}
+
+/*全体の設定*/
+html {
+    font-family: "游ゴシック", "Yu Gothic", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", "Meiryo", "ＭＳ Ｐゴシック", "MS PGothic", "sans-serif";
+    font-size: var(--font-size-m);
+}
+
 body {
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    top: 0px;
-    left: 0px;
+    display: flex;
+    flex-direction: column;
+    width: clamp(var(--screen-width-min), 100vw, var(--screen-width-max));
+    height: clamp(var(--screen-height-min), 100vh, var(--screen-height-max));
+    margin: 0;
 }
 
 /*メニューバーの設定*/
 header {
-    width: 100%;
-    height: 5vh;
-    position: sticky;
-    top: 0px;
-    left: 0px;
+    width: stretch;
+    height: 5%;
     z-index: 2;
+}
+
+/*メインエリアの設定*/
+main {
+    display: flex;
+    align-items: stretch;
+    width: stretch;
+    height: 90%;
 }
 
 /*フッターの設定*/
 footer {
-    width: 100%;
-    height: 5vh;
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
+    width: stretch;
+    height: 5%;
     z-index: 2;
     background-color: rgb(64, 0, 0);
 }
 
-.menuItems {
+.flex-row {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    align-items: center;
+    margin: 0.5rem;
 }
 
-.menuItem {
-    flex: 1 0 140px;
-    height: 5vh;
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select,
+textarea {
+    box-sizing: border-box;
+    height: 1.8rem;
+    border: 1px solid;
+    border-radius: 0.2rem;
+    font-size: inherit;
+}
+
+input[type="number"] {
+    text-align: right;
+}
+
+input[type="submit"] {
+    width: auto;
+    border-radius: 0.2rem;
+    font-size: inherit;
+    white-space: nowrap;
+    background-color: rgb(192, 192, 192);
+    cursor: pointer;
+    transition: all .3s;
+}
+
+button {
+    width: auto;
+    border-radius: 0.2rem;
+    font-size: inherit;
+    white-space: nowrap;
+    background-color: rgb(192, 192, 192);
+    cursor: pointer;
+    transition: all .3s;
+}
+
+/*メニューバーの設定*/
+.menu-items {
+    display: flex;
+    flex-direction: row;
+    height: stretch;
+    flex-wrap: wrap;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.menu-item {
+    flex: 1 0 135px;
     position: relative;
     list-style: none;
     background-color: rgb(64, 0, 0);
     transition: all .3s;
 }
 
-    .menuItem:hover {
+    .menu-item:hover {
         background-color: rgb(192, 192, 192);
     }
 
-    .menuItem a {
+    .menu-item a {
         display: flex;
-        width: 100%;
         height: 100%;
         justify-content: center;
         align-items: center;
         text-decoration-line: none;
-        color: rgb(255, 255, 255);
+        color: white;
         transition: all .3s;
     }
 
-    .menuItem:hover a {
+    .menu-item:hover a {
         color: rgb(96, 0, 0);
     }
 
-.dropdownLists {
+.dropdown-lists {
     display: none;
+    height: 100%;
     width: 100%;
     position: absolute;
-    top: 5vh;
+    top: 100%;
     left: 0;
 }
 
-.menuItem:hover .dropdownLists {
+.menu-item:hover .dropdown-lists {
     display: block;
 }
 
-.dropdownList {
-    height: 5vh;
+.dropdown-list {
+    height: 100%;
     position: relative;
     list-style: none;
     background-color: rgb(64, 0, 0);
     transition: all .3s;
 }
 
-.menuItem:hover .dropdownList:hover {
+.menu-item:hover .dropdown-list:hover {
     background-color: rgb(160, 160, 160);
 }
 
-.menuItem:hover .dropdownList a {
-    color: rgb(255, 255, 255);
+.menu-item:hover .dropdown-list a {
+    color: white;
     position: relative;
 }
 
-.menuItem:hover .dropdownList:hover a {
+.menu-item:hover .dropdown-list:hover a {
     color: rgb(96, 0, 0);
 }
 
-#main {
-    height: 90vh;
+/*メインエリアの設定*/
+.container {
     display: flex;
-    flex-direction: row;
+    height: stretch;
+    width: stretch;
 }
 
 /*コンソールの設定*/
 #console {
-    width: auto;
     display: flex;
-    padding: 10px 10px;
-    background-color: rgb(96, 96, 96);
-}
-
-    #console td {
-        padding: 2px;
-        color: rgb(255,255,255);
-    }
-
-#kingaku {
-    width: 9em;
+    width: auto;
+    height: stretch;
+    padding: 1rem 0.5rem;
+    background-color: rgb(160, 160, 160);
 }
 
 /*テーブルの設定*/
-#tableSection {
+#table-section {
     display: flex;
-    margin: 2vh 15px;
+    height: stretch;
+    padding: 1rem 1rem;
 }
 
-#tableArea {
+#table-area {
     overflow: auto;
 }
 
-#kakeiboTable {
-    min-width: 560px;
+#table {
+    font-size: inherit;
+    border-collapse: collapse;
 }
 
-.fixdRowCol {
+.fixed-row-col {
     position: sticky;
     top: 0;
     left: 0;
     z-index: 1;
-    padding: 5px;
+    padding: 0.3rem 0.5rem;
     text-align: center;
 }
 
-    .fixdRowCol::before {
+    .fixed-row-col::before {
         width: 100%;
         height: 100%;
         position: absolute;
@@ -154,17 +242,17 @@ footer {
         background-color: rgb(192, 192, 192);
     }
 
-.fixdRow {
+.fixed-row {
     position: sticky;
     top: 0;
     left: 0;
-    padding: 5px;
+    padding: 0.3rem 0.5rem;
     text-align: center;
     border-right: 1px solid black;
     border-left: 1px solid black;
 }
 
-    .fixdRow::before {
+    .fixed-row::before {
         width: 100%;
         height: 100%;
         position: absolute;
@@ -177,17 +265,17 @@ footer {
         background-color: rgb(192, 192, 192);
     }
 
-.fixdCol {
+.fixd-col {
     position: sticky;
     top: 0;
     left: 0;
-    padding: 5px;
+    padding: 0.3rem 0.5rem;
     text-align: center;
     border-top: 1px solid black;
     border-bottom: 1px solid black;
 }
 
-    .fixdCol::before {
+    .fixd-col::before {
         width: 100%;
         height: 100%;
         position: absolute;
@@ -200,37 +288,61 @@ footer {
         background-color: rgb(224, 224, 224);
     }
 
-.bodyRow td {
+.body-row td {
     border: 1px solid black;
-    background-color: rgb(255, 255, 255);
+    background-color: white;
 }
 
-.bottomRow td {
+.bottom-row td {
     border: 1px solid black;
     background-color: rgb(224, 224, 224);
 }
 
-.numberCol {
-    padding: 5px;
+.number-col {
+    padding: 0.3rem 0.5rem;
     text-align: right;
-}
-
-.dateCol {
-    padding: 5px;
-    text-align: center
-}
-
-.textCol {
-    padding: 5px;
-    text-align: left;
-}
-
-.innerBoxCol {
-    padding: 3px;
-}
-
-#errorDisplay {
-    padding: 10px;
     vertical-align: middle;
-    color: rgb(255, 255, 255);
 }
+
+.date-col {
+    padding: 0.3rem 0.5rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.text-col {
+    padding: 0.3rem 0.5rem;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.inner-box-col {
+    padding: 0.2rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#error-display {
+    padding: 1rem;
+    vertical-align: middle;
+    color: white;
+}
+
+.error-message-area {
+    height: auto;
+    margin-top: 1rem;
+    border: 1px solid;
+    border-radius: 0.2rem;
+    background-color: white;
+}
+
+    .error-message-area ul {
+        margin: 0;
+        padding: 0 0 0 2rem;
+    }
+
+    .error-message-area li {
+        margin: 0;
+        padding: 0;
+        color: red;
+    }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Humanizer;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace KakeiboForMVC.Models
@@ -8,22 +6,26 @@ namespace KakeiboForMVC.Models
     /// <summary>
     /// 表示画面ビューモデル
     /// </summary>
-    public class DisplayViewModel
+    public class DisplayViewModel : IErrorMessagesViewModel, ICommonViewModel
     {
         /// <summary>
-        /// 検索開始期間
+        /// 検索開始日
         /// </summary>
         [DataType(DataType.Date)]
+        [Display(Name = "検索開始日")]
+        [Required(ErrorMessage = "{0}が未入力です。")]
         public DateTime? FirstDate { get; set; }
 
         /// <summary>
-        /// 検索終了期間
+        /// 検索最終日
         /// </summary>
         [DataType(DataType.Date)]
-        public DateTime? LastDate { get; set; } 
+        [Display(Name = "検索最終日")]
+        [Required(ErrorMessage = "{0}が未入力です。")]
+        public DateTime? LastDate { get; set; }
 
         /// <summary>
-        /// 検索費目ID
+        /// 費目ID
         /// </summary>
         public int? HimokuId { get; set; }
 
@@ -33,18 +35,23 @@ namespace KakeiboForMVC.Models
         public string? HimokuName { get; set; }
 
         /// <summary>
-        /// 検索明細
+        /// 明細
         /// </summary>
-        public string? Meisai {  get; set; }
+        public string? Meisai { get; set; }
 
         /// <summary>
-        /// 表示家計簿データ
+        /// エラーメッセージ
         /// </summary>
-        public List<KakeiboRecord>? KakeiboList { get; set; }
+        public List<string> ErrorMessages { get; set; } = [];
 
         /// <summary>
         /// 費目名のセレクトリスト
         /// </summary>
-        public List<SelectListItem>? HimokuNameSelect { get; set; } 
+        public List<SelectListItem> HimokuNameSelect { get; set; } = [];
+
+        /// <summary>
+        /// 家計簿データリスト
+        /// </summary>
+        public List<KakeiboRecord> KakeiboList { get; set; } = [];
     }
 }

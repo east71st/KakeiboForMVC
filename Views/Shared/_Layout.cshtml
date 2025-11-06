@@ -6,28 +6,28 @@
     <title>@ViewData["Title"] - KakeiboForMVC</title>
     <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
 </head>
+
 <body>
     <header>
         <!-- メニューバーの表示 -->
-        <div class="menuItems">
-            <div class="menuItem"><a href="/Kakeibo/Input">入力</a></div>
-            <div class="menuItem"><a href="/Kakeibo/Display">表示</a></div>
-            <div class="menuItem"><a href="/Kakeibo/Update">修正</a></div>
-            <div class="menuItem">
+        <div class="menu-items">
+            <div class="menu-item"><a href="/Kakeibo/Input">入力</a></div>
+            <div class="menu-item"><a href="/Kakeibo/Display">表示</a></div>
+            <div class="menu-item"><a href="/Kakeibo/Update">修正</a></div>
+            <div class="menu-item">
                 <a>設定</a>
-                <div class="dropdownLists">
-                    <div class="dropdownList"><a href="http://localhost:8080/kakeibo/HimokuServlet">費目設定</a></div>
-                    <div class="dropdownList"><a href="http://localhost:8080/kakeibo/#">その他</a></div>
+                <div class="dropdown-lists">
+                    <div class="dropdown-list"><a href="/Himoku/Input">費目設定</a></div>
+                    <div class="dropdown-list"><a href="/kakeibo/#">その他</a></div>
                 </div>
             </div>
         </div>
     </header>
 
-    <div class="container">
-        <main role="main">
-            @RenderBody()
-        </main>
-    </div>
+    <main role="main">
+        @RenderBody()
+        @RenderSection("Scripts", required: false)
+    </main>
 
     <footer></footer>
 </body>

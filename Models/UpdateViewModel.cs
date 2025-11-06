@@ -1,40 +1,56 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KakeiboForMVC.Models
 {
-    public class UpdateViewModel
+    /// <summary>
+    /// 修正画面ビューモデル
+    /// </summary>
+    public class UpdateViewModel : DisplayViewModel
     {
         /// <summary>
-        /// 検索開始期間
+        /// 家計簿ID
+        /// </summary>
+        [Display(Name = "ID")]
+        [Required(ErrorMessage = "{0}が未入力です。")]
+        public int? UpdateId { get; set; }
+
+        /// <summary>
+        /// 日付
         /// </summary>
         [DataType(DataType.Date)]
-        public DateTime? FirstDate { get; set; }
+        [Display(Name = "日付")]
+        [Required(ErrorMessage = "{0}が未設定です。")]
+        public DateTime? UpdateHiduke { get; set; }
 
         /// <summary>
-        /// 検索終了期間
+        /// 費目ID
         /// </summary>
-        [DataType(DataType.Date)]
-        public DateTime? LastDate { get; set; }
+        [Display(Name = "費目")]
+        [Required(ErrorMessage = "{0}が未設定です。")]
+        public int? UpdateHimokuId { get; set; }
 
         /// <summary>
-        /// 検索費目ID
+        /// 明細
         /// </summary>
-        public int? HimokuId { get; set; }
+        [Display(Name = "明細")]
+        [StringLength(100, ErrorMessage = "{0}の文字数が{1}を超えています。")]
+        public string? UpdateMeisai { get; set; }
 
         /// <summary>
-        /// 検索明細
+        /// 入金額
         /// </summary>
-        public string? Meisai { get; set; }
+        [Display(Name = "収入")]
+        [Column(TypeName = "decimal(18, 0)")]
+        [Range(0, 999999999999999999, ErrorMessage = "{0}が範囲外です。{1}～{2}の整数を入力して下さい。")]
+        public decimal? UpdateNyukinGaku { get; set; }
 
         /// <summary>
-        /// 表示家計簿データ
+        /// 出金額
         /// </summary>
-        public List<KakeiboRecord>? KakeiboList { get; set; }
-
-        /// <summary>
-        /// 費目名のセレクトリスト
-        /// </summary>
-        public List<SelectListItem>? HimokuNameSelect { get; set; }
+        [Display(Name = "支出")]
+        [Column(TypeName = "decimal(18, 0)")]
+        [Range(0, 999999999999999999, ErrorMessage = "{0}が範囲外です。{1}～{2}の整数を入力して下さい。")]
+        public decimal? UpdateShukinGaku { get; set; }
     }
 }

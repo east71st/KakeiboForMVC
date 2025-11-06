@@ -1,77 +1,80 @@
 ﻿@model KakeiboForMVC.Models.InputViewModel
+
 <div id="main">
-	<!-- コンソールの表示 -->
-	<section id="console">
-		<form action="Input" method="get">
-			<table>
-				<tr>
-					<td>日付</td>
-					<td><input asp-for="InputDate" type="date" style="width:10em;" required></td>
-				</tr>
-				<tr>
-					<td>費目</td>
-					<td><select asp-for="HimokuId" asp-items="Model.HimokuNameSelect" style="width:10em;" required></select></td>
-				</tr>
-				<tr>
-					<td>明細</td>
-					<td rowspan="4">
-						<textarea rows="4" style="width:10em;"></textarea>
-					</td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-				</tr>
-				<tr>
-					<td>金額</td>
-					<td><input asp-for="Kingaku" type="number" min=0 autocomplete="off" style="width:10em;" ></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><input type="submit" value="登録"></td>
-				</tr>
-			</table>
-		</form>
-	</section>
+    <div class="container">
+        <!-- コンソールの表示 -->
+        <div id="console">
+            <form action="Input" method="post">
+                <div class="flex-row">
+                    <div style="width: 2rem; margin-right: 0.5rem;">日付</div>
+                    <input asp-for="Hiduke" type="date" id="hidukeDate" required style="width: 7rem;">
+                </div>
+                <div class="flex-row">
+                    <div style="width: 2rem; margin-right: 0.5rem;">費目</div>
+                    <select asp-for="HimokuId" asp-items="Model.HimokuNameSelect" required></select>
+                </div>
+                <div class="flex-row">
+                    <div style="width: 2rem; margin-right: 0.5rem;" required>明細</div>
+                    <input asp-for="Meisai" type="text" maxlength="100" style="width: 15rem;">
+                </div>
+                <div class="flex-row">
+                    <div style="width: 2rem; margin-right: 0.5rem;">金額</div>
+                    <input asp-for="Kingaku" type="number" min=-10 max=999999999999999999 autocomplete="off" style="width: 10rem;">
+                </div>
+                <div class="flex-row" style="justify-content: flex-start">
+                    <input type="submit" value="登録" style="margin-left: 2.5rem;">
+                </div>
+                @if (Model.ErrorMessages.Count > 0)
+                {
+                    <div class="error-message-area">
+                        <ul>
+                            @foreach (var item in Model.ErrorMessages)
+                            {
+                                <li>@item</li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </form>
+        </div>
 
-	<!-- 家計簿データの入力履歴のテーブルを表示 -->
-	<section id="tableSection">
-		<div id="tableArea">
-			<table id="kakeiboTable">
-				<thead>
-					<tr class="headRow">
-						<th class="fixdRowCol" style="width: 5em;">ID</th>
-						<th class="fixdRow" style="width: 8em;">日付</th>
-						<th class="fixdRow" style="width: 20em;">費目</th>
-						<th class="fixdRow" style="width: 50em;">明細</th>
-						<th class="fixdRow" style="width: 10em;">収入</th>
-						<th class="fixdRow" style="width: 10em;">支出</th>
-					</tr>
-				</thead>
+        <!-- 家計簿データの入力履歴のテーブルを表示 -->
+        <div id="table-section">
+            <div id="table-area">
+                <table id="table">
+                    <thead>
+                        <tr class="head-row">
+                            <th class="fixed-row-col" style="width: 5rem;">ID</th>
+                            <th class="fixed-row" style="width: 8rem;">日付</th>
+                            <th class="fixed-row" style="width: 20rem;">費目</th>
+                            <th class="fixed-row" style="width: 50rem;">明細</th>
+                            <th class="fixed-row" style="width: 10rem;">収入</th>
+                            <th class="fixed-row" style="width: 10rem;">支出</th>
+                        </tr>
+                    </thead>
 
-				<tbody>
-					@if (Model.KakeiboList != null)
-					{
-						foreach (var item in Model.KakeiboList)
-						{
-							<tr class="bodyRow">
-								<th class="fixdCol numberCol">@item.Id</th>
-								<td class="dateCol">@item.Hiduke.?ToString("yyyy-MM-dd")</td>
-								<td class="textCol">@item.HimokuName</td>
-								<td class="textCol">@item.Meisai</td>
-								<td class="numberCol">@item.NyukinGaku?.ToString("#,#")</td>
-								<td class="numberCol">@item.ShukinGaku?.ToString("#,#")</td>
-							</tr>
-						}
-					}
-				</tbody>
-			</table>
-		</div>
-	</section>
-
+                    <tbody>
+                        @if (Model.KakeiboList != null)
+                        {
+                            foreach (var item in Model.KakeiboList)
+                            {
+                                <tr class="body-row">
+                                    <th class="fixd-col number-col">@item.Id</th>
+                                    <td class="date-col">@item.Hiduke?.ToString("yyyy/MM/dd")</td>
+                                    <td class="text-col">@item.HimokuName</td>
+                                    <td class="text-col">@item.Meisai</td>
+                                    <td class="number-col">@item.NyukinGaku?.ToString("#,#")</td>
+                                    <td class="number-col">@item.ShukinGaku?.ToString("#,#")</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/Kakeibo/Input.js" asp-append-version="true"></script>
+}

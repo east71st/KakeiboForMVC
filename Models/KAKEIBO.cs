@@ -12,17 +12,20 @@ namespace KakeiboForMVC.Models
         /// 家計簿ID
         /// </summary>
         [Key]
+        [Required]
         public required int ID { get; set; }
 
         /// <summary>
         /// 日付
         /// </summary>
         [DataType(DataType.Date)]
+        [Required]
         public required DateTime HIDUKE { get; set; }
 
         /// <summary>
-        /// 費目D
+        /// 費目ID
         /// </summary>
+        [Required]
         public required int HIMOKU_ID { get; set; }
 
         /// <summary>
@@ -35,12 +38,14 @@ namespace KakeiboForMVC.Models
         /// 入金額
         /// </summary>
         [Column(TypeName = "decimal(18, 0)")]
+        [Range(1, 999999999999999999)]
         public decimal? NYUKINGAKU { get; set; }
 
         /// <summary>
         /// 出金額
         /// </summary>
         [Column(TypeName = "decimal(18, 0)")]
+        [Range(1, 999999999999999999)]
         public decimal? SHUKINGAKU { get; set; }
     }
 }

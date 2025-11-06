@@ -2253,7 +2253,7 @@
       };
     }
 
-    _selectMenuItem({
+    _selectmenu-item({
       key,
       target
     }) {
@@ -2371,7 +2371,7 @@
           instance.show();
         }
 
-        instance._selectMenuItem(event);
+        instance._selectmenu-item(event);
 
         return;
       }
