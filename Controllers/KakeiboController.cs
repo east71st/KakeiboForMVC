@@ -308,7 +308,7 @@ namespace KakeiboForMVC.Controllers
             viewModel.HimokuNameSelect = await GetHimokuNameSelect(context);
 
             var result = context.
-                KAKEIBO.OrderByDescending(x => x.ID).
+                KAKEIBO.OrderByDescending(x => x.ID).Take(Common.MaxDisplayKakeiboList).
                 Select(x => x);
 
             // 費目名辞書の取得
@@ -332,7 +332,7 @@ namespace KakeiboForMVC.Controllers
         }
 
         /// <summary>
-        /// 表示画面と修正画面の費目名セレクトリストと家計簿テーブルの取得
+        /// 表示画面と修正画面の費目名と費目名セレクトリストと家計簿テーブルの取得
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
@@ -343,6 +343,9 @@ namespace KakeiboForMVC.Controllers
 
             // 費目名辞書の取得
             var himokuNameDict = await GetHimokuNameDict(_context);
+
+            // 費目名の取得
+            viewModel.HimokuName = GetHimokuName(viewModel.HimokuId, himokuNameDict);
 
             var result = _context.KAKEIBO.Select(x => x);
 
@@ -416,9 +419,11 @@ namespace KakeiboForMVC.Controllers
         /// <param name="himokuId"></param>
         /// <param name="himokuNameDict"></param>
         /// <returns></returns>
-        private static string? GetHimokuName(int himokuId, Dictionary<int, string> himokuNameDict)
+        private static string? GetHimokuName(int? himokuId, Dictionary<int, string> himokuNameDict)
         {
-            return himokuNameDict.TryGetValue(himokuId, out string? name) ? name : null;
+            return himokuId != null ?
+                (himokuNameDict.TryGetValue(himokuId.Value, out string? name) ? name : null) :
+                null;
         }
     }
 }

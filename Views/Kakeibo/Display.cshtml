@@ -41,6 +41,21 @@
 
         <!-- 家計簿データの入力履歴のテーブルを表示 -->
         <div id="table-section">
+            <div style="display:flex; align-items: center; margin-top:0.5rem; font-size:var(--font-size-l);">
+                <div style="margin-left: 0.5rem;">@Model.FirstDate?.ToString("yyyy年MM月dd日")</div>
+                @if (Model.FirstDate != Model.LastDate)
+                {
+                    <div style="margin-left: 0.5rem;">～</div>
+                    <div style="margin-left: 0.5rem;">@Model.LastDate?.ToString(" yyyy年MM月dd日")</div>
+                }
+                <div style="margin-left: 0.5rem;">家計簿</div>
+                @if (Model.HimokuId != 0)
+                {
+                    <div style="margin-left: 0.5rem;">@Model.HimokuName</div>
+                }
+                <div style="margin-left: 0.5rem;">@Model.Meisai</div>
+            </div>
+
             <div id="table-area">
                 <table id="table">
                     <thead>
