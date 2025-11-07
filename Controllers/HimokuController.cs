@@ -144,6 +144,7 @@ namespace KakeiboForMVC.Controllers
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
+        [HttpPost]
         public async Task<IActionResult> Delete([FromQuery] HimokuViewModel viewModel)
         {
             // 選択したデータが存在しない場合はエラー
@@ -157,9 +158,22 @@ namespace KakeiboForMVC.Controllers
                 return View(nameof(Update), viewModel);
             }
 
+            // 確認ダイアログが表示されていない場合は、表示フラグを立てて再表示
+            if (!viewModel.ShowDialog)
+            {
+                ModelState.Remove(nameof(viewModel.ShowDialog));
+                viewModel.ShowDialog = true;
+
+                // 費目名セレクトリストと家計簿テーブルの取得
+                viewModel = await GetDisplayViewModel(viewModel);
+                return View(nameof(Update), viewModel);
+            }
+
             _context.HIMOKU.Remove(result);
             await _context.SaveChangesAsync();
 
+            ModelState.Remove(nameof(viewModel.ShowDialog));
+            viewModel.ShowDialog = false;
             // 費目名セレクトリストと家計簿テーブルの取得
             viewModel = await GetDisplayViewModel(viewModel);
 

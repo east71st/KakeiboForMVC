@@ -22,6 +22,14 @@
      */
     #deleteForm = null;
     /**
+     * 確認ダイアログ表示フラグ
+     */
+    #showDialog = null;
+    /**
+     * 削除ID
+     */
+    #deleteId = null;
+    /**
      * 更新ボタン
      */
     #updeteButtons = null;
@@ -44,6 +52,8 @@
         this.#inputButton = document.getElementById('inputButton');
         this.#updateForm = document.getElementById('updateForm');
         this.#deleteForm = document.getElementById('deleteForm');
+        this.#showDialog = document.getElementById('showDialog');
+        this.#deleteId = document.getElementById('deleteId');
         this.#updeteButtons = document.querySelectorAll('.updateButtons');
         this.#deleteButtons = document.querySelectorAll('.deleteButtons');
 
@@ -66,7 +76,7 @@
     }
 
     /**
-     * 編集ボタンを押下してUpdateにPost
+     * 更新ボタンを押下してUpdateにPost
      * @param {Event} e
      */
     #updateButtonOnClick(e) {
@@ -85,18 +95,38 @@
      * @param {Event} e
      */
     #deleteButtonOnClick(e) {
-        const deleteId = e.target.dataset.id;
-
-        this.#deleteForm.action = '/Himoku/Delete/?' +
-            `Name=${this.#nameText.value}&` +
-            `UpdateId=${deleteId}`;
+        this.#deleteForm.action = this.#deletFormUrl(e.target.dataset.id);
         this.#deleteForm.submit();
+    }
+
+    /**
+     * 削除フォームのUrl
+     * @param {any} deleteId
+     * @returns
+     */
+    #deletFormUrl(deleteId) {
+        return '/Himoku/Delete/?' +
+            `ShowDialog=${this.#showDialog.value}&` +
+            `UpdateId=${deleteId}`;
     }
 
     /**
     * 初期化の最後処理
     */
     #windowOnLoad() {
+        // 確認ダイアログ表示フラグがTrueの場合、確認ダイアログを表示
+        if (this.#showDialog.value === 'True') {
+            const result = window.confirm('削除してもよろしいですか？');
+            // 確認ダイアログの結果によって処理を分岐
+            if (result == true) {
+                this.#deleteForm.action = this.#deletFormUrl(this.#deleteId.value);
+                this.#deleteForm.submit();
+            }
+            else {
+                this.#showDialog.value = 'False';
+            }
+        }
+        // フォーカスを検索開始日デートボックスにセット
         this.#nameText.focus();
     }
 }

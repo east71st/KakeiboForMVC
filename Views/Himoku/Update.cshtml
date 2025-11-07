@@ -4,7 +4,8 @@
     <div class="container">
         <!-- コンソールの表示 -->
         <div id="console">
-            <form id="inputForm" method="post">
+            <form id="inputForm" method="post"></form>
+            <div>
                 <div class="flex-row">
                     <div style="width: 3rem; margin-right: 0.5rem;" required>費目名</div>
                     <input asp-for="Name" id="nameText" type="text" maxlength="20" style="width: 15rem;">
@@ -25,11 +26,15 @@
                         </ul>
                     </div>
                 }
-            </form>
+            </div>
         </div>
 
         <!-- 費目データテーブルの表示 -->
         <div id="table-section">
+            <form id="updateForm" method="post"></form>
+            <form id="deleteForm" method="post"></form>
+            <input asp-for="ShowDialog" id="showDialog" type="hidden" />
+            <input asp-for="UpdateId" id="deleteId" type="hidden" />
             <div id="table-area">
                 <table id="table">
                     <thead>
@@ -46,10 +51,6 @@
                         {
                             foreach (var item in Model.HimokuList)
                             {
-                                <form id="updateForm" method="post"></form>
-                                <form id="deleteForm" method="post"></form>
-                                <input asp-for="UpdateId" id="updateId" type="hidden" />
-
                                 <tr class="body-row">
                                     <th class="fixd-col number-col">@item.Id</th>
                                     <td class="inner-box-col">

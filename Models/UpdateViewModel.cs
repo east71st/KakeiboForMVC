@@ -9,16 +9,6 @@ namespace KakeiboForMVC.Models
     public class UpdateViewModel : DisplayViewModel
     {
         /// <summary>
-        /// アクション区分
-        /// </summary>
-        public int? Action { get; set; }
-
-        /// <summary>
-        /// 確認ダイアログ表示フラグ
-        /// </summary>
-        public bool ShowDialog { get; set; } = false;
-
-        /// <summary>
         /// 家計簿ID
         /// </summary>
         [Display(Name = "ID")]
@@ -62,5 +52,10 @@ namespace KakeiboForMVC.Models
         [Column(TypeName = "decimal(18, 0)")]
         [Range(0, 999999999999999999, ErrorMessage = "{0}が範囲外です。{1}～{2}の整数を入力して下さい。")]
         public decimal? UpdateShukinGaku { get; set; }
+
+        /// <summary>
+        /// 確認ダイアログ表示フラグ
+        /// </summary>
+        public bool ShowDialog { get; set; } = false;
     }
 }

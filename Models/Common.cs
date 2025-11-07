@@ -26,11 +26,5 @@ namespace KakeiboForMVC.Models
             }
             return list;
         }
-
-        public static class Action
-        {
-            public const int Update = 1;
-            public const int Delete = 2;
-        }
     }
 }

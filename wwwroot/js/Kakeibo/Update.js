@@ -65,10 +65,10 @@
         this.#himokuId = document.getElementById('himokuId');
         this.#meisai = document.getElementById('meisai');
         this.#displayButton = document.getElementById('displayButton')
-        this.#showDialog = document.getElementById('showDialog');
-        this.#deleteId = document.getElementById('deleteId');
         this.#updateForm = document.getElementById('updateForm');
         this.#deleteForm = document.getElementById('deleteForm');
+        this.#showDialog = document.getElementById('showDialog');
+        this.#deleteId = document.getElementById('deleteId');
         this.#updeteButtons = document.querySelectorAll('.updateButtons');
         this.#deleteButtons = document.querySelectorAll('.deleteButtons');
 
@@ -101,17 +101,18 @@
         const updateShukinGaku = document.getElementById(e.target.dataset.shukingakuId).value;
 
         this.#updateForm.action = '/Kakeibo/Update/?' +
-            `FirstDate = ${this.#firstDate.value}&` +
-            `LastDate = ${this.#lastDate.value}&` +
-            `HimokuId = ${this.#himokuId.value}&` +
-            `Meisai = ${this.#meisai.value}&` +
+            `FirstDate=${this.#firstDate.value}&` +
+            `LastDate=${this.#lastDate.value}&` +
+            `HimokuId=${this.#himokuId.value}&` +
+            `Meisai=${this.#meisai.value}&` +
 
-            `UpdateId = ${updateId}&` +
-            `UpdateHiduke = ${updateHiduke}&` +
-            `UpdateHimokuId = ${updateHimokuId}&` +
-            `UpdateMeisai = ${updateMeisai}&` +
-            `UpdateNyukinGaku = ${updateNyukinGaku}&` +
-            `UpdateShukinGaku = ${updateShukinGaku}`;
+            `UpdateId=${updateId}&` +
+            `UpdateHiduke=${updateHiduke}&` +
+            `UpdateHimokuId=${updateHimokuId}&` +
+            `UpdateMeisai=${updateMeisai}&` +
+            `UpdateNyukinGaku=${updateNyukinGaku}&` +
+            `UpdateShukinGaku=${updateShukinGaku}`;
+
         this.#updateForm.submit();
     }
 
@@ -131,13 +132,13 @@
      */
     #deletFormUrl(deleteId) {
         return '/Kakeibo/Delete/?' +
-            `FirstDate = ${this.#firstDate.value}& ` +
-            `LastDate = ${this.#lastDate.value}& ` +
-            `HimokuId = ${this.#himokuId.value}& ` +
-            `Meisai = ${this.#meisai.value}& ` +
+            `FirstDate=${this.#firstDate.value}&` +
+            `LastDate=${this.#lastDate.value}&` +
+            `HimokuId=${this.#himokuId.value}&` +
+            `Meisai=${this.#meisai.value}&` +
 
-            `ShowDialog = ${this.#showDialog.value}& ` +
-            `UpdateId = ${deleteId} `;
+            `ShowDialog=${this.#showDialog.value}&` +
+            `UpdateId=${deleteId}`;
     }
 
     /**

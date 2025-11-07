@@ -39,5 +39,10 @@ namespace KakeiboForMVC.Models
         /// エラーメッセージ
         /// </summary>
         public List<string> ErrorMessages { get; set; } = [];
+
+        /// <summary>
+        /// 確認ダイアログ表示フラグ
+        /// </summary>
+        public bool ShowDialog { get; set; } = false;
     }
 }
