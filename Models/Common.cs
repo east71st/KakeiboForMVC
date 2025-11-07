@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json;
 
 namespace KakeiboForMVC.Models
 {
@@ -26,5 +27,10 @@ namespace KakeiboForMVC.Models
             }
             return list;
         }
+
+        /// <summary>
+        /// 表示画面の家計簿テーブル最大表示件数
+        /// </summary>
+        public static int MaxDisplayKakeiboList { get; set; } = 200;
     }
 }
