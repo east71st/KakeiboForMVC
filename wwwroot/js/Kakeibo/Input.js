@@ -6,13 +6,22 @@
     #hidukeDate = null;
 
     /**
+     * プリントタグ
+     */
+    #print = null;
+    /**
      * 印刷可能範囲
      */
     #printbleArea = null;
+
     /**
-     * プリントタグ
+     * コピー
      */
-    #printTag = null;
+    #copy = null;
+    /**
+     * テーブル
+     */
+    #table = null;
 
     /**
      * コンストラクタ
@@ -24,10 +33,13 @@
      */
     init() {
         this.#hidukeDate = document.getElementById('hidukeDate');
-        this.#printTag = document.getElementById('printTag');
+        this.#print = document.getElementById('print');
         this.#printbleArea = document.getElementById('printableArea');
+        this.#copy = document.getElementById('copy');
+        this.#table = document.getElementById('table');
 
-        this.#printTag.addEventListener('click', e => this.#printTagOnClick(e));
+        this.#print.addEventListener('click', e => this.#printOnClick(e));
+        this.#copy.addEventListener('click', e => this.#copyOnClick(e));
 
         // 初期化の最終処理
         this.#windowOnLoad();
@@ -37,7 +49,7 @@
      * プリント
      * @param {Event} e
      */
-    #printTagOnClick(e) {
+    #printOnClick(e) {
         const printContents = this.#printbleArea.innerHTML;
         const originalContents = document.body.innerHTML;
 
@@ -45,6 +57,20 @@
         window.print();
         document.body.innerHTML = originalContents;
         location.reload();
+    }
+
+    /**
+     * コピー
+     * @param {Event} e
+     */
+    async #copyOnClick(e) {
+        const table = this.#table.innerText;
+        try {
+            await navigator.clipboard.writeText(table);
+            alert('クリップボードへコピーしました:');
+        } catch (error) {
+            alert('クリップボードへのコピーに失敗しました:', error);
+        }
     }
 
     /**
