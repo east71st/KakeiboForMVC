@@ -48,7 +48,7 @@
                 <input asp-for="ShowDialog" id="showDialog" type="hidden" />
                 <input asp-for="UpdateId" id="deleteId" type="hidden" />
 
-                <div style="display:flex; align-items: center; margin-top:0.5rem; font-size:var(--font-size-l);">
+                <div id="table-title">
                     <div style="margin-left: 0.5rem;">@Model.FirstDate?.ToString("yyyy年MM月dd日")</div>
                     @if (Model.FirstDate != Model.LastDate)
                     {
@@ -73,6 +73,7 @@
                                 <th class="fixed-row" style="width: 50rem;">明細</th>
                                 <th class="fixed-row" style="width: 10rem;">収入</th>
                                 <th class="fixed-row" style="width: 10rem;">支出</th>
+                                <th class="fixed-row no-screen-element" style="width:auto; min-width: 5rem;">備考</th>
                                 <th class="fixed-row no-print-area" style="width: 3.5rem;">更新</th>
                                 <th class="fixed-row no-print-area" style="width: 3.5rem;">削除</th>
                             </tr>
@@ -89,17 +90,21 @@
                                             <input asp-for="@item.Hiduke" id="hiduke-@item.Id" type="date" />
                                         </td>
                                         <td class="inner-box-col">
-                                            <select asp-for="@item.HimokuId" id="himokuid-@item.Id" asp-items="Model.HimokuNameSelect"></select>
+                                            <select asp-for="@item.HimokuId" id="himokuid-@item.Id"
+                                                    asp-items="Model.HimokuNameSelect"></select>
                                         </td>
                                         <td class="inner-box-col">
                                             <input asp-for="@item.Meisai" id="meisai-@item.Id" type="text" />
                                         </td>
                                         <td class="inner-box-col">
-                                            <input asp-for="@item.NyukinGaku" id="nyukingaku-@item.Id" type="text" style="text-align: right;" />
+                                            <input asp-for="@item.NyukinGaku" id="nyukingaku-@item.Id"
+                                                   type="text" autocomplete="off" style="text-align: right;" />
                                         </td>
                                         <td class="inner-box-col">
-                                            <input asp-for="@item.ShukinGaku" id="shukingaku-@item.Id" type="text" style="text-align: right;" />
+                                            <input asp-for="@item.ShukinGaku" id="shukingaku-@item.Id"
+                                                   type="text" autocomplete="off" style="text-align: right;" />
                                         </td>
+                                        <td class="no-screen-element"></td>
                                         <td class="inner-box-col no-print-area">
                                             <button class="updateButtons" type="button"
                                                     data-id="@item.Id"

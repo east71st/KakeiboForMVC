@@ -2,6 +2,14 @@
     display: none;
 }
 
-#printableArea .fixed-row {
-    width: 50rem;
+.no-print-element {
+    display: none;
+}
+
+.no-screen-element {
+    display: table-cell;
+}
+
+#table {
+    width: 100%;
 }

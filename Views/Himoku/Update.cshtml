@@ -32,20 +32,22 @@
         <!-- 費目データテーブルの表示 -->
         <div id="printableArea">
             <div id="table-section">
-                <div class="table-title" style="display:flex; align-items: center; margin-top:0.5rem; font-size:var(--font-size-l);">
-                    <div style="margin-left: 0.5rem;">費目コード</div>
-                </div>
-
                 <form id="updateForm" method="post"></form>
                 <form id="deleteForm" method="post"></form>
                 <input asp-for="ShowDialog" id="showDialog" type="hidden" />
                 <input asp-for="UpdateId" id="deleteId" type="hidden" />
+
+                <div id="table-title">
+                    <div style="margin-left: 0.5rem;">費目コード</div>
+                </div>
+
                 <div id="table-area">
                     <table id="table">
                         <thead>
                             <tr class="head-row">
                                 <th class="fixed-row-col" style="width: 3rem;">ID</th>
                                 <th class="fixed-row" style="width: 20rem;">費目</th>
+                                <th class="fixed-row no-screen-element" style="width:auto; min-width: 5rem;">備考</th>
                                 <th class="fixed-row no-print-area" style="width: 3rem;">更新</th>
                                 <th class="fixed-row no-print-area" style="width: 3rem;">削除</th>
                             </tr>
@@ -74,6 +76,7 @@
                                                 削除
                                             </button>
                                         </td>
+                                        <td class="no-screen-element"></td>
                                     </tr>
                                 }
                             }
