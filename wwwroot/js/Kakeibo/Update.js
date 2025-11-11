@@ -51,6 +51,15 @@
     #deleteButtons = null;
 
     /**
+     * 印刷可能範囲
+     */
+    #printbleArea = null;
+    /**
+     * プリントタグ
+     */
+    #printTag = null;
+
+    /**
      * コンストラクタ
      */
     constructor() { };
@@ -71,10 +80,13 @@
         this.#deleteId = document.getElementById('deleteId');
         this.#updeteButtons = document.querySelectorAll('.updateButtons');
         this.#deleteButtons = document.querySelectorAll('.deleteButtons');
+        this.#printTag = document.getElementById('printTag');
+        this.#printbleArea = document.getElementById('printableArea');
 
         this.#displayButton.addEventListener('click', e => this.#displayButtonOnClick(e));
         this.#updeteButtons.forEach(x => x.addEventListener('click', e => this.#updateButtonOnClick(e)));
         this.#deleteButtons.forEach(x => x.addEventListener('click', e => this.#deleteButtonOnClick(e)));
+        this.#printTag.addEventListener('click', e => this.#printTagOnClick(e));
 
         // 初期化の最終処理
         this.#windowOnLoad();
@@ -139,6 +151,20 @@
 
             `ShowDialog=${this.#showDialog.value}&` +
             `UpdateId=${deleteId}`;
+    }
+
+    /**
+     * プリント
+     * @param {Event} e
+     */
+    #printTagOnClick(e) {
+        const printContents = this.#printbleArea.innerHTML;
+        const originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        location.reload();
     }
 
     /**

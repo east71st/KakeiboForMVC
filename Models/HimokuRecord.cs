@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace KakeiboForMVC.Models
+﻿namespace KakeiboForMVC.Models
 {
     /// <summary>
     /// 費目テーブルの行データ

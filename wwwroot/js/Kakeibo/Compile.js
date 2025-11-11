@@ -1,9 +1,9 @@
-﻿class Input {
+﻿class Compile {
 
     /**
-     * 日付デートボックス
+     * 集計開始月日セレクトボックス
      */
-    #hidukeDate = null;
+    #firstMonth = null;
 
     /**
      * 印刷可能範囲
@@ -23,7 +23,7 @@
      * 初期化
      */
     init() {
-        this.#hidukeDate = document.getElementById('hidukeDate');
+        this.#firstMonth = document.getElementById('firstMonth');
         this.#printTag = document.getElementById('printTag');
         this.#printbleArea = document.getElementById('printableArea');
 
@@ -51,11 +51,11 @@
     * 初期化の最後処理
     */
     #windowOnLoad() {
-        this.#hidukeDate.focus();
+        this.#firstMonth.focus();
     }
 }
 
 window.onload = function () {
-    let obj = new Input;
+    let obj = new Compile;
     obj.init()
 };

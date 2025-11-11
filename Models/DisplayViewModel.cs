@@ -13,7 +13,7 @@ namespace KakeiboForMVC.Models
         /// </summary>
         [Display(Name = "検索開始日")]
         [DataType(DataType.Date)]
-        [Required(ErrorMessage = "{0}が未入力です。")]
+        [Required(ErrorMessage = "{0}が未設定です。")]
         public DateTime? FirstDate { get; set; }
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace KakeiboForMVC.Models
         /// </summary>
         [Display(Name = "検索最終日")]
         [DataType(DataType.Date)]
-        [Required(ErrorMessage = "{0}が未入力です。")]
+        [Required(ErrorMessage = "{0}が未設定です。")]
         public DateTime? LastDate { get; set; }
 
         /// <summary>

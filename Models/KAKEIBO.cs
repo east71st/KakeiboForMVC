@@ -32,7 +32,7 @@ namespace KakeiboForMVC.Models
         /// 明細
         /// </summary>
         [StringLength(100)]
-        public string? MEISAI {  get; set; }
+        public string? MEISAI { get; set; }
 
         /// <summary>
         /// 入金額

@@ -14,7 +14,7 @@ namespace KakeiboForMVC.Models
         /// </summary>
         [Display(Name = "日付")]
         [DataType(DataType.Date)]
-        [Required(ErrorMessage = "{0}が未入力です。")]
+        [Required(ErrorMessage = "{0}が未設定です。")]
         public DateTime? Hiduke { get; set; }
 
         /// <summary>

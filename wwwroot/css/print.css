@@ -1,0 +1,15 @@
+﻿.no-print-area {
+    display: none;
+}
+
+.no-print-element {
+    display: none;
+}
+
+.no-screen-element {
+    display: table-cell;
+}
+
+#table {
+    width: 100%;
+}
