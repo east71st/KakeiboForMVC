@@ -69,6 +69,20 @@
     #table = null;
 
     /**
+     * 確認ダイアログ
+     */
+    #comfirmDialog = null;
+
+    /**
+     * はいボタン
+     */
+    #okButton = null;
+    /**
+     * キャンセルボタン
+     */
+    #cancelButton = null;
+
+    /**
      * コンストラクタ
      */
     constructor() { };
@@ -93,12 +107,17 @@
         this.#printbleArea = document.getElementById('printableArea');
         this.#copy = document.getElementById('copy');
         this.#table = document.getElementById('table');
+        this.#comfirmDialog = document.getElementById('confirmDialog');
+        this.#okButton = document.getElementById('okButton');
+        this.#cancelButton = document.getElementById('cancelButton')
 
         this.#displayButton.addEventListener('click', e => this.#displayButtonOnClick(e));
         this.#updeteButtons.forEach(x => x.addEventListener('click', e => this.#updateButtonOnClick(e)));
         this.#deleteButtons.forEach(x => x.addEventListener('click', e => this.#deleteButtonOnClick(e)));
         this.#print.addEventListener('click', e => this.#printOnClick(e));
         this.#copy.addEventListener('click', e => this.#copyOnClick(e));
+        this.#okButton.addEventListener('click', e => this.#okButtonOnClick(e));
+        this.#cancelButton.addEventListener('click', e => this.#cancelButtonOnClick(e));
 
         // 初期化の最終処理
         this.#windowOnLoad();
@@ -194,20 +213,32 @@
     }
 
     /**
+     * はいボタン押下
+     * @param {Event} e
+     */
+    #okButtonOnClick(e) {
+        this.#deleteForm.action = this.#deletFormUrl(this.#deleteId.value);
+        this.#deleteForm.submit();
+        this.#comfirmDialog.close('ok');
+    }
+
+    /**
+     * キャンセルボタン押下
+     * @param {Event} e
+     */
+    #cancelButtonOnClick(e) {
+        this.#showDialog.value = 'False';
+        this.#comfirmDialog.close('cancel');
+    }
+
+    /**
     * 初期化の最後処理
     */
     #windowOnLoad() {
         // 確認ダイアログ表示フラグがTrueの場合、確認ダイアログを表示
         if (this.#showDialog.value === 'True') {
-            const result = window.confirm('削除してもよろしいですか？');
             // 確認ダイアログの結果によって処理を分岐
-            if (result == true) {
-                this.#deleteForm.action = this.#deletFormUrl(this.#deleteId.value);
-                this.#deleteForm.submit();
-            }
-            else {
-                this.#showDialog.value = 'False';
-            }
+            const result = this.#comfirmDialog.showModal();
         }
         // フォーカスを検索開始日デートボックスにセット
         this.#firstDate.focus();

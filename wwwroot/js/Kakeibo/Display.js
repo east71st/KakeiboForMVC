@@ -67,9 +67,9 @@
         const table = this.#table.innerText;
         try {
             await navigator.clipboard.writeText(table);
-            alert('クリップボードへコピーしました:');
+            alert('クリップボードへコピーしました。');
         } catch (error) {
-            alert('クリップボードへのコピーに失敗しました:', error);
+            alert(`クリップボードへのコピーに失敗しました:${error}`);
         }
     }
 

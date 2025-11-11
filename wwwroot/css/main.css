@@ -416,3 +416,19 @@ button {
 .no-screen-element {
     display: none;
 }
+
+/*確認ダイアログ*/
+#confirmDialog {
+    width: 15rem;
+    height: 5rem;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 0.2rem;
+}
+
+    #confirmDialog .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
