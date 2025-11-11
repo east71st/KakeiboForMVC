@@ -1,0 +1,138 @@
+﻿@using System.Data
+@using KakeiboForMVC.Controllers
+
+@model KakeiboForMVC.Models.CompileViewModel
+@{
+    string firstMonth = DateTime.Parse(Model.FirstMonth!).ToString("yyy年MM月");
+    string lastMonth = DateTime.Parse(Model.LastMonth!).ToString("yyy年MM月");
+
+    DataTable table = Model.CompileKakeiboTable;
+}
+<div id="main">
+    <div class="container">
+        <!-- コンソールの表示 -->
+        <div id="console">
+            <form action="Compile" method="post">
+                <div class="flex-row">
+                    <div style="width: 2rem; margin-right: 0.5rem;">期間</div>
+                    <select asp-for="FirstMonth" id="firstMonth" asp-items="Model.FirstMonthSelect"></select>
+                    <div style="margin-left: 0.3rem; margin-right: 0.3rem;">～</div>
+                    <select asp-for="LastMonth" asp-items="Model.LastMonthSelect"></select>
+                </div>
+                <div class="flex-row" style="justify-content: flex-start">
+                    <input type="submit" value="集計" style="margin-left: 2.5rem;">
+                </div>
+                @if (Model.ErrorMessages.Count > 0)
+                {
+                    <div class="error-message-area">
+                        <ul>
+                            @foreach (var item in Model.ErrorMessages)
+                            {
+                                <li>@item</li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </form>
+        </div>
+
+        <!-- 家計簿データの入力履歴のテーブルを表示 -->
+        <div id="printableArea">
+            <div id="table-section">
+                @if (table != null && table.Rows.Count != 0)
+                {
+                    <div style="display:flex; align-items: center; margin-top:0.5rem; font-size:var(--font-size-l);">
+                        <div style="margin-left: 0.5rem;">@firstMonth</div>
+                        @if (!Model.FirstMonth!.Substring(0, 7).Equals(Model.LastMonth!.Substring(0, 7)))
+                        {
+                            <div style="margin-left: 0.5rem;">～</div>
+                            <div style="margin-left: 0.5rem;">@lastMonth</div>
+                        }
+                        <div style="margin-left: 0.5rem;">家計簿 月別集計</div>
+                    </div>
+
+                    <div id="table-area">
+                        <table id="table">
+                            <thead>
+                                <tr class="head-row">
+                                    <th class="fixed-row-col" style="width: auto">
+                                        @table.Columns[0]
+                                    </th>
+                                    @for (int i = 1; i < table.Columns.Count - 1; ++i)
+                                    {
+                                        <th class="fixed-row" style="width: 6rem;">
+                                            @table.Columns[i]
+                                        </th>
+                                    }
+                                    @if (!Model.FirstMonth!.Substring(0, 7).Equals(Model.LastMonth!.Substring(0, 7)))
+                                    {
+                                        <th class="fixed-row" style="width: 6rem;">
+                                            @table.Columns[table.Columns.Count - 1]
+                                        </th>
+                                    }
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (DataRow row in table.Rows)
+                                {
+                                    @if (@row[0].ToString()!.Equals("支出計") || @row[0].ToString()!.Equals("収支"))
+                                    {
+                                        <tr class="bottom-row">
+                                            <th class="fixd-col text-col">@row[0]</th>
+                                            @for (int j = 1; j < table.Columns.Count - 1; ++j)
+                                            {
+                                                Decimal kingaku = (Decimal)@row[j];
+                                                <td class="number-col">
+                                                    @kingaku.ToString("#,#")
+                                                </td>
+                                            }
+                                            @if (!Model.FirstMonth!.Substring(0, 7).Equals(Model.LastMonth!.Substring(0, 7)))
+                                            {
+                                                Decimal kingaku = (Decimal)@row[table.Columns.Count - 1];
+                                                <td class="number-col">
+                                                    @kingaku.ToString("#,#")
+                                                </td>
+                                            }
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr class="body-row">
+                                            <th class="fixd-col text-col">@row[0]</th>
+                                            @for (int j = 1; j < table.Columns.Count - 1; ++j)
+                                            {
+                                                Decimal kingaku = (Decimal)@row[j];
+                                                <td class="number-col">
+                                                    @kingaku.ToString("#,#")
+                                                </td>
+                                            }
+                                            @if (!Model.FirstMonth!.Substring(0, 7).Equals(Model.LastMonth!.Substring(0, 7)))
+                                            {
+                                                Decimal kingaku = (Decimal)@row[table.Columns.Count - 1];
+                                                <td class="number-col">
+                                                    @kingaku.ToString("#,#")
+                                                </td>
+                                            }
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Footer {
+    <div class="footer-items">
+        <div class="footer-item"><div id="printTag">印刷</div></div>
+        <div class="footer-item"><a href="">CSV出力</a></div>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/js/kakeibo/Compile.js" asp-append-version="true"></script>
+}

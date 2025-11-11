@@ -10,9 +10,8 @@ namespace KakeiboForMVC.Models
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var context = new KakeiboForMVCContext(
-                serviceProvider.GetRequiredService<
-                    DbContextOptions<KakeiboForMVCContext>>()))
+            using (var context = new KakeiboForMVCContext(serviceProvider.
+                GetRequiredService<DbContextOptions<KakeiboForMVCContext>>()))
             {
                 // Look for any KAKEIBO.
                 if (context.KAKEIBO.Any())
@@ -31,7 +30,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
-                        ID= 2,
+                        ID = 2,
                         HIDUKE = DateTime.Parse("2025-06-02"),
                         HIMOKU_ID = 2,
                         MEISAI = "家賃",

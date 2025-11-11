@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - KakeiboForMVC</title>
     <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" media="print" href="~/css/print.css" asp-append-version="true" />
 </head>
 
 <body>
@@ -14,6 +15,7 @@
             <div class="menu-item"><a href="/Kakeibo/Input">入力</a></div>
             <div class="menu-item"><a href="/Kakeibo/Display">表示</a></div>
             <div class="menu-item"><a href="/Kakeibo/Update">修正</a></div>
+            <div class="menu-item"><a href="/Kakeibo/Compile">集計</a></div>
             <div class="menu-item">
                 <a>設定</a>
                 <div class="dropdown-lists">
@@ -29,6 +31,8 @@
         @RenderSection("Scripts", required: false)
     </main>
 
-    <footer></footer>
+    <footer>
+        @RenderSection("Footer", required: false)
+    </footer>
 </body>
 </html>

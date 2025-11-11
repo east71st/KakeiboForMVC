@@ -1,0 +1,7 @@
+﻿.no-print-area {
+    display: none;
+}
+
+#printableArea .fixed-row {
+    width: 50rem;
+}
