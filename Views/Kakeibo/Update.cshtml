@@ -18,8 +18,14 @@
                     </select>
                 </div>
                 <div class="flex-row">
-                    <div style="width: 2rem; margin-right: 0.5rem;" required>明細</div>
-                    <input asp-for="Meisai" id="meisai" type="text" maxlength="100" style="width: 15rem;">
+                    <div style="width: 2rem; margin-right: 0.5rem;">明細</div>
+                    <input asp-for="Meisai" list="meisaiList" class="form-control" maxlength="100" style="width: 15rem;" />
+                    <datalist id="meisaiList" maxlength="100" style="width: 15rem;">
+                        @foreach (var item in Model.MeisaiList)
+                        {
+                            <option value="@item"></option>
+                        }
+                    </datalist>
                 </div>
                 <div class="flex-row" style="justify-content: flex-start">
                     <button id="displayButton" type="button" style="margin-left: 2.5rem;">

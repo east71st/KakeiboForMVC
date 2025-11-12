@@ -28,7 +28,7 @@ namespace KakeiboForMVC.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Index→Display
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -51,7 +51,7 @@ namespace KakeiboForMVC.Controllers
             };
 
             // 費目名セレクトリストと家計簿テーブルの取得
-            await GetInputViewModelData(_context, viewModel);
+            await GetInputViewModelData(_context, viewModel, ModelState);
 
             return View(viewModel);
         }
@@ -67,7 +67,7 @@ namespace KakeiboForMVC.Controllers
             if (!ModelState.IsValid)
             {
                 // 費目名セレクトリストと家計簿テーブルの取得
-                await GetInputViewModelData(_context, viewModel);
+                await GetInputViewModelData(_context, viewModel, ModelState);
                 // エラーメッセージの取得
                 viewModel.ErrorMessages.AddRange(Common.GetErrorMessage(ModelState));
                 return View(viewModel);
@@ -97,7 +97,7 @@ namespace KakeiboForMVC.Controllers
             await _context.SaveChangesAsync();
 
             // 費目名セレクトリストと家計簿テーブルの取得
-            await GetInputViewModelData(_context, viewModel);
+            await GetInputViewModelData(_context, viewModel, ModelState);
 
             return View(viewModel);
         }
@@ -119,7 +119,7 @@ namespace KakeiboForMVC.Controllers
             };
 
             // 費目名セレクトリストと家計簿テーブルの取得
-            viewModel = await GetDisplayViewModel(viewModel);
+            viewModel = await GetDisplayViewModel(viewModel, ModelState);
 
             return View(viewModel);
         }
@@ -143,7 +143,7 @@ namespace KakeiboForMVC.Controllers
             }
 
             // 費目名セレクトリストと家計簿テーブルの取得
-            viewModel = await GetDisplayViewModel(viewModel);
+            viewModel = await GetDisplayViewModel(viewModel, ModelState);
 
             return View(viewModel);
         }
@@ -164,7 +164,7 @@ namespace KakeiboForMVC.Controllers
             viewModel.HimokuNameSelect = await GetHimokuNameSelect(_context);
 
             // 費目名セレクトリストと家計簿テーブルの取得
-            viewModel = (UpdateViewModel)await GetDisplayViewModel(viewModel);
+            viewModel = (UpdateViewModel)await GetDisplayViewModel(viewModel, ModelState);
 
             return View(viewModel);
         }
@@ -232,7 +232,7 @@ namespace KakeiboForMVC.Controllers
             if (isError)
             {
                 // 費目名セレクトリストと家計簿テーブルの取得
-                viewModel = (UpdateViewModel)await GetDisplayViewModel(viewModel);
+                viewModel = (UpdateViewModel)await GetDisplayViewModel(viewModel, ModelState);
                 // エラーメッセージの取得
                 viewModel.ErrorMessages.AddRange(Common.GetErrorMessage(ModelState));
                 return View(viewModel);
@@ -251,7 +251,7 @@ namespace KakeiboForMVC.Controllers
             await _context.SaveChangesAsync();
 
             // 費目名セレクトリストと家計簿テーブルの取得
-            viewModel = (UpdateViewModel)await GetDisplayViewModel(viewModel);
+            viewModel = (UpdateViewModel)await GetDisplayViewModel(viewModel, ModelState);
 
             return View(viewModel);
         }
@@ -285,7 +285,7 @@ namespace KakeiboForMVC.Controllers
                 viewModel.ShowDialog = true;
 
                 // 費目名セレクトリストと家計簿テーブルの取得
-                viewModel = (UpdateViewModel)await GetDisplayViewModel(viewModel);
+                viewModel = (UpdateViewModel)await GetDisplayViewModel(viewModel, ModelState);
                 return View(nameof(Update), viewModel);
             }
 
@@ -295,7 +295,7 @@ namespace KakeiboForMVC.Controllers
             ModelState.Remove(nameof(viewModel.ShowDialog));
             viewModel.ShowDialog = false;
             // 費目名セレクトリストと家計簿テーブルの取得
-            viewModel = (UpdateViewModel)await GetDisplayViewModel(viewModel);
+            viewModel = (UpdateViewModel)await GetDisplayViewModel(viewModel, ModelState);
 
             return View(nameof(Update), viewModel);
         }
@@ -345,117 +345,36 @@ namespace KakeiboForMVC.Controllers
                 return View(viewModel);
             }
 
-            //家計簿テーブル作成
+            //集計テーブル作成
             await GetCompileKakeiboTable(_context, viewModel);
 
             return View(viewModel);
         }
 
         /// <summary>
-        /// 家計簿テーブル作成
+        /// 明細履歴リストの取得
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="viewModel"></param>
+        /// <param name="himokuIdModel"></param>
         /// <returns></returns>
-        private static async Task GetCompileKakeiboTable(KakeiboForMVCContext context,
-            CompileViewModel viewModel)
+        [HttpPost]
+        public async Task<IActionResult> GetMeisaiList([FromBody] HimokuIdModel himokuIdModel)
         {
-            // 集計月リスト作成
-            DateTime firstMonth = DateTime.Parse(viewModel.FirstMonth!);
-            DateTime lastMonth = DateTime.Parse(viewModel.LastMonth!);
-
-            List<string> monthList = [];
-            DateTime date = firstMonth;
-            while (date <= lastMonth.AddDays(1 - lastMonth.Day))
+            if (himokuIdModel == null)
             {
-                monthList.Add(date.ToString("yyyy年MM月"));
-                date = date.AddMonths(1);
-            }
-            monthList.Add(date.ToString("合計"));
-
-            // 費目名辞書の取得
-            Dictionary<int, string> himokuDict = await GetHimokuNameDict(context);
-
-            // 家計簿テーブルの列作成
-            viewModel.CompileKakeiboTable.Columns.Add("費目名", typeof(string));
-
-            foreach (var month in monthList)
-            {
-                viewModel.CompileKakeiboTable.Columns.
-                    Add(month, typeof(Decimal));
+                return BadRequest("Invalid.");
             }
 
-            // 家計簿テーブルの行作成と初期化
-            DataRow row;
-            foreach (var himoku in himokuDict)
-            {
-                row = viewModel.CompileKakeiboTable.NewRow();
-                row["費目名"] = himoku.Value;
-                foreach (var month in monthList)
-                {
-                    row[month] = 0;
-                }
-                viewModel.CompileKakeiboTable.Rows.Add(row);
-            }
-            row = viewModel.CompileKakeiboTable.NewRow();
-            row["費目名"] = "支出計";
-            foreach (var month in monthList)
-            {
-                row[month] = 0;
-            }
-            viewModel.CompileKakeiboTable.Rows.Add(row);
-            row = viewModel.CompileKakeiboTable.NewRow();
-            row["費目名"] = "収支";
-            foreach (var month in monthList)
-            {
-                row[month] = 0;
-            }
-            viewModel.CompileKakeiboTable.Rows.Add(row);
+            // 明細履歴の取得
+            var maisaiList = await _context.
+                KAKEIBO.Where(x => !string.IsNullOrEmpty(x.MEISAI) && x.HIMOKU_ID == himokuIdModel.HimokuId).
+                Select(x => x.MEISAI!).Distinct().ToListAsync();
 
-            // 集計
-            var result = await context.KAKEIBO.
-                Where(x => x.HIDUKE >= firstMonth && x.HIDUKE <= lastMonth).ToListAsync();
-            foreach (var item in result)
+            var meisaiListModel = new MeisaiListModel
             {
-                string month = item.HIDUKE.AddDays(1 - item.HIDUKE.Day).ToString("yyyy年MM月");
-                Decimal cell = (Decimal)viewModel.CompileKakeiboTable.Rows[item.HIMOKU_ID - 1][month];
-                Decimal sumCell = (Decimal)viewModel.CompileKakeiboTable.Rows[himokuDict.Count][month];
-                Decimal balanceCell = (Decimal)viewModel.CompileKakeiboTable.Rows[himokuDict.Count + 1][month];
-                Decimal totalCell = (Decimal)viewModel.CompileKakeiboTable.Rows[item.HIMOKU_ID - 1]["合計"];
-                Decimal totalSumCell = (Decimal)viewModel.CompileKakeiboTable.Rows[himokuDict.Count]["合計"];
-                Decimal TotalBalanceCell = (Decimal)viewModel.CompileKakeiboTable.Rows[himokuDict.Count + 1]["合計"];
-                // 収入の場合
-                if (item.HIMOKU_ID == 1)
-                {
-                    viewModel.CompileKakeiboTable.Rows[item.HIMOKU_ID - 1][month] = cell +
-                        item.NYUKINGAKU ?? 0;
-                    viewModel.CompileKakeiboTable.Rows[himokuDict.Count + 1][month] = balanceCell +
-                        item.NYUKINGAKU ?? 0;
+                MeisaiList = maisaiList,
+            };
 
-                    viewModel.CompileKakeiboTable.Rows[item.HIMOKU_ID - 1]["合計"] = totalCell +
-                        item.NYUKINGAKU ?? 0;
-                    viewModel.CompileKakeiboTable.Rows[himokuDict.Count + 1]["合計"] = TotalBalanceCell +
-                        item.NYUKINGAKU ?? 0;
-                }
-                // 収入以外の場合
-                else
-                {
-                    viewModel.CompileKakeiboTable.Rows[item.HIMOKU_ID - 1][month] = cell +
-                        item.SHUKINGAKU ?? 0;
-                    viewModel.CompileKakeiboTable.Rows[himokuDict.Count][month] = sumCell +
-                        item.SHUKINGAKU ?? 0;
-                    viewModel.CompileKakeiboTable.Rows[himokuDict.Count + 1][month] = balanceCell -
-                        item.SHUKINGAKU ?? 0;
-
-                    viewModel.CompileKakeiboTable.Rows[item.HIMOKU_ID - 1]["合計"] = totalCell +
-                        item.SHUKINGAKU ?? 0;
-                    viewModel.CompileKakeiboTable.Rows[himokuDict.Count]["合計"] = totalSumCell +
-                        item.SHUKINGAKU ?? 0;
-                    viewModel.CompileKakeiboTable.Rows[himokuDict.Count + 1]["合計"] = TotalBalanceCell -
-                        item.SHUKINGAKU ?? 0;
-                }
-
-            }
+            return Ok(meisaiListModel);
         }
 
         /// <summary>
@@ -465,7 +384,7 @@ namespace KakeiboForMVC.Controllers
         /// <param name="viewModel"></param>
         /// <returns></returns>
         private static async Task GetInputViewModelData(KakeiboForMVCContext context,
-            InputViewModel viewModel)
+            InputViewModel viewModel, ModelStateDictionary modelState)
         {
             viewModel.HimokuNameSelect = await GetHimokuNameSelect(context);
 
@@ -474,6 +393,11 @@ namespace KakeiboForMVC.Controllers
 
             // 費目名辞書の取得
             var himokuNameDict = await GetHimokuNameDict(context);
+
+            modelState.Remove(nameof(viewModel.Meisai));
+            modelState.Remove(nameof(viewModel.Kingaku));
+            viewModel.Meisai = null;
+            viewModel.Kingaku = null;
 
             // 家計簿テーブルの取得
             foreach (var item in await result.ToListAsync())
@@ -497,7 +421,8 @@ namespace KakeiboForMVC.Controllers
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
-        private async Task<DisplayViewModel> GetDisplayViewModel(DisplayViewModel viewModel)
+        private async Task<DisplayViewModel> GetDisplayViewModel(DisplayViewModel viewModel,
+            ModelStateDictionary modelState)
         {
             // 費目名セレクトリストの取得
             viewModel.HimokuNameSelect = await GetHimokuNameSelect(_context);
@@ -507,6 +432,10 @@ namespace KakeiboForMVC.Controllers
 
             // 費目名の取得
             viewModel.HimokuName = GetHimokuName(viewModel.HimokuId, himokuNameDict);
+
+            // 明細履歴の取得
+            viewModel.MeisaiList = await _context.KAKEIBO.Where(x => !string.IsNullOrEmpty(x.MEISAI)).
+                Select(x => x.MEISAI!).Distinct().ToListAsync();
 
             var result = _context.KAKEIBO.Select(x => x);
 
@@ -614,6 +543,113 @@ namespace KakeiboForMVC.Controllers
                     endMonth.ToString(Common.DataMonthFormat)));
 
                 date = date.AddMonths(1);
+            }
+        }
+
+        /// <summary>
+        /// 集計テーブル作成
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="viewModel"></param>
+        /// <returns></returns>
+        private static async Task GetCompileKakeiboTable(KakeiboForMVCContext context,
+            CompileViewModel viewModel)
+        {
+            // 集計月リスト作成
+            DateTime firstMonth = DateTime.Parse(viewModel.FirstMonth!);
+            DateTime lastMonth = DateTime.Parse(viewModel.LastMonth!);
+
+            List<string> monthList = [];
+            DateTime date = firstMonth;
+            while (date <= lastMonth.AddDays(1 - lastMonth.Day))
+            {
+                monthList.Add(date.ToString(Common.DisplayMonthFormat));
+                date = date.AddMonths(1);
+            }
+            monthList.Add(date.ToString("合計"));
+
+            // 費目名辞書の取得
+            Dictionary<int, string> himokuDict = await GetHimokuNameDict(context);
+
+            // 家計簿テーブルの列作成
+            viewModel.CompileKakeiboTable.Columns.Add("費目名", typeof(string));
+
+            foreach (var month in monthList)
+            {
+                viewModel.CompileKakeiboTable.Columns.
+                    Add(month, typeof(Decimal));
+            }
+
+            // 家計簿テーブルの行作成と初期化
+            DataRow row;
+            foreach (var himoku in himokuDict)
+            {
+                row = viewModel.CompileKakeiboTable.NewRow();
+                row["費目名"] = himoku.Value;
+                foreach (var month in monthList)
+                {
+                    row[month] = 0;
+                }
+                viewModel.CompileKakeiboTable.Rows.Add(row);
+            }
+            row = viewModel.CompileKakeiboTable.NewRow();
+            row["費目名"] = "支出計";
+            foreach (var month in monthList)
+            {
+                row[month] = 0;
+            }
+            viewModel.CompileKakeiboTable.Rows.Add(row);
+            row = viewModel.CompileKakeiboTable.NewRow();
+            row["費目名"] = "収支";
+            foreach (var month in monthList)
+            {
+                row[month] = 0;
+            }
+            viewModel.CompileKakeiboTable.Rows.Add(row);
+
+            // 集計
+            var result = await context.KAKEIBO.
+                Where(x => x.HIDUKE >= firstMonth && x.HIDUKE <= lastMonth).ToListAsync();
+            foreach (var item in result)
+            {
+                string month = item.HIDUKE.AddDays(1 - item.HIDUKE.Day).ToString(Common.DisplayMonthFormat);
+                Decimal cell = (Decimal)viewModel.CompileKakeiboTable.Rows[item.HIMOKU_ID - 1][month];
+                Decimal sumCell = (Decimal)viewModel.CompileKakeiboTable.Rows[himokuDict.Count][month];
+                Decimal balanceCell = (Decimal)viewModel.CompileKakeiboTable.Rows[himokuDict.Count + 1][month];
+                Decimal totalCell = (Decimal)viewModel.CompileKakeiboTable.Rows[item.HIMOKU_ID - 1]["合計"];
+                Decimal totalSumCell = (Decimal)viewModel.CompileKakeiboTable.Rows[himokuDict.Count]["合計"];
+                Decimal TotalBalanceCell = (Decimal)viewModel.CompileKakeiboTable.Rows[himokuDict.Count + 1]["合計"];
+                // 収入の場合
+                if (item.HIMOKU_ID == 1)
+                {
+                    viewModel.CompileKakeiboTable.Rows[item.HIMOKU_ID - 1][month] = cell +
+                        item.NYUKINGAKU ?? 0;
+                    viewModel.CompileKakeiboTable.Rows[himokuDict.Count + 1][month] = balanceCell +
+                        item.NYUKINGAKU ?? 0;
+
+                    viewModel.CompileKakeiboTable.Rows[item.HIMOKU_ID - 1]["合計"] = totalCell +
+                        item.NYUKINGAKU ?? 0;
+                    viewModel.CompileKakeiboTable.Rows[himokuDict.Count + 1]["合計"] = TotalBalanceCell +
+                        item.NYUKINGAKU ?? 0;
+                }
+                // 収入以外の場合
+                else
+                {
+                    viewModel.CompileKakeiboTable.Rows[item.HIMOKU_ID - 1][month] = cell +
+                        item.SHUKINGAKU ?? 0;
+                    viewModel.CompileKakeiboTable.Rows[himokuDict.Count][month] = sumCell +
+                        item.SHUKINGAKU ?? 0;
+                    viewModel.CompileKakeiboTable.Rows[himokuDict.Count + 1][month] = balanceCell -
+                        item.SHUKINGAKU ?? 0;
+
+                    viewModel.CompileKakeiboTable.Rows[item.HIMOKU_ID - 1]["合計"] = totalCell +
+                        item.SHUKINGAKU ?? 0;
+                    viewModel.CompileKakeiboTable.Rows[himokuDict.Count]["合計"] = totalSumCell +
+                        item.SHUKINGAKU ?? 0;
+                    viewModel.CompileKakeiboTable.Rows[himokuDict.Count + 1]["合計"] = TotalBalanceCell -
+                        item.SHUKINGAKU ?? 0;
+                }
+
             }
         }
     }

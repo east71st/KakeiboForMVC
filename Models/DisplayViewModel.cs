@@ -50,6 +50,11 @@ namespace KakeiboForMVC.Models
         public List<SelectListItem> HimokuNameSelect { get; set; } = [];
 
         /// <summary>
+        /// 明細履歴のリスト
+        /// </summary>
+        public List<string> MeisaiList { get; set; } = [];
+
+        /// <summary>
         /// 家計簿テーブルリスト
         /// </summary>
         public List<KakeiboRecord> KakeiboList { get; set; } = [];

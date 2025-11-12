@@ -124,7 +124,7 @@
     }
 
     /**
-     * 検索ボタンを押下してUpdateにGet
+     * 検索ボタンを押下
      * @param {Event} e
      */
     #displayButtonOnClick(e) {
@@ -132,7 +132,7 @@
     }
 
     /**
-     * 更新ボタンを押下してUpdateにPost
+     * 更新ボタンを押下
      * @param {Event} e
      */
     #updateButtonOnClick(e) {
@@ -160,28 +160,12 @@
     }
 
     /**
-     * 削除ボタンを押下してdeleteにPost
+     * 削除ボタンを押下
      * @param {Event} e
      */
     #deleteButtonOnClick(e) {
         this.#deleteForm.action = this.#deletFormUrl(e.target.dataset.id);
         this.#deleteForm.submit();
-    }
-
-    /**
-     * 削除フォームのUrl
-     * @param {any} deleteId
-     * @returns
-     */
-    #deletFormUrl(deleteId) {
-        return '/Kakeibo/Delete/?' +
-            `FirstDate=${this.#firstDate.value}&` +
-            `LastDate=${this.#lastDate.value}&` +
-            `HimokuId=${this.#himokuId.value}&` +
-            `Meisai=${this.#meisai.value}&` +
-
-            `ShowDialog=${this.#showDialog.value}&` +
-            `UpdateId=${deleteId}`;
     }
 
     /**
@@ -213,7 +197,7 @@
     }
 
     /**
-     * はいボタン押下
+     * 確認ダイアログのはいボタン押下
      * @param {Event} e
      */
     #okButtonOnClick(e) {
@@ -223,12 +207,28 @@
     }
 
     /**
-     * キャンセルボタン押下
+     * 確認ダイアログのキャンセルボタン押下
      * @param {Event} e
      */
     #cancelButtonOnClick(e) {
         this.#showDialog.value = 'False';
         this.#comfirmDialog.close('cancel');
+    }
+
+    /**
+     * 削除フォームのUrl
+     * @param {any} deleteId
+     * @returns
+     */
+    #deletFormUrl(deleteId) {
+        return '/Kakeibo/Delete/?' +
+            `FirstDate=${this.#firstDate.value}&` +
+            `LastDate=${this.#lastDate.value}&` +
+            `HimokuId=${this.#himokuId.value}&` +
+            `Meisai=${this.#meisai.value}&` +
+
+            `ShowDialog=${this.#showDialog.value}&` +
+            `UpdateId=${deleteId}`;
     }
 
     /**
@@ -238,7 +238,9 @@
         // 確認ダイアログ表示フラグがTrueの場合、確認ダイアログを表示
         if (this.#showDialog.value === 'True') {
             // 確認ダイアログの結果によって処理を分岐
-            const result = this.#comfirmDialog.showModal();
+            // はいボタン→#okButtonOnCrick
+            // キャンセルボタン→#cancelButtonOnClick
+            this.#comfirmDialog.showModal();
         }
         // フォーカスを検索開始日デートボックスにセット
         this.#firstDate.focus();

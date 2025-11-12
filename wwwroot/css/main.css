@@ -77,49 +77,6 @@ footer {
     background-color: rgb(64, 0, 0);
 }
 
-/*アイテムの設定*/
-.flex-row {
-    display: flex;
-    align-items: center;
-    margin: 0.5rem;
-}
-
-input[type="text"],
-input[type="date"],
-input[type="number"],
-select,
-textarea {
-    box-sizing: border-box;
-    height: 1.8rem;
-    border: 1px solid;
-    border-radius: 0.2rem;
-    font-size: inherit;
-}
-
-input[type="number"] {
-    text-align: right;
-}
-
-input[type="submit"] {
-    width: auto;
-    border-radius: 0.2rem;
-    font-size: inherit;
-    white-space: nowrap;
-    background-color: rgb(192, 192, 192);
-    cursor: pointer;
-    transition: all .3s;
-}
-
-button {
-    width: auto;
-    border-radius: 0.2rem;
-    font-size: inherit;
-    white-space: nowrap;
-    background-color: rgb(192, 192, 192);
-    cursor: pointer;
-    transition: all .3s;
-}
-
 /*メニューバーの設定*/
 .menu-items {
     display: flex;
@@ -388,12 +345,7 @@ button {
     border: none;
 }
 
-#error-display {
-    padding: 1rem;
-    vertical-align: middle;
-    color: white;
-}
-
+/*エラーメッセージの設定*/
 .error-message-area {
     height: auto;
     margin-top: 1rem;
@@ -413,11 +365,7 @@ button {
         color: red;
     }
 
-.no-screen-element {
-    display: none;
-}
-
-/*確認ダイアログ*/
+/*確認ダイアログの設定*/
 #confirmDialog {
     width: 15rem;
     height: 5rem;
@@ -432,3 +380,53 @@ button {
         justify-content: center;
         align-items: center;
     }
+
+/*非表示エレメントの設定*/
+@media screen {
+    .no-screen-element {
+        display: none;
+    }
+}
+
+/*エレメント標準設定*/
+.flex-row {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select,
+textarea {
+    box-sizing: border-box;
+    height: 1.8rem;
+    border: 1px solid;
+    border-radius: 0.2rem;
+    font-size: inherit;
+}
+
+input[type="number"] {
+    text-align: right;
+}
+
+input[type="submit"] {
+    width: auto;
+    border-radius: 0.2rem;
+    font-size: inherit;
+    white-space: nowrap;
+    background-color: rgb(192, 192, 192);
+    cursor: pointer;
+    transition: all .3s;
+}
+
+button {
+    width: auto;
+    border-radius: 0.2rem;
+    font-size: inherit;
+    white-space: nowrap;
+    background-color: rgb(192, 192, 192);
+    cursor: pointer;
+    transition: all .3s;
+}
