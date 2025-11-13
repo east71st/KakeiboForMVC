@@ -18,8 +18,8 @@ namespace KakeiboForMVC.Models
         /// <summary>
         /// 費目ID
         /// </summary>
-        [Display(Name = "ID")]
-        [Required(ErrorMessage = "{0}が未入力です。")]
+        [Display(Name = "費目")]
+        [Required(ErrorMessage = "{0}が未選択です。")]
         public int? UpdateId { get; set; }
 
         /// <summary>

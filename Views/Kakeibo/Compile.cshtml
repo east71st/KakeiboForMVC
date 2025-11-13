@@ -55,22 +55,21 @@
                         <table id="table">
                             <thead>
                                 <tr class="head-row">
-                                    <th class="fixed-row-col" style="width: auto; max-width:20rem;">
+                                    <th class="fixed-row-col" style="width: auto; min-width:6rem;">
                                         @table.Columns[0]
                                     </th>
                                     @for (int i = 1; i < table.Columns.Count - 1; ++i)
                                     {
-                                        <th class="fixed-row" style="width: auto; max-width: 6rem;">
+                                        <th class="fixed-row" style="width: auto; min-width=: 6rem;">
                                             @table.Columns[i]
                                         </th>
                                     }
                                     @if (!Model.FirstMonth!.Substring(0, 7).Equals(Model.LastMonth!.Substring(0, 7)))
                                     {
-                                        <th class="fixed-row" style="width: auto; max-width: 6rem;">
+                                        <th class="fixed-row" style="width: auto; min-width: 6rem;">
                                             @table.Columns[table.Columns.Count - 1]
                                         </th>
                                     }
-                                    <th class="fixed-row no-screen-element" style="width:auto; max-width: 40rem;">備考</th>
                                 </tr>
                             </thead>
 
@@ -95,7 +94,6 @@
                                                     @kingaku.ToString("#,#")
                                                 </td>
                                             }
-                                            <td class="no-screen-element"></td>
                                         </tr>
                                     }
                                     else
@@ -116,7 +114,6 @@
                                                     @kingaku.ToString("#,#")
                                                 </td>
                                             }
-                                            <td class="no-screen-element"></td>
                                         </tr>
                                     }
                                 }

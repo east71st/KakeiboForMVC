@@ -5,22 +5,26 @@
     <div class="container">
         <!-- コンソールの表示 -->
         <div id="console">
-            <form action="Display" method="post">
+            <form id="tempDataForm" action="Display" method="post">
                 <div class="flex-row">
                     <div style="width: 2rem; margin-right: 0.5rem;">期間</div>
-                    <input asp-for="FirstDate" id="firstDate" type="date" style="width: 7rem;">
+                    <input asp-for="FirstDate" id="firstDate" class="tempElements"
+                           type="date" style="width: 7.5rem;">
                     <div style="margin-left: 0.3rem; margin-right: 0.3rem;">～</div>
-                    <input asp-for="LastDate" type="date" required style="width: 7rem;">
+                    <input asp-for="LastDate" class="tempElements"
+                           type="date" required style="width: 7.5rem;">
                 </div>
                 <div class="flex-row">
                     <div style="width: 2rem; margin-right: 0.5rem;">費目</div>
-                    <select asp-for="HimokuId" asp-items="Model.HimokuNameSelect">
+                    <select asp-for="HimokuId" class="tempElements"
+                            asp-items="Model.HimokuNameSelect">
                         <option value="0">全て</option>
                     </select>
                 </div>
                 <div class="flex-row">
                     <div style="width: 2rem; margin-right: 0.5rem;">明細</div>
-                    <input asp-for="Meisai" list="meisaiList" class="form-control" maxlength="100" style="width: 15rem;" />
+                    <input asp-for="Meisai" class="tempElements" list="meisaiList"
+                           maxlength="100" style="width: 15rem;" />
                     <datalist id="meisaiList" maxlength="100" style="width: 15rem;">
                         @foreach (var item in Model.MeisaiList)
                         {
@@ -43,72 +47,76 @@
                     </div>
                 }
             </form>
+            <input asp-for="IsGet" id="isGet" type="hidden" />
         </div>
 
         <!-- 家計簿データテーブルの表示 -->
         <div id="printableArea">
             <div id="table-section">
-                <div id="table-title">
-                    <div style="margin-left: 0.5rem;">@Model.FirstDate?.ToString("yyyy年MM月dd日")</div>
-                    @if (Model.FirstDate != Model.LastDate)
-                    {
-                        <div style="margin-left: 0.5rem;">～</div>
-                        <div style="margin-left: 0.5rem;">@Model.LastDate?.ToString(" yyyy年MM月dd日")</div>
-                    }
-                    <div style="margin-left: 0.5rem;">家計簿</div>
-                    @if (Model.HimokuId != 0)
-                    {
-                        <div style="margin-left: 0.5rem;">@Model.HimokuName</div>
-                    }
-                    <div style="margin-left: 0.5rem;">@Model.Meisai</div>
-                </div>
+                @if (Model.KakeiboList != null && Model.KakeiboList.Count > 0)
+                {
+                    <div id="table-title">
+                        <div style="margin-left: 0.5rem;">@Model.FirstDate?.ToString("yyyy年MM月dd日")</div>
+                        @if (Model.FirstDate != Model.LastDate)
+                        {
+                            <div style="margin-left: 0.5rem;">～</div>
+                            <div style="margin-left: 0.5rem;">@Model.LastDate?.ToString(" yyyy年MM月dd日")</div>
+                        }
+                        <div style="margin-left: 0.5rem;">家計簿</div>
+                        @if (Model.HimokuId != 0)
+                        {
+                            <div style="margin-left: 0.5rem;">@Model.HimokuName</div>
+                        }
+                        <div style="margin-left: 0.5rem;">@Model.Meisai</div>
+                    </div>
 
-                <div id="table-area">
-                    <table id="table">
-                        <thead>
-                            <tr class="head-row">
-                                <th class="fixed-row-col" style="width: 5rem;">ID</th>
-                                <th class="fixed-row" style="width: 8rem;">日付</th>
-                                <th class="fixed-row" style="width: 20rem;">費目</th>
-                                <th class="fixed-row" style="width: 50rem;">明細</th>
-                                <th class="fixed-row" style="width: 10rem;">収入</th>
-                                <th class="fixed-row" style="width: 10rem;">支出</th>
-                                <th class="fixed-row no-screen-element" style="width:auto; min-width: 5rem;">備考</th>
-                            </tr>
-                        </thead>
+                    <div id="table-area">
+                        <table id="table">
+                            <thead>
+                                <tr class="head-row">
+                                    <th class="fixed-row-col" style="width: auto; min-width: 5rem;">ID</th>
+                                    <th class="fixed-row" style="width: auto; min-width: 6rem;">日付</th>
+                                    <th class="fixed-row" style="width: auto; min-width: 10rem;">費目</th>
+                                    <th class="fixed-row" style="width: 50rem;">明細</th>
+                                    <th class="fixed-row" style="width: auto; min-width: 6rem;">収入</th>
+                                    <th class="fixed-row" style="width: auto; min-width: 6rem;">支出</th>
+                                    <th class="fixed-row no-screen-element"
+                                        style="width:auto; min-width: 20rem;">備考</th>
+                                </tr>
+                            </thead>
 
-                        <tbody>
-                            @if (Model.KakeiboList != null)
-                            {
-                                Decimal totalNyukin = 0;
-                                Decimal totalShukin = 0;
-                                foreach (var item in Model.KakeiboList)
-                                {
-                                    <tr class="body-row">
-                                        <th class="fixd-col number-col">@item.Id</th>
-                                        <td class="date-col">@item.Hiduke?.ToString("yyyy/MM/dd")</td>
-                                        <td class="text-col">@item.HimokuName</td>
-                                        <td class="text-col">@item.Meisai</td>
-                                        <td class="number-col">@item.NyukinGaku?.ToString("#,#")</td>
-                                        <td class="number-col">@item.ShukinGaku?.ToString("#,#")</td>
+                            <tbody>
+                                @{
+                                    Decimal totalNyukin = 0;
+                                    Decimal totalShukin = 0;
+                                    foreach (var item in Model.KakeiboList)
+                                    {
+                                        <tr class="body-row">
+                                            <th class="fixd-col number-col">@item.Id</th>
+                                            <td class="date-col">@item.Hiduke?.ToString("yyyy/MM/dd")</td>
+                                            <td class="text-col">@item.HimokuName</td>
+                                            <td class="text-col">@item.Meisai</td>
+                                            <td class="number-col">@item.NyukinGaku?.ToString("#,#")</td>
+                                            <td class="number-col">@item.ShukinGaku?.ToString("#,#")</td>
+                                            <td class="no-screen-element"></td>
+                                        </tr>
+                                        totalNyukin += item.NyukinGaku ?? 0;
+                                        totalShukin += item.ShukinGaku ?? 0;
+                                    }
+                                    <tr class="bottom-row">
+                                        <th class="fixd-col"></th>
+                                        <td class="date-col">合計</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="number-col">@totalNyukin.ToString("#,#")</td>
+                                        <td class="number-col">@totalShukin.ToString("#,#")</td>
                                         <td class="no-screen-element"></td>
                                     </tr>
-                                    totalNyukin += item.NyukinGaku ?? 0;
-                                    totalShukin += item.ShukinGaku ?? 0;
                                 }
-                                <tr class="bottom-row">
-                                    <th class="fixd-col"></th>
-                                    <td class="date-col">合計</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="number-col">@totalNyukin.ToString("#,#")</td>
-                                    <td class="number-col">@totalShukin.ToString("#,#")</td>
-                                    <td class="no-screen-element"></td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                            </tbody>
+                        </table>
+                    </div>
+                }
             </div>
         </div>
     </div>

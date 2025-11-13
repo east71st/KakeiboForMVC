@@ -13,6 +13,10 @@
      * 印刷可能範囲
      */
     #printbleArea = null;
+    /**
+     * テーブルエリア
+     */
+    #tableArea = null
 
     /**
      * コピー
@@ -35,6 +39,7 @@
         this.#firstMonth = document.getElementById('firstMonth');
         this.#print = document.getElementById('print');
         this.#printbleArea = document.getElementById('printableArea');
+        this.#tableArea = document.getElementById('table-area');
         this.#copy = document.getElementById('copy');
         this.#table = document.getElementById('table');
 
@@ -50,12 +55,14 @@
      * @param {Event} e
      */
     #printOnClick(e) {
+        this.#tableArea.style.overflow = "visible";
         const printContents = this.#printbleArea.innerHTML;
         const originalContents = document.body.innerHTML;
 
         document.body.innerHTML = printContents;
         window.print();
         document.body.innerHTML = originalContents;
+        this.#tableArea.style.overflow = "auto";
         location.reload();
     }
 
@@ -77,6 +84,7 @@
     * 初期化の最後処理
     */
     #windowOnLoad() {
+        // 初期表示フォーカス設定
         this.#firstMonth.focus();
     }
 }

@@ -58,5 +58,10 @@ namespace KakeiboForMVC.Models
         /// 家計簿テーブルリスト
         /// </summary>
         public List<KakeiboRecord> KakeiboList { get; set; } = [];
+
+        /// <summary>
+        /// ゲット送信か否か
+        /// </summary>
+        public bool IsGet { get; set; }
     }
 }

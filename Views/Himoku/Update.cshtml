@@ -17,7 +17,7 @@
                 </div>
                 @if (Model.ErrorMessages.Count > 0)
                 {
-                    <div class="error-message-area">
+                    <div class="error-message-area" style="width: 19rem;">
                         <ul>
                             @foreach (var item in Model.ErrorMessages)
                             {
@@ -37,26 +37,26 @@
                 <input asp-for="ShowDialog" id="showDialog" type="hidden" />
                 <input asp-for="UpdateId" id="deleteId" type="hidden" />
 
-                <div id="table-title">
-                    <div style="margin-left: 0.5rem;">費目コード</div>
-                </div>
+                @if (Model.HimokuList != null && Model.HimokuList.Count > 0)
+                {
+                    <div id="table-title">
+                        <div style="margin-left: 0.5rem;">費目コード</div>
+                    </div>
 
-                <div id="table-area">
-                    <table id="table">
-                        <thead>
-                            <tr class="head-row">
-                                <th class="fixed-row-col" style="width: 3rem;">ID</th>
-                                <th class="fixed-row" style="width: 20rem;">費目</th>
-                                <th class="fixed-row no-screen-element" style="width:auto; min-width: 5rem;">備考</th>
-                                <th class="fixed-row no-print-area" style="width: 3rem;">更新</th>
-                                <th class="fixed-row no-print-area" style="width: 3rem;">削除</th>
-                            </tr>
-                        </thead>
+                    <div id="table-area">
+                        <table id="table">
+                            <thead>
+                                <tr class="head-row">
+                                    <th class="fixed-row-col" style="width: 3rem;">ID</th>
+                                    <th class="fixed-row" style="width: 20rem;">費目</th>
+                                    <th class="fixed-row no-screen-element" style="width:auto; min-width: 10rem;">備考</th>
+                                    <th class="fixed-row no-print-area" style="width: 3rem;">更新</th>
+                                    <th class="fixed-row no-print-area" style="width: 3rem;">削除</th>
+                                </tr>
+                            </thead>
 
-                        <tbody>
-                            @if (Model.HimokuList != null)
-                            {
-                                foreach (var item in Model.HimokuList)
+                            <tbody>
+                                @foreach (var item in Model.HimokuList)
                                 {
                                     <tr class="body-row">
                                         <th class="fixd-col number-col">@item.Id</th>
@@ -79,10 +79,10 @@
                                         <td class="no-screen-element"></td>
                                     </tr>
                                 }
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                            </tbody>
+                        </table>
+                    </div>
+                }
             </div>
         </div>
     </div>
