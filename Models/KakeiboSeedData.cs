@@ -78,7 +78,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
-                        ID = 7,
+                        ID = 8,
                         HIDUKE = DateTime.Parse("2025-06-05"),
                         HIMOKU_ID = 7,
                         MEISAI = "納豆",
@@ -86,7 +86,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
-                        ID = 7,
+                        ID = 9,
                         HIDUKE = DateTime.Parse("2025-06-05"),
                         HIMOKU_ID = 7,
                         MEISAI = "牛乳",
@@ -94,7 +94,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
-                        ID = 7,
+                        ID = 10,
                         HIDUKE = DateTime.Parse("2025-06-05"),
                         HIMOKU_ID = 7,
                         MEISAI = "卵",
@@ -102,7 +102,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
-                        ID = 8,
+                        ID = 11,
                         HIDUKE = DateTime.Parse("2025-06-05"),
                         HIMOKU_ID = 8,
                         MEISAI = "ティッシュ",
@@ -110,7 +110,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
-                        ID = 8,
+                        ID = 12,
                         HIDUKE = DateTime.Parse("2025-06-05"),
                         HIMOKU_ID = 8,
                         MEISAI = "洗剤",

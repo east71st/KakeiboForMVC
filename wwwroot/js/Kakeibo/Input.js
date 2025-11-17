@@ -9,6 +9,14 @@
      */
     #hidukeDate = null;
     /**
+     * 費目IDセレクトボックス
+     */
+    #himokuId = null;
+    /**
+     * 明細リスト
+     */
+    #meisaiList = null;
+    /**
      * セッションストレージに保管する入力ボックス
      */
     #tempElements = null;
@@ -16,11 +24,6 @@
      * ゲットからのレスポンスか否か
      */
     #isGet = null;
-
-    /**
-     * 費目IDセレクトボックス
-     */
-    #himokuId = null;
 
     /**
      * プリントタグ
@@ -34,11 +37,6 @@
      * テーブルエリア
      */
     #tableArea = null
-
-    /**
-     * 明細リスト
-     */
-    #meisaiList = null;
 
     /**
      * コピー
@@ -76,12 +74,30 @@
         this.#table = document.getElementById('table');
 
         this.#tempDataForm.addEventListener('submit', e => this.#formOnSubmit(e));
+        this.#himokuId.addEventListener('change', e => this.#himokuIdOnChange(e));
         this.#print.addEventListener('click', e => this.#printOnClick(e));
         this.#copy.addEventListener('click', e => this.#copyOnClick(e));
-        this.#himokuId.addEventListener('change', e => this.#himokuIdOnChange(e));
 
         // 初期化の最終処理
         this.#windowOnLoad();
+    }
+
+    /**
+     * データが送信されたときの処理
+     * @param {event} e
+     */
+    #formOnSubmit(e) {
+        // 入力データをセッションストレージに保管
+        this.#setTempData();
+    }
+
+    /**
+     * 費目ID変更
+     * @param {Event} e
+     */
+    #himokuIdOnChange(e) {
+        // 明細履歴リスト取得
+        this.#getMeisaiList(e.target.value);
     }
 
     /**
@@ -108,28 +124,35 @@
         const table = this.#table.innerText;
         try {
             await navigator.clipboard.writeText(table);
-            alert('クリップボードへコピーしました:');
+            alert('クリップボードへコピーしました。');
         } catch (error) {
-            alert('クリップボードへのコピーに失敗しました:', error);
+            alert(`クリップボードへのコピーに失敗しました。:${error}`);
         }
     }
 
     /**
-     * 費目ID変更
-     * @param {Event} e
+     * 入力データをセッションストレージに保管
      */
-    #himokuIdOnChange(e) {
-        // 明細履歴リスト取得
-        this.#getMeisaiList(e.target.value);
+    #setTempData() {
+        const map = new Map();
+        this.#tempElements.forEach(x => map.set(x.name, x.value));
+        sessionStorage.setItem(
+            this.#tempDataName, JSON.stringify(Object.fromEntries(map))
+        );
     }
 
     /**
-     * データが送信されたときの処理
-     * @param {event} e
+     * セッションストレージにデータが保管されている場合はデータを取得して入力ボックスに設定
+     * データが保管されていない場合は入力ボックスからデータを取得して、ストレージに保管
      */
-    #formOnSubmit(e) {
-        // 入力データをセッションストレージに保管
-        this.#setTempData();
+    #getTempData() {
+        if (sessionStorage.getItem(this.#tempDataName) != null) {
+            const map = new Map(
+                Object.entries(JSON.parse(sessionStorage.getItem(this.#tempDataName))));
+            this.#tempElements.forEach(x => x.value = map.get(x.name));
+        } else {
+            this.#setTempData();
+        }
     }
 
     /**
@@ -140,12 +163,12 @@
         try {
             const response = await fetch('/Kakeibo/GetMeisaiList/', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ himokuId: himokuIdValue, }),
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                throw new Error(`ネットワークレスポンスが不正です。status: ${response.status}`);
             }
 
             const responseData = await response.json();
@@ -158,28 +181,7 @@
                 this.#meisaiList.appendChild(option);
             };
         } catch (error) {
-            alert('明細履歴リストの取得に失敗しました:', error);
-        }
-    }
-
-    /**
-     * 入力データをセッションストレージに保管
-     */
-    #setTempData() {
-        const map = new Map();
-        this.#tempElements.forEach(x => map.set(x.name, x.value));
-        sessionStorage.setItem(
-            this.#tempDataName, JSON.stringify(Object.fromEntries(map)));
-    }
-
-    /**
-     * セッションストレージにデータが保管されている場合はデータを取得して、入力ボックスに設定
-     */
-    #getTempData() {
-        if (sessionStorage.getItem(this.#tempDataName) != null) {
-            const map = new Map(
-                Object.entries(JSON.parse(sessionStorage.getItem(this.#tempDataName))));
-            this.#tempElements.forEach(x => x.value = map.get(x.name));
+            alert(`明細履歴リストの取得に失敗しました。: ${error}`);
         }
     }
 
@@ -189,13 +191,12 @@
     async #windowOnLoad() {
         // ゲットからのレスポンスでセッションストレージにデータが保管せれている場合は再表示
         if (this.#isGet.value === 'True') {
-            // セッションストレージにデータが保管されている場合はデータを取得して、入力ボックスに設定
+            // セッションストレージにデータが保管されている場合はデータを取得して入力ボックスに設定
+            // データが保管されていない場合は入力ボックスからデータを取得して、ストレージに保管
             this.#getTempData();
             this.#tempDataForm.action = "InputReDisplay";
             this.#tempDataForm.submit();
         }
-        // 明細履歴リスト取得
-        this.#getMeisaiList(this.#himokuId.value);
         // 初期表示フォーカス設定
         this.#hidukeDate.focus();
     }

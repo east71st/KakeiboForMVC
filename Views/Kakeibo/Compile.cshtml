@@ -3,8 +3,8 @@
 
 @model KakeiboForMVC.Models.CompileViewModel
 @{
-    string firstMonth = DateTime.Parse(Model.FirstMonth!).ToString("yyy年MM月");
-    string lastMonth = DateTime.Parse(Model.LastMonth!).ToString("yyy年MM月");
+    string firstMonth = DateTime.Parse(Model.FirstMonth!).ToString(Common.DataDateFormat);
+    string lastMonth = DateTime.Parse(Model.LastMonth!).ToString(Common.DataDateFormat);
 
     DataTable table = Model.CompileKakeiboTable;
 }
@@ -84,14 +84,14 @@
                                             {
                                                 Decimal kingaku = (Decimal)@row[j];
                                                 <td class="number-col">
-                                                    @kingaku.ToString("#,#")
+                                                    @kingaku.ToString(Common.DisplayNumberFormat)
                                                 </td>
                                             }
                                             @if (!Model.FirstMonth!.Substring(0, 7).Equals(Model.LastMonth!.Substring(0, 7)))
                                             {
                                                 Decimal kingaku = (Decimal)@row[table.Columns.Count - 1];
                                                 <td class="number-col">
-                                                    @kingaku.ToString("#,#")
+                                                    @kingaku.ToString(Common.DisplayNumberFormat)
                                                 </td>
                                             }
                                         </tr>
@@ -104,14 +104,14 @@
                                             {
                                                 Decimal kingaku = (Decimal)@row[j];
                                                 <td class="number-col">
-                                                    @kingaku.ToString("#,#")
+                                                    @kingaku.ToString(Common.DisplayNumberFormat)
                                                 </td>
                                             }
                                             @if (!Model.FirstMonth!.Substring(0, 7).Equals(Model.LastMonth!.Substring(0, 7)))
                                             {
                                                 Decimal kingaku = (Decimal)@row[table.Columns.Count - 1];
                                                 <td class="number-col">
-                                                    @kingaku.ToString("#,#")
+                                                    @kingaku.ToString(Common.DisplayNumberFormat)
                                                 </td>
                                             }
                                         </tr>

@@ -16,7 +16,7 @@
                 </div>
                 <div class="flex-row">
                     <div style="width: 2rem; margin-right: 0.5rem;">費目</div>
-                    <select asp-for="HimokuId" class="tempElements"
+                    <select asp-for="HimokuId" id="himokuId" class="tempElements"
                             asp-items="Model.HimokuNameSelect">
                         <option value="0">全て</option>
                     </select>
@@ -56,11 +56,11 @@
                 @if (Model.KakeiboList != null && Model.KakeiboList.Count > 0)
                 {
                     <div id="table-title">
-                        <div style="margin-left: 0.5rem;">@Model.FirstDate?.ToString("yyyy年MM月dd日")</div>
+                        <div style="margin-left: 0.5rem;">@Model.FirstDate?.ToString(Common.DisplayDateFormat)</div>
                         @if (Model.FirstDate != Model.LastDate)
                         {
                             <div style="margin-left: 0.5rem;">～</div>
-                            <div style="margin-left: 0.5rem;">@Model.LastDate?.ToString(" yyyy年MM月dd日")</div>
+                            <div style="margin-left: 0.5rem;">@Model.LastDate?.ToString(Common.DisplayDateFormat)</div>
                         }
                         <div style="margin-left: 0.5rem;">家計簿</div>
                         @if (Model.HimokuId != 0)
@@ -93,11 +93,11 @@
                                     {
                                         <tr class="body-row">
                                             <th class="fixd-col number-col">@item.Id</th>
-                                            <td class="date-col">@item.Hiduke?.ToString("yyyy/MM/dd")</td>
+                                            <td class="date-col">@item.Hiduke?.ToString(Common.DisplayShortDateFormat)</td>
                                             <td class="text-col">@item.HimokuName</td>
                                             <td class="text-col">@item.Meisai</td>
-                                            <td class="number-col">@item.NyukinGaku?.ToString("#,#")</td>
-                                            <td class="number-col">@item.ShukinGaku?.ToString("#,#")</td>
+                                            <td class="number-col">@item.NyukinGaku?.ToString(Common.DisplayNumberFormat)</td>
+                                            <td class="number-col">@item.ShukinGaku?.ToString(Common.DisplayNumberFormat)</td>
                                             <td class="no-screen-element"></td>
                                         </tr>
                                         totalNyukin += item.NyukinGaku ?? 0;
@@ -108,8 +108,8 @@
                                         <td class="date-col">合計</td>
                                         <td></td>
                                         <td></td>
-                                        <td class="number-col">@totalNyukin.ToString("#,#")</td>
-                                        <td class="number-col">@totalShukin.ToString("#,#")</td>
+                                        <td class="number-col">@totalNyukin.ToString(Common.DisplayNumberFormat)</td>
+                                        <td class="number-col">@totalShukin.ToString(Common.DisplayNumberFormat)</td>
                                         <td class="no-screen-element"></td>
                                     </tr>
                                 }
@@ -126,7 +126,7 @@
     <div class="footer-items">
         <div class="footer-item"><div id="print">印刷</div></div>
         <div class="footer-item"><div id="copy">コピー</div></div>
-        <div class="footer-item"><div id="download">CSVダウンロード</div></div>
+        <div class="footer-item"><div id="csvDownload">CSVダウンロード</div></div>
     </div>
 }
 

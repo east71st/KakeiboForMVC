@@ -130,14 +130,14 @@
     }
 
     /**
-     * 削除フォームのUrl
-     * @param {any} deleteId
+     * 削除フォームのアクションUrl
+     * @param {String} deleteIdValue
      * @returns
      */
-    #deletFormUrl(deleteId) {
+    #deletFormUrl(deleteIdValue) {
         return '/Himoku/Delete/?' +
             `ShowDialog=${this.#showDialog.value}&` +
-            `UpdateId=${deleteId}`;
+            `UpdateId=${deleteIdValue}`;
     }
 
     /**
@@ -164,9 +164,9 @@
         const table = this.#table.innerText;
         try {
             await navigator.clipboard.writeText(table);
-            alert('クリップボードへコピーしました:');
+            alert('クリップボードへコピーしました。');
         } catch (error) {
-            alert('クリップボードへのコピーに失敗しました:', error);
+            alert(`クリップボードへのコピーに失敗しました。:${error}`);
         }
     }
 

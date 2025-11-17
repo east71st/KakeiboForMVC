@@ -57,5 +57,25 @@ namespace KakeiboForMVC.Models
         /// 確認ダイアログ表示フラグ
         /// </summary>
         public bool ShowDialog { get; set; } = false;
+        /// <summary>
+        /// 削除確認家計簿ID
+        /// </summary>
+        public int? ConfirmId { get; set; }
+        /// <summary>
+        /// 削除確認日付
+        /// </summary>
+        public DateTime? ConfirmHiduke { get; set; }
+        /// <summary>
+        /// 削除確認費目ID
+        /// </summary>
+        public string? ConfirmHimokuName { get; set; }
+        /// <summary>
+        /// 削除確認明細
+        /// </summary>
+        public string? ConfirmMeisai { get; set; }
+        /// <summary>
+        /// 削除確認金額
+        /// </summary>
+        public decimal? ConfirmKingaku { get; set; }
     }
 }

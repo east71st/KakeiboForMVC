@@ -367,8 +367,8 @@ footer {
 
 /*確認ダイアログの設定*/
 #confirmDialog {
-    width: 15rem;
-    height: 5rem;
+    width: fit-content;
+    height: fit-content;
     text-align: center;
     vertical-align: middle;
     border-radius: 0.2rem;

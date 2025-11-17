@@ -57,11 +57,11 @@
                 @if (Model.KakeiboList != null && Model.KakeiboList.Count > 0)
                 {
                     <div id="table-title">
-                        <div style="margin-left: 0.5rem;">@Model.FirstDate?.ToString("yyyy年MM月dd日")</div>
+                        <div style="margin-left: 0.5rem;">@Model.FirstDate?.ToString(Common.DisplayDateFormat)</div>
                         @if (Model.FirstDate != Model.LastDate)
                         {
                             <div style="margin-left: 0.5rem;">～</div>
-                            <div style="margin-left: 0.5rem;">@Model.LastDate?.ToString(" yyyy年MM月dd日")</div>
+                            <div style="margin-left: 0.5rem;">@Model.LastDate?.ToString(Common.DisplayDateFormat)</div>
                         }
                         <div style="margin-left: 0.5rem;">家計簿</div>
                         @if (Model.HimokuId != 0)
@@ -140,9 +140,16 @@
 
     <dialog id="confirmDialog">
         <div class="container">
-            <div>削除してもよろしいですか？</div>
+            <div style="display:flex; flex-direction:column; align-items:flex-start;">
+                <div>ID：@Model.ConfirmId</div>
+                <div>日付：@Model.ConfirmHiduke?.ToString(Common.DisplayDateFormat)</div>
+                <div>費目：@Model.ConfirmHimokuName</div>
+                <div>明細：@Model.ConfirmMeisai</div>
+                <div>金額：@Model.ConfirmKingaku</div>
+            </div>
+            <div style="margin-top:0.5rem;">削除してもよろしいですか？</div>
             <div class="flex-row">
-                <button id="okButton" style="margin-right: 0.5rem;">はい</button>
+                <button id="okButton" style="margin-right:0.5rem;">はい</button>
                 <button id="cancelButton">キャンセル</button>
             </div>
         </div>

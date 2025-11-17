@@ -8,6 +8,11 @@ namespace KakeiboForMVC.Models
     public interface ICommonViewModel
     {
         /// <summary>
+        /// 費目ID
+        /// </summary>
+        public int? HimokuId { get; set; }
+
+        /// <summary>
         /// 費目名のセレクトリスト
         /// </summary>
         List<SelectListItem> HimokuNameSelect { get; set; }

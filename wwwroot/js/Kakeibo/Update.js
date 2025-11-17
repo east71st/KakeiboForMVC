@@ -13,13 +13,17 @@
      */
     #lastDate = null;
     /**
-     * 費目IDテキストボックス
+     * 費目IDセレクトボックス
      */
     #himokuId = null;
     /**
-     * 明細セレクトボックス
+     * 明細テキストボックス
      */
     #meisai = null;
+    /**
+     * 明細リスト
+     */
+    #meisaiList = null;
     /**
      * 表示ボタン
      */
@@ -100,6 +104,7 @@
         this.#lastDate = document.getElementById('lastDate');
         this.#himokuId = document.getElementById('himokuId');
         this.#meisai = document.getElementById('meisai');
+        this.#meisaiList = document.getElementById('meisaiList');
         this.#displayButton = document.getElementById('displayButton')
         this.#updateForm = document.getElementById('updateForm');
         this.#deleteForm = document.getElementById('deleteForm');
@@ -116,6 +121,7 @@
         this.#okButton = document.getElementById('okButton');
         this.#cancelButton = document.getElementById('cancelButton')
 
+        this.#himokuId.addEventListener('change', e => this.#himokuIdOnChange(e));
         this.#displayButton.addEventListener('click', e => this.#displayButtonOnClick(e));
         this.#updeteButtons.forEach(x => x.addEventListener('click', e => this.#updateButtonOnClick(e)));
         this.#deleteButtons.forEach(x => x.addEventListener('click', e => this.#deleteButtonOnClick(e)));
@@ -126,6 +132,15 @@
 
         // 初期化の最終処理
         this.#windowOnLoad();
+    }
+
+    /**
+     * 費目ID変更
+     * @param {Event} e
+     */
+    #himokuIdOnChange(e) {
+        // 明細履歴リスト取得
+        this.#getMeisaiList(e.target.value);
     }
 
     /**
@@ -197,9 +212,9 @@
         const table = this.#table.innerText;
         try {
             await navigator.clipboard.writeText(table);
-            alert('クリップボードへコピーしました:');
+            alert('クリップボードへコピーしました。');
         } catch (error) {
-            alert('クリップボードへのコピーに失敗しました:', error);
+            alert(`クリップボードへのコピーに失敗しました。: ${error}`);
         }
     }
 
@@ -223,11 +238,41 @@
     }
 
     /**
-     * 削除フォームのUrl
-     * @param {any} deleteId
+     * 明細履歴リスト取得
+     * @param {String} himokuIdValue
+     */
+    async #getMeisaiList(himokuIdValue) {
+        try {
+            const response = await fetch('/Kakeibo/GetMeisaiList/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ himokuId: himokuIdValue, }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`ネットワークレスポンスが不正です。status: ${response.status}`);
+            }
+
+            const responseData = await response.json();
+
+            const x = responseData.meisaiList;
+            this.#meisaiList.innerHTML = "";
+            for (const item of responseData.meisaiList) {
+                const option = document.createElement('option');
+                option.value = item;
+                this.#meisaiList.appendChild(option);
+            };
+        } catch (error) {
+            alert(`明細履歴リストの取得に失敗しました。: ${error}`);
+        }
+    }
+
+    /**
+     * 削除フォームのアクションUrl
+     * @param {String} deleteIdValue
      * @returns
      */
-    #deletFormUrl(deleteId) {
+    #deletFormUrl(deleteIdValue) {
         return '/Kakeibo/Delete/?' +
             `FirstDate=${this.#firstDate.value}&` +
             `LastDate=${this.#lastDate.value}&` +
@@ -235,7 +280,7 @@
             `Meisai=${this.#meisai.value}&` +
 
             `ShowDialog=${this.#showDialog.value}&` +
-            `UpdateId=${deleteId}`;
+            `UpdateId=${deleteIdValue}`;
     }
 
     /**

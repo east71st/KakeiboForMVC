@@ -1,4 +1,6 @@
-﻿@model KakeiboForMVC.Models.InputViewModel
+﻿@using KakeiboForMVC.Models
+
+@model KakeiboForMVC.Models.InputViewModel
 
 <div id="main">
     <div class="container">
@@ -17,14 +19,18 @@
                 </div>
                 <div class="flex-row">
                     <div style="width: 2rem; margin-right: 0.5rem;">明細</div>
-                    <input asp-for="Meisai" list="meisaiList" class="tempElements"
+                    <input asp-for="Meisai" list="meisaiList"
                            maxlength="100" style="width: 15rem;" />
                     <datalist id="meisaiList" maxlength="100" style="width: 15rem;">
+                        @foreach (var item in Model.MeisaiList)
+                        {
+                            <option value="@item"></option>
+                        }
                     </datalist>
                 </div>
                 <div class="flex-row">
                     <div style="width: 2rem; margin-right: 0.5rem;">金額</div>
-                    <input asp-for="Kingaku" class="tempElements" type="number"
+                    <input asp-for="Kingaku" type="number"
                            min=0 max=999999999999999999 autocomplete="off" style="width: 10rem;">
                 </div>
                 <div class="flex-row" style="justify-content: flex-start">
@@ -51,7 +57,11 @@
                 @if (Model.KakeiboList != null && Model.KakeiboList.Count > 0)
                 {
                     <div id="table-title">
-                        <div style="margin-left: 0.5rem;">家計簿 データ入力履歴</div>
+                        <div style="margin-left: 0.5rem;">
+                            家計簿 データ入力履歴(～
+                            <span>@Common.MaxDisplayKakeiboList</span>
+                            件)
+                        </div>
                     </div>
 
                     <div id="table-area">
@@ -74,11 +84,11 @@
                                 {
                                     <tr class="body-row">
                                         <th class="fixd-col number-col">@item.Id</th>
-                                        <td class="date-col">@item.Hiduke?.ToString("yyyy/MM/dd")</td>
+                                        <td class="date-col">@item.Hiduke?.ToString(Common.DisplayShortDateFormat)</td>
                                         <td class="text-col">@item.HimokuName</td>
                                         <td class="text-col">@item.Meisai</td>
-                                        <td class="number-col">@item.NyukinGaku?.ToString("#,#")</td>
-                                        <td class="number-col">@item.ShukinGaku?.ToString("#,#")</td>
+                                        <td class="number-col">@item.NyukinGaku?.ToString(Common.DisplayNumberFormat)</td>
+                                        <td class="number-col">@item.ShukinGaku?.ToString(Common.DisplayNumberFormat)</td>
                                         <td class="no-screen-element"></td>
                                     </tr>
                                 }
