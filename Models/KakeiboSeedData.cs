@@ -22,7 +22,7 @@ namespace KakeiboForMVC.Models
                 context.KAKEIBO.AddRange(
                     new KAKEIBO
                     {
-                        ID = 1,
+                        ID = 0,
                         HIDUKE = DateTime.Parse("2025-06-01"),
                         HIMOKU_ID = 1,
                         MEISAI = "給与",
@@ -30,7 +30,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
-                        ID = 2,
+                        ID = 0,
                         HIDUKE = DateTime.Parse("2025-06-02"),
                         HIMOKU_ID = 2,
                         MEISAI = "家賃",
@@ -38,39 +38,39 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
-                        ID = 3,
+                        ID = 0,
                         HIDUKE = DateTime.Parse("2025-06-03"),
                         HIMOKU_ID = 3,
-                        MEISAI = "電気代",
+                        MEISAI = "電気",
                         SHUKINGAKU = 15000
                     },
                     new KAKEIBO
                     {
-                        ID = 4,
+                        ID = 0,
                         HIDUKE = DateTime.Parse("2025-06-03"),
                         HIMOKU_ID = 4,
-                        MEISAI = "水道代",
+                        MEISAI = "水道",
                         SHUKINGAKU = 8000,
                     },
                     new KAKEIBO
                     {
-                        ID = 5,
+                        ID = 0,
                         HIDUKE = DateTime.Parse("2025-06-03"),
                         HIMOKU_ID = 5,
-                        MEISAI = "ガス代",
+                        MEISAI = "ガス",
                         SHUKINGAKU = 15000
                     },
                     new KAKEIBO
                     {
-                        ID = 6,
+                        ID = 0,
                         HIDUKE = DateTime.Parse("2025-06-04"),
                         HIMOKU_ID = 6,
-                        MEISAI = "保険代",
+                        MEISAI = "生命保険",
                         SHUKINGAKU = 50000
                     },
                     new KAKEIBO
                     {
-                        ID = 7,
+                        ID = 0,
                         HIDUKE = DateTime.Parse("2025-06-05"),
                         HIMOKU_ID = 7,
                         MEISAI = "米",
@@ -78,7 +78,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
-                        ID = 8,
+                        ID = 0,
                         HIDUKE = DateTime.Parse("2025-06-05"),
                         HIMOKU_ID = 7,
                         MEISAI = "納豆",
@@ -86,7 +86,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
-                        ID = 9,
+                        ID = 0,
                         HIDUKE = DateTime.Parse("2025-06-05"),
                         HIMOKU_ID = 7,
                         MEISAI = "牛乳",
@@ -94,7 +94,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
-                        ID = 10,
+                        ID = 0,
                         HIDUKE = DateTime.Parse("2025-06-05"),
                         HIMOKU_ID = 7,
                         MEISAI = "卵",
@@ -102,7 +102,7 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
-                        ID = 11,
+                        ID = 0,
                         HIDUKE = DateTime.Parse("2025-06-05"),
                         HIMOKU_ID = 8,
                         MEISAI = "ティッシュ",
@@ -110,8 +110,493 @@ namespace KakeiboForMVC.Models
                     },
                     new KAKEIBO
                     {
-                        ID = 12,
+                        ID = 0,
                         HIDUKE = DateTime.Parse("2025-06-05"),
+                        HIMOKU_ID = 8,
+                        MEISAI = "洗剤",
+                        SHUKINGAKU = 350
+                    },
+
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-07-01"),
+                        HIMOKU_ID = 1,
+                        MEISAI = "給与",
+                        NYUKINGAKU = 200000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-07-02"),
+                        HIMOKU_ID = 2,
+                        MEISAI = "家賃",
+                        SHUKINGAKU = 65000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-07-03"),
+                        HIMOKU_ID = 3,
+                        MEISAI = "電気",
+                        SHUKINGAKU = 15000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-07-03"),
+                        HIMOKU_ID = 4,
+                        MEISAI = "水道",
+                        SHUKINGAKU = 8000,
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-07-03"),
+                        HIMOKU_ID = 5,
+                        MEISAI = "ガス",
+                        SHUKINGAKU = 15000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-07-04"),
+                        HIMOKU_ID = 6,
+                        MEISAI = "生命保険",
+                        SHUKINGAKU = 50000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-07-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "米",
+                        SHUKINGAKU = 5000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-07-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "納豆",
+                        SHUKINGAKU = 100
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-07-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "牛乳",
+                        SHUKINGAKU = 200
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-07-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "卵",
+                        SHUKINGAKU = 200
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-07-05"),
+                        HIMOKU_ID = 8,
+                        MEISAI = "ティッシュ",
+                        SHUKINGAKU = 250
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-07-05"),
+                        HIMOKU_ID = 8,
+                        MEISAI = "洗剤",
+                        SHUKINGAKU = 350
+                    },
+
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-08-01"),
+                        HIMOKU_ID = 1,
+                        MEISAI = "給与",
+                        NYUKINGAKU = 200000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-08-02"),
+                        HIMOKU_ID = 2,
+                        MEISAI = "家賃",
+                        SHUKINGAKU = 65000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-08-03"),
+                        HIMOKU_ID = 3,
+                        MEISAI = "電気",
+                        SHUKINGAKU = 15000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-08-03"),
+                        HIMOKU_ID = 4,
+                        MEISAI = "水道",
+                        SHUKINGAKU = 8000,
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-08-03"),
+                        HIMOKU_ID = 5,
+                        MEISAI = "ガス",
+                        SHUKINGAKU = 15000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-08-04"),
+                        HIMOKU_ID = 6,
+                        MEISAI = "生命保険",
+                        SHUKINGAKU = 50000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-08-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "米",
+                        SHUKINGAKU = 5000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-08-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "納豆",
+                        SHUKINGAKU = 100
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-08-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "牛乳",
+                        SHUKINGAKU = 200
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-08-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "卵",
+                        SHUKINGAKU = 200
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-08-05"),
+                        HIMOKU_ID = 8,
+                        MEISAI = "ティッシュ",
+                        SHUKINGAKU = 250
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-08-05"),
+                        HIMOKU_ID = 8,
+                        MEISAI = "洗剤",
+                        SHUKINGAKU = 350
+                    },
+
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-09-01"),
+                        HIMOKU_ID = 1,
+                        MEISAI = "給与",
+                        NYUKINGAKU = 200000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-09-02"),
+                        HIMOKU_ID = 2,
+                        MEISAI = "家賃",
+                        SHUKINGAKU = 65000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-09-03"),
+                        HIMOKU_ID = 3,
+                        MEISAI = "電気",
+                        SHUKINGAKU = 15000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-09-03"),
+                        HIMOKU_ID = 4,
+                        MEISAI = "水道",
+                        SHUKINGAKU = 8000,
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-09-03"),
+                        HIMOKU_ID = 5,
+                        MEISAI = "ガス",
+                        SHUKINGAKU = 15000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-09-04"),
+                        HIMOKU_ID = 6,
+                        MEISAI = "生命保険",
+                        SHUKINGAKU = 50000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-09-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "米",
+                        SHUKINGAKU = 5000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-09-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "納豆",
+                        SHUKINGAKU = 100
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-09-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "牛乳",
+                        SHUKINGAKU = 200
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-09-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "卵",
+                        SHUKINGAKU = 200
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-09-05"),
+                        HIMOKU_ID = 8,
+                        MEISAI = "ティッシュ",
+                        SHUKINGAKU = 250
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-09-05"),
+                        HIMOKU_ID = 8,
+                        MEISAI = "洗剤",
+                        SHUKINGAKU = 350
+                    },
+
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-10-01"),
+                        HIMOKU_ID = 1,
+                        MEISAI = "給与",
+                        NYUKINGAKU = 200000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-10-02"),
+                        HIMOKU_ID = 2,
+                        MEISAI = "家賃",
+                        SHUKINGAKU = 65000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-10-03"),
+                        HIMOKU_ID = 3,
+                        MEISAI = "電気",
+                        SHUKINGAKU = 15000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-10-03"),
+                        HIMOKU_ID = 4,
+                        MEISAI = "水道",
+                        SHUKINGAKU = 8000,
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-10-03"),
+                        HIMOKU_ID = 5,
+                        MEISAI = "ガス",
+                        SHUKINGAKU = 15000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-10-04"),
+                        HIMOKU_ID = 6,
+                        MEISAI = "生命保険",
+                        SHUKINGAKU = 50000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-10-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "米",
+                        SHUKINGAKU = 5000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-10-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "納豆",
+                        SHUKINGAKU = 100
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-10-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "牛乳",
+                        SHUKINGAKU = 200
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-10-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "卵",
+                        SHUKINGAKU = 200
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-10-05"),
+                        HIMOKU_ID = 8,
+                        MEISAI = "ティッシュ",
+                        SHUKINGAKU = 250
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-10-05"),
+                        HIMOKU_ID = 8,
+                        MEISAI = "洗剤",
+                        SHUKINGAKU = 350
+                    },
+
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-11-01"),
+                        HIMOKU_ID = 1,
+                        MEISAI = "給与",
+                        NYUKINGAKU = 200000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-11-02"),
+                        HIMOKU_ID = 2,
+                        MEISAI = "家賃",
+                        SHUKINGAKU = 65000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-11-03"),
+                        HIMOKU_ID = 3,
+                        MEISAI = "電気",
+                        SHUKINGAKU = 15000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-11-03"),
+                        HIMOKU_ID = 4,
+                        MEISAI = "水道",
+                        SHUKINGAKU = 8000,
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-11-03"),
+                        HIMOKU_ID = 5,
+                        MEISAI = "ガス",
+                        SHUKINGAKU = 15000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-11-04"),
+                        HIMOKU_ID = 6,
+                        MEISAI = "生命保険",
+                        SHUKINGAKU = 50000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-11-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "米",
+                        SHUKINGAKU = 5000
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-11-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "納豆",
+                        SHUKINGAKU = 100
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-11-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "牛乳",
+                        SHUKINGAKU = 200
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-11-05"),
+                        HIMOKU_ID = 7,
+                        MEISAI = "卵",
+                        SHUKINGAKU = 200
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-11-05"),
+                        HIMOKU_ID = 8,
+                        MEISAI = "ティッシュ",
+                        SHUKINGAKU = 250
+                    },
+                    new KAKEIBO
+                    {
+                        ID = 0,
+                        HIDUKE = DateTime.Parse("2025-11-05"),
                         HIMOKU_ID = 8,
                         MEISAI = "洗剤",
                         SHUKINGAKU = 350

@@ -1,11 +1,12 @@
 ﻿using System.Data;
+using System.Diagnostics;
 using System.Text;
+using KakeiboForMVC.Data;
+using KakeiboForMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using KakeiboForMVC.Data;
-using KakeiboForMVC.Models;
 
 namespace KakeiboForMVC.Controllers
 {
@@ -26,6 +27,16 @@ namespace KakeiboForMVC.Controllers
         {
             _logger = logger;
             _context = context;
+        }
+
+        /// <summary>
+        /// 本番環境用のエラーページ表示処理
+        /// </summary>
+        /// <returns></returns>
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
         /// <summary>

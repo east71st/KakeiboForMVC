@@ -19,42 +19,42 @@ namespace KakeiboForMVC.Models
                 context.HIMOKU.AddRange(
                     new HIMOKU
                     {
-                        ID = 1,
+                        ID = 0,
                         NAME = "収入",
                     },
                     new HIMOKU
                     {
-                        ID = 2,
+                        ID = 0,
                         NAME = "居住費",
                     },
                     new HIMOKU
                     {
-                        ID = 3,
+                        ID = 0,
                         NAME = "電気代",
                     },
                     new HIMOKU
                     {
-                        ID = 4,
+                        ID = 0,
                         NAME = "水道代",
                     },
                     new HIMOKU
                     {
-                        ID = 5,
+                        ID = 0,
                         NAME = "ガス代",
                     },
                     new HIMOKU
                     {
-                        ID = 6,
+                        ID = 0,
                         NAME = "保険代",
                     },
                     new HIMOKU
                     {
-                        ID = 7,
+                        ID = 0,
                         NAME = "食費",
                     },
                     new HIMOKU
                     {
-                        ID = 8,
+                        ID = 0,
                         NAME = "日用品費",
                     }
                 );

@@ -5,7 +5,18 @@ using KakeiboForMVC.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<KakeiboForMVCContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("KakeiboForMVCContext") ?? throw new InvalidOperationException("Connection string 'KakeiboForMVCContext' not found.")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("KakeiboForMVCContext") ??
+    throw new InvalidOperationException("Connection string 'KakeiboForMVCContext' not found.")));
+
+builder.Services.AddAuthentication("Cookies")
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+    });
+
+builder.Services.AddAuthorization();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -22,7 +33,7 @@ using (var scope = app.Services.CreateScope())
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Kakeibo/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -32,6 +43,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

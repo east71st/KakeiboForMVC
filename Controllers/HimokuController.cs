@@ -212,7 +212,7 @@ namespace KakeiboForMVC.Controllers
                 return View(nameof(Update), viewModel);
             }
 
-            _context.HIMOKU.Remove(result);
+            _context.HIMOKU.Remove(result!);
             await _context.SaveChangesAsync();
 
             ModelState.Remove(nameof(viewModel.ShowDialog));
