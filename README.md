@@ -2,7 +2,7 @@
 <session>
   <h3>【デモンストレーション】</h3>
     <div>
-      <video controls src="アップロードされた動画のURL" muted="false"></video>
+      ![家計簿_入力](https://github.com/user-attachments/assets/40131aa9-64db-409a-b86b-a8b935bc0537)
     </div>
 </session>
 <div>
