@@ -114,11 +114,9 @@ namespace KakeiboForMVC.Controllers
             if (viewModel.HimokuId == 1)
             {
                 kakeibo.NYUKINGAKU = viewModel.Kingaku ?? 0;
-                kakeibo.SHUKINGAKU = 0;
             }
             else
             {
-                kakeibo.NYUKINGAKU = 0;
                 kakeibo.SHUKINGAKU = viewModel.Kingaku ?? 0;
             }
 
@@ -249,7 +247,7 @@ namespace KakeiboForMVC.Controllers
             }
 
             // 費目が1：収入、かつ出金額が0以外の場合はエラー
-            if (viewModel.UpdateHimokuId == 1 && viewModel.UpdateShukinGaku != 0)
+            if (viewModel.UpdateHimokuId == 1 && (viewModel.UpdateShukinGaku ?? 0) != 0)
             {
                 ModelState.AddModelError(string.Empty,
                     "費目が収入の場合、出金額は0でなければなりません。");
@@ -257,7 +255,7 @@ namespace KakeiboForMVC.Controllers
             }
 
             // 費目が1：収入以外、かつ入金額0以外の場合はエラー
-            if (viewModel.UpdateHimokuId != 1 && viewModel.UpdateNyukinGaku != 0)
+            if (viewModel.UpdateHimokuId != 1 && (viewModel.UpdateNyukinGaku ?? 0) != 0)
             {
                 ModelState.AddModelError(string.Empty,
                     "費目が収入以外の場合、入金額は0でなければなりません。");

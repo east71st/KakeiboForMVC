@@ -3,8 +3,8 @@
 
 @model KakeiboForMVC.Models.CompileViewModel
 @{
-    string firstMonth = DateTime.Parse(Model.FirstMonth!).ToString(Common.DataDateFormat);
-    string lastMonth = DateTime.Parse(Model.LastMonth!).ToString(Common.DataDateFormat);
+    string firstMonth = DateTime.Parse(Model.FirstMonth!).ToString(Common.DisplayDateFormat);
+    string lastMonth = DateTime.Parse(Model.LastMonth!).ToString(Common.DisplayDateFormat);
 
     DataTable table = Model.CompileKakeiboTable;
 }
