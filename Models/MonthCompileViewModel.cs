@@ -5,7 +5,7 @@ using System.Data;
 namespace KakeiboForMVC.Models
 {
     /// <summary>
-    /// 集計画面
+    /// 月別集計画面
     /// </summary>
     public class MonthCompileViewModel : IErrorMessagesViewModel
     {

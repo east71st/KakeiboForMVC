@@ -810,30 +810,32 @@ namespace KakeiboForMVC.Controllers
                 // 収入の場合
                 if (item.HIMOKU_ID == 1)
                 {
-                    viewModel.CompileKakeiboTable.Rows[himoku][month] =
-                        cell + item.NYUKINGAKU ?? 0;
-                    viewModel.CompileKakeiboTable.Rows[rowDict.Count + 1][month] =
-                        balanceCell + item.NYUKINGAKU ?? 0;
-                    viewModel.CompileKakeiboTable.Rows[himoku]["合計"] =
-                        totalCell + item.NYUKINGAKU ?? 0;
-                    viewModel.CompileKakeiboTable.Rows[rowDict.Count + 1]["合計"] =
-                        TotalBalanceCell + item.NYUKINGAKU ?? 0;
+                    Decimal nyukinGaku = item.NYUKINGAKU ?? 0;
+                    viewModel.CompileKakeiboTable.Rows[himoku][month] = 
+                        cell + nyukinGaku;
+                    viewModel.CompileKakeiboTable.Rows[rowDict.Count + 1][month] = 
+                        balanceCell + nyukinGaku;
+                    viewModel.CompileKakeiboTable.Rows[himoku]["合計"] = 
+                        totalCell + nyukinGaku;
+                    viewModel.CompileKakeiboTable.Rows[rowDict.Count + 1]["合計"] = 
+                        TotalBalanceCell + nyukinGaku;
                 }
                 // 収入以外の場合
                 else
                 {
-                    viewModel.CompileKakeiboTable.Rows[himoku][month] =
-                        cell + item.SHUKINGAKU ?? 0;
-                    viewModel.CompileKakeiboTable.Rows[rowDict.Count][month] =
-                        sumCell + item.SHUKINGAKU ?? 0;
-                    viewModel.CompileKakeiboTable.Rows[rowDict.Count + 1][month] =
-                        balanceCell - item.SHUKINGAKU ?? 0;
-                    viewModel.CompileKakeiboTable.Rows[himoku]["合計"] =
-                        totalCell + item.SHUKINGAKU ?? 0;
-                    viewModel.CompileKakeiboTable.Rows[rowDict.Count]["合計"] =
-                        totalSumCell + item.SHUKINGAKU ?? 0;
-                    viewModel.CompileKakeiboTable.Rows[rowDict.Count + 1]["合計"] =
-                        TotalBalanceCell - item.SHUKINGAKU ?? 0;
+                    Decimal shukinGaku = item.SHUKINGAKU ?? 0;
+                    viewModel.CompileKakeiboTable.Rows[himoku][month] = 
+                        cell + shukinGaku;
+                    viewModel.CompileKakeiboTable.Rows[rowDict.Count][month] = 
+                        sumCell + shukinGaku;
+                    viewModel.CompileKakeiboTable.Rows[rowDict.Count + 1][month] = 
+                        balanceCell - shukinGaku;
+                    viewModel.CompileKakeiboTable.Rows[himoku]["合計"] = 
+                        totalCell + shukinGaku;
+                    viewModel.CompileKakeiboTable.Rows[rowDict.Count]["合計"] = 
+                        totalSumCell + shukinGaku;
+                    viewModel.CompileKakeiboTable.Rows[rowDict.Count + 1]["合計"] = 
+                        TotalBalanceCell - shukinGaku;
                 }
 
             }
