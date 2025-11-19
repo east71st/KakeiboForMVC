@@ -1,5 +1,14 @@
 <h2>KakeiboForMVCについて</h2>
 <session>
+  <h3>【デモンストレーション】</h3>
+    <div>
+      <video controls src="アップロードされた動画のURL" muted="false"></video>
+    </div>
+</session>
+<div>
+<video controls src="アップロードされた動画のURL" muted="false"></video>
+</div>
+<session>
   <h3>【機能について】</h3>
   <p>
     <ol>
