@@ -1,23 +1,21 @@
 <h2>KakeiboForMVCについて</h2>
 <session>
-  <h3>【デモンストレーション】</h3>
-    <div>
-      ![家計簿_入力](https://github.com/user-attachments/assets/40131aa9-64db-409a-b86b-a8b935bc0537)
-    </div>
-</session>
-<div>
-<video controls src="アップロードされた動画のURL" muted="false"></video>
-</div>
-<session>
   <h3>【機能について】</h3>
   <p>
     <ol>
       <li>
         家計簿データの入力機能
-        <ul>
-          <li>入力履歴を確認しながら入力できます。</li>
-          <li>入力したデータはデータべースに保存されます。</li>
-        </ul>
+        <div style="display:flex; direction:colum;">
+          <div>
+            <img src="https://github.com/user-attachments/assets/1b6b6186-47c1-46be-ba67-3f54326e7d1d">          
+          </div>
+          <div>
+            <ul>
+              <li>入力履歴を確認しながら入力できます。</li>
+              <li>入力したデータはデータべースに保存されます。</li>
+            </ul>
+          </div>
+        </div>
       </li>
       <li>
         家計簿データの表示機能
