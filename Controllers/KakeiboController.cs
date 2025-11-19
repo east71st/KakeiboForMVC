@@ -113,11 +113,11 @@ namespace KakeiboForMVC.Controllers
             // 費目IDが1：収入の場合は入金額、そうでなければ出金額
             if (viewModel.HimokuId == 1)
             {
-                kakeibo.NYUKINGAKU = viewModel.Kingaku ?? 0;
+                kakeibo.NYUKINGAKU = viewModel.Kingaku;
             }
             else
             {
-                kakeibo.SHUKINGAKU = viewModel.Kingaku ?? 0;
+                kakeibo.SHUKINGAKU = viewModel.Kingaku;
             }
 
             _context.Add(kakeibo);
@@ -346,13 +346,13 @@ namespace KakeiboForMVC.Controllers
         }
 
         /// <summary>
-        /// 集計画面　初期表示
+        /// 月別集計画面　初期表示
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> Compile()
+        public async Task<IActionResult> MonthCompile()
         {
-            CompileViewModel viewModel = new();
+            MonthCompileViewModel viewModel = new();
 
             DateTime now = DateTime.Now;
             // 集計画面の集計開始月と最終月セレクトリストの取得
@@ -365,18 +365,18 @@ namespace KakeiboForMVC.Controllers
                 AddMonths(1).AddDays(-1).ToString(Common.DataDateFormat);
 
             //家計簿テーブル作成
-            await GetCompileKakeiboTable(_context, viewModel);
+            await GetMonthCompileKakeiboTable(_context, viewModel);
 
             return View(viewModel);
         }
 
         /// <summary>
-        /// 集計画面　集計処理
+        /// 月別集計画面　集計処理
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Compile(CompileViewModel viewModel)
+        public async Task<IActionResult> MonthCompile(MonthCompileViewModel viewModel)
         {
             DateTime now = DateTime.Now;
             // 集計画面の集計開始月と最終月セレクトリストの取得
@@ -391,8 +391,8 @@ namespace KakeiboForMVC.Controllers
                 return View(viewModel);
             }
 
-            //集計テーブル作成
-            await GetCompileKakeiboTable(_context, viewModel);
+            // 月別集計テーブル作成
+            await GetMonthCompileKakeiboTable(_context, viewModel);
 
             return View(viewModel);
         }
@@ -701,7 +701,7 @@ namespace KakeiboForMVC.Controllers
         /// <param name="now"></param>
         /// <returns></returns>
         private static async Task GetMonthSelect(
-            KakeiboForMVCContext context, CompileViewModel viewModel, DateTime now)
+            KakeiboForMVCContext context, MonthCompileViewModel viewModel, DateTime now)
         {
             DateTime date = await context.KAKEIBO.Select(x => x.HIDUKE).MinAsync();
             date = date.AddDays(1 - date.Day);
@@ -722,13 +722,13 @@ namespace KakeiboForMVC.Controllers
         }
 
         /// <summary>
-        /// 集計テーブル作成
+        /// 月別集計テーブル作成
         /// </summary>
         /// <param name="context"></param>
         /// <param name="viewModel"></param>
         /// <returns></returns>
-        private static async Task GetCompileKakeiboTable(KakeiboForMVCContext context,
-            CompileViewModel viewModel)
+        private static async Task GetMonthCompileKakeiboTable(KakeiboForMVCContext context,
+            MonthCompileViewModel viewModel)
         {
             // 集計月リスト作成
             DateTime firstMonth = DateTime.Parse(viewModel.FirstMonth!);

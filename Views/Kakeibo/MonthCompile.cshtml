@@ -1,7 +1,7 @@
 ﻿@using System.Data
 @using KakeiboForMVC.Controllers
 
-@model KakeiboForMVC.Models.CompileViewModel
+@model KakeiboForMVC.Models.MonthCompileViewModel
 @{
     string firstMonth = DateTime.Parse(Model.FirstMonth!).ToString(Common.DisplayDateFormat);
     string lastMonth = DateTime.Parse(Model.LastMonth!).ToString(Common.DisplayDateFormat);
@@ -12,7 +12,7 @@
     <div class="container">
         <!-- コンソールの表示 -->
         <div id="console">
-            <form action="Compile" method="post">
+            <form action="MonthCompile" method="post">
                 <div class="flex-row">
                     <div style="width: 2rem; margin-right: 0.5rem;">期間</div>
                     <select asp-for="FirstMonth" id="firstMonth" asp-items="Model.FirstMonthSelect"></select>
@@ -134,5 +134,5 @@
 }
 
 @section Scripts {
-    <script src="~/js/kakeibo/Compile.js" asp-append-version="true"></script>
+    <script src="~/js/kakeibo/MonthCompile.js" asp-append-version="true"></script>
 }

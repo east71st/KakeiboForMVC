@@ -7,7 +7,7 @@ namespace KakeiboForMVC.Models
     /// <summary>
     /// 集計画面
     /// </summary>
-    public class CompileViewModel : IErrorMessagesViewModel
+    public class MonthCompileViewModel : IErrorMessagesViewModel
     {
         /// <summary>
         /// 集計開始月
@@ -36,7 +36,6 @@ namespace KakeiboForMVC.Models
         /// <summary>
         /// 家計簿集計テーブル
         /// </summary>
-        //public Dictionary<int,Dictionary<DateTime,Decimal>> CompileKakeiboTable { get; set; } = [];
         public DataTable CompileKakeiboTable { get; set; } = new DataTable();
 
         /// <summary>

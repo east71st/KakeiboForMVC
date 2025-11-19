@@ -1,4 +1,4 @@
-﻿class Compile {
+﻿class MonthCompile {
 
     /**
      * 集計開始月日セレクトボックス
@@ -90,6 +90,6 @@
 }
 
 window.onload = function () {
-    let obj = new Compile;
+    let obj = new MonthCompile;
     obj.init()
 };
