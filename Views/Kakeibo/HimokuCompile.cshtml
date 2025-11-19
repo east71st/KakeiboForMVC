@@ -1,7 +1,7 @@
 ﻿@using System.Data
 @using KakeiboForMVC.Controllers
 
-@model KakeiboForMVC.Models.MonthCompileViewModel
+@model KakeiboForMVC.Models.HimokuCompileViewModel
 @{
     string firstMonth = DateTime.Parse(Model.FirstMonth!).ToString(Common.DisplayDateFormat);
     string lastMonth = DateTime.Parse(Model.LastMonth!).ToString(Common.DisplayDateFormat);
@@ -12,15 +12,21 @@
     <div class="container">
         <!-- コンソールの表示 -->
         <div id="console">
-            <form action="MonthCompile" method="post">
+            <form action="HimokuCompile" method="post">
                 <div class="flex-row">
                     <div style="width: 2rem; margin-right: 0.5rem;">期間</div>
                     <select asp-for="FirstMonth" id="firstMonth" asp-items="Model.FirstMonthSelect"></select>
                     <div style="margin-left: 0.3rem; margin-right: 0.3rem;">～</div>
                     <select asp-for="LastMonth" asp-items="Model.LastMonthSelect"></select>
                 </div>
+                <div class="flex-row">
+                    <div style="width: 2rem; margin-right: 0.5rem;">費目</div>
+                    <select asp-for="HimokuId" id="himokuId" class="tempElements"
+                            asp-items="Model.HimokuNameSelect">
+                    </select>
+                </div>
                 <div class="flex-row" style="justify-content: flex-start">
-                    <input type="submit" value="月別集計" style="margin-left: 2.5rem;">
+                    <input type="submit" value="費目別集計" style="margin-left: 2.5rem;">
                 </div>
                 @if (Model.ErrorMessages.Count > 0)
                 {
@@ -48,7 +54,8 @@
                             <div style="margin-left: 0.5rem;">～</div>
                             <div style="margin-left: 0.5rem;">@lastMonth</div>
                         }
-                        <div style="margin-left: 0.5rem;">家計簿 月別集計</div>
+                        <div style="margin-left: 0.5rem;">家計簿</div>
+                        <div style="margin-left: 0.5rem;">@Model.HimokuName 費目別集計</div>
                     </div>
 
                     <div id="table-area">
@@ -76,7 +83,7 @@
                             <tbody>
                                 @foreach (DataRow row in table.Rows)
                                 {
-                                    @if (@row[0].ToString()!.Equals("支出計") || @row[0].ToString()!.Equals("収支"))
+                                    @if (@row[0].ToString()!.Equals("合計"))
                                     {
                                         <tr class="bottom-row">
                                             <th class="fixd-col text-col" style="text-align:center;">@row[0]</th>
@@ -134,5 +141,5 @@
 }
 
 @section Scripts {
-    <script src="~/js/kakeibo/MonthCompile.js" asp-append-version="true"></script>
+    <script src="~/js/kakeibo/HimokuCompile.js" asp-append-version="true"></script>
 }
