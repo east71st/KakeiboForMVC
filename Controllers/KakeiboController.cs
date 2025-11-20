@@ -571,8 +571,9 @@ namespace KakeiboForMVC.Controllers
                 "" : "_" + dataModel.FirstDate.Value.ToString(Common.DisplayDateFormat);
             string lastDate = dataModel.LastDate == null ?
                 "" : "～" + dataModel.LastDate.Value.ToString(Common.DisplayDateFormat);
-            string himoku = string.IsNullOrEmpty(dataModel.HimokuName) ?
-                "" : "_" + dataModel.HimokuName;
+            string himoku =
+                string.IsNullOrEmpty(GetHimokuName(dataModel.HimokuId, himokuNameDict)) ?
+                "" : "_" + GetHimokuName(dataModel.HimokuId, himokuNameDict);
             string meisaiFilter = string.IsNullOrEmpty(dataModel.Meisai) ?
                 "" : "_" + dataModel.Meisai;
 
@@ -929,8 +930,7 @@ namespace KakeiboForMVC.Controllers
             Dictionary<int, string> himokuNameDict)
         {
             return himokuId != null ?
-                (himokuNameDict.
-                TryGetValue(himokuId.Value, out string? name) ? name : null) : null;
+                (himokuNameDict.TryGetValue(himokuId.Value, out string? name) ? name : null) : null;
         }
 
         /// <summary>
