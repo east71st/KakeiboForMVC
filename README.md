@@ -7,14 +7,14 @@
         家計簿データの入力機能
         <div style="display:flex; flex-direction:row;">
           <div>
-            <img src="https://github.com/user-attachments/assets/1b6b6186-47c1-46be-ba67-3f54326e7d1d">          
+            <img src="https://github.com/user-attachments/assets/65441287-c37f-434b-915a-7d91de265d87">          
           </div>
           <div>
             <ul>
               <li>入力履歴を確認しながら入力できます。</li>
               <li>入力したデータがデータべースに保存されます。</li>
               <li>費目は登録済みの項目の中からセレクトボックスを使い選択します。</li>
-              <li>明細の入力はコンボボックスになっています。ドロップダウンリストには選択済みの費目別の入力履歴がリストされます。</li>
+              <li>明細の入力はコンボボックスになっています。タイプすることもドロップダウンリストから選択することもできます。リストには費目別の入力履歴が表示されます。</li>
             </ul>
           </div>
         </div>
