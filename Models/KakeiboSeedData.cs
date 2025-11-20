@@ -113,7 +113,7 @@ namespace KakeiboForMVC.Models
                         ID = 0,
                         HIDUKE = DateTime.Parse("2025-06-05"),
                         HIMOKU_ID = 7,
-                        MEISAI = "コーヒー",
+                        MEISAI = "ポテトチップス",
                         SHUKINGAKU = 200
                     },
                     new KAKEIBO
@@ -242,7 +242,7 @@ namespace KakeiboForMVC.Models
                         ID = 0,
                         HIDUKE = DateTime.Parse("2025-07-05"),
                         HIMOKU_ID = 7,
-                        MEISAI = "コーヒー",
+                        MEISAI = "ポテトチップス",
                         SHUKINGAKU = 250
                     },
                     new KAKEIBO
@@ -371,7 +371,7 @@ namespace KakeiboForMVC.Models
                         ID = 0,
                         HIDUKE = DateTime.Parse("2025-08-05"),
                         HIMOKU_ID = 7,
-                        MEISAI = "コーヒー",
+                        MEISAI = "ポテトチップス",
                         SHUKINGAKU = 250
                     },
                     new KAKEIBO
@@ -500,7 +500,7 @@ namespace KakeiboForMVC.Models
                         ID = 0,
                         HIDUKE = DateTime.Parse("2025-09-05"),
                         HIMOKU_ID = 7,
-                        MEISAI = "コーヒー",
+                        MEISAI = "ポテトチップス",
                         SHUKINGAKU = 250
                     },
                     new KAKEIBO
@@ -629,7 +629,7 @@ namespace KakeiboForMVC.Models
                         ID = 0,
                         HIDUKE = DateTime.Parse("2025-10-05"),
                         HIMOKU_ID = 7,
-                        MEISAI = "コーヒー",
+                        MEISAI = "ポテトチップス",
                         SHUKINGAKU = 250
                     },
                     new KAKEIBO
@@ -758,7 +758,7 @@ namespace KakeiboForMVC.Models
                         ID = 0,
                         HIDUKE = DateTime.Parse("2025-11-05"),
                         HIMOKU_ID = 7,
-                        MEISAI = "コーヒー",
+                        MEISAI = "ポテトチップス",
                         SHUKINGAKU = 250
                     },
                     new KAKEIBO
