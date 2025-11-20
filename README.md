@@ -76,10 +76,22 @@
         </p>
       </li>
       <li>
+        表示データの印刷機能
+        <p>
+          <div>
+            <img src="https://github.com/user-attachments/assets/d8ef81ee-00dd-49dd-ac0f-f7e187c24c9a">
+          </div>
+          <ul>
+            <li>画面に表示されているリストデータを印刷できます。</li>
+            <li>家計簿の入力、表示、修正、集計画面と費目の設定画面に対応しています。</li>
+          </ul>
+        </p>
+      </li>
+      <li>
         表示データのコピー機能
         <p>
           <div>
-            <img src="">
+            <img src="https://github.com/user-attachments/assets/8ad25f97-bb62-4efc-afdd-287a4cc12059">
           </div>
           <ul>
             <li>画面に表示されているリストデータをクリップボードにコピーできます。</li>
@@ -91,7 +103,7 @@
         家計簿データのCSVファイルダウンロード機能
         <p>
           <div>
-            <img src="">
+            <img src="https://github.com/user-attachments/assets/d5728105-d87b-4f06-8b8b-6bfad6c55fe4">
           </div>
           <ul>
             <li>表示画面の家計簿データのCSVファイルをダウンロードできます。</li>
