@@ -1,4 +1,3 @@
-<h2>KakeiboForMVCについて</h2>
 <session>
   <h3>【機能について】</h3>
   <p>
@@ -7,7 +6,7 @@
         家計簿データの入力機能
         <div style="display:flex; flex-direction:row;">
           <div>
-            <img src="https://github.com/user-attachments/assets/65441287-c37f-434b-915a-7d91de265d87">          
+            <img src="https://github.com/user-attachments/assets/65441287-c37f-434b-915a-7d91de265d87">
           </div>
           <div>
             <ul>
@@ -21,9 +20,12 @@
       </li>
       <li>
         家計簿データの表示機能
+          <div>
+            <img src="https://github.com/user-attachments/assets/818b0df5-8df7-4644-a087-22e8840880a0">
+          </div>
         <ul>
           <li>データベースに保存された家計簿データを日付順にリスト表示します。</li> 
-          <li>表示条件をコンソールパネル(左縦帯)で操作して表示できます。</li>
+          <li>表示条件をコンソールパネル(左縦帯)で操作して絞り込み表示できます。</li>
           <li>収支それぞれの合計額が表示されます。</li>
         </ul>
       </li>
