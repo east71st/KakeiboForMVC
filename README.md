@@ -65,7 +65,7 @@
         費目コードの設定
         <p>
           <div>
-            <img src="">
+            <img src="https://github.com/user-attachments/assets/c1ddfb62-c6dc-415f-85bc-74a90a8c519e">
           </div>
           <ul>
             <li>データベースに登録済みの費目データを表示できます。</li>
