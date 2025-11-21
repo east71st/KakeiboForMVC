@@ -1,4 +1,4 @@
-<h2>KakeiboForMVC</h2>
+<h2>ポートフォリオKakeiboForMVC(家計簿ソフト)について</h2>
 <session>
   <h3>【機能について】</h3>
   <p>
