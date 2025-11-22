@@ -6,7 +6,7 @@ namespace KakeiboForMVC.Models
     /// <summary>
     /// 修正画面ビューモデル
     /// </summary>
-    public class UpdateViewModel : DisplayViewModel
+    public class UpdateViewModel : CommonBaseViewModel
     {
         /// <summary>
         /// 家計簿ID

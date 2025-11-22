@@ -17,6 +17,30 @@
      */
     #meisaiList = null;
     /**
+     * IDの並び順
+     */
+    #sortId = null;
+    /**
+     * 日付の並び順
+     */
+    #sortHiduke = null;
+    /**
+     * 費目IDの並び順
+     */
+    #sortHimokuId = null;
+    /**
+     * 明細の並び順
+     */
+    #sortMeisai = null;
+    /**
+     * ソート要素
+     */
+    #sortElements = null;
+    /**
+     * ソートの記号
+     */
+    #sortSymbols = null;
+    /**
      * セッションストレージに保管する入力ボックス
      */
     #tempElements = null;
@@ -67,6 +91,12 @@
     init() {
         this.#tempDataForm = document.getElementById('tempDataForm');
         this.#firstDate = document.getElementById('firstDate');
+        this.#sortId = document.getElementById('sortId');
+        this.#sortHiduke = document.getElementById('sortHiduke');
+        this.#sortHimokuId = document.getElementById('sortHimokuId');
+        this.#sortMeisai = document.getElementById('sortMeisai');
+        this.#sortElements = document.querySelectorAll('.sortElements');
+        this.#sortSymbols = document.querySelectorAll('.sortSymbols');
         this.#tempElements = document.querySelectorAll('.tempElements');
         this.#isGet = document.getElementById('isGet');
         this.#himokuId = document.getElementById('himokuId');
@@ -80,6 +110,7 @@
 
         this.#tempDataForm.addEventListener('submit', e => this.#formOnSubmit(e));
         this.#himokuId.addEventListener('change', e => this.#himokuIdOnChange(e));
+        this.#sortSymbols.forEach(x => x.addEventListener('click', e => this.#sortSymbolsOnClick(e)));
         this.#print.addEventListener('click', e => this.#printOnClick(e));
         this.#copy.addEventListener('click', e => this.#copyOnClick(e));
         this.#csvDownload.addEventListener('click', e => this.#csvDownloadOnClick(e));
@@ -90,7 +121,7 @@
 
     /**
      * データが送信されたときの処理
-     * @param {event} e
+     * @param {Event} e
      */
     #formOnSubmit(e) {
         // 入力データをセッションストレージに保管
@@ -104,6 +135,28 @@
     #himokuIdOnChange(e) {
         // 明細履歴リスト取得
         this.#getMeisaiList(e.target.value);
+    }
+
+    /**
+     * ソートの記号を押下したときの処理
+     * @param {Event} e
+     */
+    #sortSymbolsOnClick(e) {
+        for (const x of this.#sortElements) {
+            if (x.id === e.target.dataset.sortElement) {
+                if (x.value === '1') {
+                    x.value = 2;
+                } else if (x.value === '2') {
+                    x.value = 1;
+                } else {
+                    x.value = - parseInt(x.value);
+                }
+            } else {
+                x.value = - Math.abs(parseInt(x.value));
+            }
+        }
+        this.#setTempData();
+        this.#tempDataForm.submit();
     }
 
     /**
@@ -150,6 +203,10 @@
                 lastDate: map.get("LastDate"),
                 himokuId: map.get("HimokuId"),
                 meisai: map.get("Meisai"),
+                sortId: map.get("SortId"),
+                sortHiduke: map.get("SortHiduke"),
+                sortHimokuId: map.get("SortHimokuId"),
+                sortMeisai: map.get("SortMeisai"),
             };
         }
 

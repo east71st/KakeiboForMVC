@@ -7,9 +7,11 @@
             <form id="displayForm" action="Update" method="get">
                 <div class="flex-row">
                     <div style="width: 2rem; margin-right: 0.5rem;">期間</div>
-                    <input asp-for="FirstDate" id="firstDate" type="date" required style="width: 7.5rem;">
+                    <input asp-for="FirstDate" id="firstDate"
+                           type="date" required style="width: 7.5rem;">
                     <div style="margin-left: 0.3rem; margin-right: 0.3rem;">～</div>
-                    <input asp-for="LastDate" id="lastDate" type="date" required style="width: 7.5rem;">
+                    <input asp-for="LastDate" id="lastDate"
+                           type="date" required style="width: 7.5rem;">
                 </div>
                 <div class="flex-row">
                     <div style="width: 2rem; margin-right: 0.5rem;">費目</div>
@@ -19,7 +21,8 @@
                 </div>
                 <div class="flex-row">
                     <div style="width: 2rem; margin-right: 0.5rem;">明細</div>
-                    <input asp-for="Meisai" id="meisai" list="meisaiList" class="form-control" maxlength="100" style="width: 15rem;" />
+                    <input asp-for="Meisai" id="meisai"
+                           list="meisaiList" class="form-control" maxlength="100" style="width: 15rem;" />
                     <datalist id="meisaiList" maxlength="100" style="width: 15rem;">
                         @foreach (var item in Model.MeisaiList)
                         {
@@ -57,11 +60,15 @@
                 @if (Model.KakeiboList != null && Model.KakeiboList.Count > 0)
                 {
                     <div id="table-title">
-                        <div style="margin-left: 0.5rem;">@Model.FirstDate?.ToString(Common.DisplayDateFormat)</div>
+                        <div style="margin-left: 0.5rem;">
+                            @Model.FirstDate?.ToString(Common.DisplayDateFormat)
+                        </div>
                         @if (Model.FirstDate != Model.LastDate)
                         {
                             <div style="margin-left: 0.5rem;">～</div>
-                            <div style="margin-left: 0.5rem;">@Model.LastDate?.ToString(Common.DisplayDateFormat)</div>
+                            <div style="margin-left: 0.5rem;">
+                                @Model.LastDate?.ToString(Common.DisplayDateFormat)
+                            </div>
                         }
                         <div style="margin-left: 0.5rem;">家計簿</div>
                         @if (Model.HimokuId != 0)
@@ -81,9 +88,10 @@
                                     <th class="fixed-row" style="width: 50rem;">明細</th>
                                     <th class="fixed-row" style="width: auto; min-width: 6rem;">収入</th>
                                     <th class="fixed-row" style="width: auto; min-width: 6rem;">支出</th>
-                                    <th class="fixed-row no-screen-element" style="width:auto; min-width: 20rem;">備考</th>
-                                    <th class="fixed-row no-print-area" style="width: 3.5rem;">更新</th>
-                                    <th class="fixed-row no-print-area" style="width: 3.5rem;">削除</th>
+                                    <th class="fixed-row no-screen-element"
+                                        style="width:auto; min-width: 20rem;">備考</th>
+                                    <th class="fixed-row no-print-element" style="width: 3.5rem;">更新</th>
+                                    <th class="fixed-row no-print-element" style="width: 3.5rem;">削除</th>
                                 </tr>
                             </thead>
 
@@ -111,7 +119,7 @@
                                                    type="text" autocomplete="off" style="text-align: right;" />
                                         </td>
                                         <td class="no-screen-element"></td>
-                                        <td class="inner-box-col no-print-area">
+                                        <td class="inner-box-col no-print-element">
                                             <button class="updateButtons" type="button"
                                                     data-id="@item.Id"
                                                     data-hiduke-id="hiduke-@item.Id"
@@ -122,7 +130,7 @@
                                                 更新
                                             </button>
                                         </td>
-                                        <td class="inner-box-col no-print-area">
+                                        <td class="inner-box-col no-print-element">
                                             <button class="deleteButtons" type="button"
                                                     data-id="@item.Id">
                                                 削除

@@ -84,7 +84,7 @@
 
     /**
      * データが送信されたときの処理
-     * @param {event} e
+     * @param {Event} e
      */
     #formOnSubmit(e) {
         // 入力データをセッションストレージに保管

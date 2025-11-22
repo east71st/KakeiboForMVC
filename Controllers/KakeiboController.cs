@@ -143,6 +143,10 @@ namespace KakeiboForMVC.Controllers
                 FirstDate = new DateTime(year, month, 1),
                 LastDate = new DateTime(year, month, DateTime.DaysInMonth(year, month)),
                 HimokuNameSelect = await GetHimokuNameSelect(_context),
+                SortId = -1,
+                SortHiduke = 1,
+                SortHimokuId = -1,
+                SortMeisai = -1,
                 IsGet = true,
             };
 
@@ -170,7 +174,7 @@ namespace KakeiboForMVC.Controllers
             }
 
             // 費目名と費目名セレクトリスト、明細履歴リスト、家計簿テーブルの取得
-            viewModel = await GetDisplayViewModel(_context, viewModel);
+            viewModel = (DisplayViewModel)await GetDisplayViewModel(_context, viewModel);
 
             return View(viewModel);
         }
@@ -538,9 +542,55 @@ namespace KakeiboForMVC.Controllers
                     x.MEISAI.Contains(dataModel.Meisai));
             }
 
-            // 家計簿テーブルの取得
-            result = result.OrderBy(x => x.HIDUKE).
-                ThenBy(x => x.HIMOKU_ID).ThenBy(x => x.MEISAI);
+            // ソート条件の適用
+            if (dataModel.SortId != null && dataModel.SortId.Value == 1)
+            {
+                result = result.OrderBy(x => x.ID).
+                    ThenBy(x => x.HIMOKU_ID).ThenBy(x => x.MEISAI);
+            }
+            else if (dataModel.SortId != null && dataModel.SortId.Value == 2)
+            {
+                result = result.OrderByDescending(x => x.ID).
+                    ThenBy(x => x.HIMOKU_ID).ThenBy(x => x.MEISAI);
+            }
+            else if (
+                dataModel.SortHiduke != null && dataModel.SortHiduke.Value == 1)
+            {
+                result = result.OrderBy(x => x.HIDUKE).ThenBy(x => x.MEISAI);
+            }
+            else if (
+                dataModel.SortHiduke != null && dataModel.SortHiduke.Value == 2)
+            {
+                result = result.OrderByDescending(x => x.HIDUKE).ThenBy(x => x.MEISAI);
+            }
+            else if (
+                dataModel.SortHimokuId != null && dataModel.SortHimokuId.Value == 1)
+            {
+                result = result.OrderBy(x => x.HIMOKU_ID).
+                    ThenBy(x => x.HIDUKE).ThenBy(x => x.MEISAI);
+            }
+            else if (
+                dataModel.SortHimokuId != null && dataModel.SortHimokuId.Value == 2)
+            {
+                result = result.OrderByDescending(x => x.HIMOKU_ID).
+                    ThenBy(x => x.HIDUKE).ThenBy(x => x.MEISAI);
+            }
+            else if (dataModel.SortMeisai != null && dataModel.SortMeisai.Value == 1)
+            {
+                result = result.OrderBy(x => x.MEISAI).
+                    ThenBy(x => x.HIDUKE).ThenBy(x => x.HIMOKU_ID);
+            }
+            else if (dataModel.SortMeisai != null && dataModel.SortMeisai.Value == 2)
+            {
+                result = result.OrderByDescending(x => x.MEISAI).
+                    ThenBy(x => x.HIDUKE).ThenBy(x => x.HIMOKU_ID);
+            }
+            else
+            {
+                // デフォルトは日付、費目ID、明細の昇順
+                result = result.OrderBy(x => x.HIDUKE).
+                    ThenBy(x => x.HIMOKU_ID).ThenBy(x => x.MEISAI);
+            }
 
             var sb = new StringBuilder();
             sb.AppendLine(@"""ID"",""日付"",""費目"",""明細"",""収入"",""支出""");
@@ -639,8 +689,8 @@ namespace KakeiboForMVC.Controllers
         /// <param name="context"></param>
         /// <param name="viewModel"></param>
         /// <returns></returns>
-        private async Task<DisplayViewModel> GetDisplayViewModel(
-            KakeiboForMVCContext context, DisplayViewModel viewModel)
+        private async Task<CommonBaseViewModel> GetDisplayViewModel(
+            KakeiboForMVCContext context, CommonBaseViewModel viewModel)
         {
             // 費目名辞書の取得
             var himokuNameDict = await GetHimokuNameDict(_context);
@@ -680,8 +730,66 @@ namespace KakeiboForMVC.Controllers
                     x.MEISAI.Contains(viewModel.Meisai));
             }
 
-            result = result.OrderBy(x => x.HIDUKE).
-                ThenBy(x => x.HIMOKU_ID).ThenBy(x => x.MEISAI);
+            // DisplayViewModelの場合はソート条件の適用
+            if (viewModel is DisplayViewModel displayViewModel)
+            {
+                if (displayViewModel.SortId != null && displayViewModel.SortId.Value == 1)
+                {
+                    result = result.OrderBy(x => x.ID).
+                        ThenBy(x => x.HIMOKU_ID).ThenBy(x => x.MEISAI);
+                }
+                else if (displayViewModel.SortId != null && displayViewModel.SortId.Value == 2)
+                {
+                    result = result.OrderByDescending(x => x.ID).
+                        ThenBy(x => x.HIMOKU_ID).ThenBy(x => x.MEISAI);
+                }
+                else if (
+                    displayViewModel.SortHiduke != null && displayViewModel.SortHiduke.Value == 1)
+                {
+                    result = result.OrderBy(x => x.HIDUKE).ThenBy(x => x.MEISAI);
+                }
+                else if (
+                    displayViewModel.SortHiduke != null && displayViewModel.SortHiduke.Value == 2)
+                {
+                    result = result.OrderByDescending(x => x.HIDUKE).ThenBy(x => x.MEISAI);
+                }
+                else if (
+                    displayViewModel.SortHimokuId != null && displayViewModel.SortHimokuId.Value == 1)
+                {
+                    result = result.OrderBy(x => x.HIMOKU_ID).
+                        ThenBy(x => x.HIDUKE).ThenBy(x => x.MEISAI);
+                }
+                else if (
+                    displayViewModel.SortHimokuId != null && displayViewModel.SortHimokuId.Value == 2)
+                {
+                    result = result.OrderByDescending(x => x.HIMOKU_ID).
+                        ThenBy(x => x.HIDUKE).ThenBy(x => x.MEISAI);
+                }
+                else if (
+                    displayViewModel.SortMeisai != null && displayViewModel.SortMeisai.Value == 1)
+                {
+                    result = result.OrderBy(x => x.MEISAI).
+                        ThenBy(x => x.HIDUKE).ThenBy(x => x.HIMOKU_ID);
+                }
+                else if (
+                    displayViewModel.SortMeisai != null && displayViewModel.SortMeisai.Value == 2)
+                {
+                    result = result.OrderByDescending(x => x.MEISAI).
+                        ThenBy(x => x.HIDUKE).ThenBy(x => x.HIMOKU_ID);
+                }
+                else
+                {
+                    // デフォルトは日付、費目ID、明細の昇順
+                    result = result.OrderBy(x => x.HIDUKE).
+                        ThenBy(x => x.HIMOKU_ID).ThenBy(x => x.MEISAI);
+                }
+            }
+            // UpdateViewModelの場合は日付、費目ID、明細の昇順で固定
+            else
+            {
+                result = result.OrderBy(x => x.HIDUKE).
+                        ThenBy(x => x.HIMOKU_ID).ThenBy(x => x.MEISAI);
+            }
 
             foreach (var item in await result.ToListAsync())
             {

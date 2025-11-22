@@ -345,6 +345,15 @@ footer {
     border: none;
 }
 
+/*ソートの記号*/
+.sortSymbols {
+    margin-left: 0.2rem;
+    font-size: var(--font-size-s);
+    vertical-align: middle;
+    cursor: pointer;
+    transition: all .3s;
+}
+
 /*エラーメッセージの設定*/
 .error-message-area {
     height: auto;

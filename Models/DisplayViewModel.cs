@@ -1,67 +1,28 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.Rendering;
-
-namespace KakeiboForMVC.Models
+﻿namespace KakeiboForMVC.Models
 {
     /// <summary>
     /// 表示画面ビューモデル
     /// </summary>
-    public class DisplayViewModel : IErrorMessagesViewModel, ICommonViewModel
+    public class DisplayViewModel : CommonBaseViewModel
     {
         /// <summary>
-        /// 検索開始日
+        /// Idの並び順
         /// </summary>
-        [Display(Name = "検索開始日")]
-        [DataType(DataType.Date)]
-        [Required(ErrorMessage = "{0}が未設定です。")]
-        public DateTime? FirstDate { get; set; }
+        public int? SortId { get; set; }
 
         /// <summary>
-        /// 検索最終日
+        /// 日付の並び順
         /// </summary>
-        [Display(Name = "検索最終日")]
-        [DataType(DataType.Date)]
-        [Required(ErrorMessage = "{0}が未設定です。")]
-        public DateTime? LastDate { get; set; }
+        public int? SortHiduke { get; set; }
 
         /// <summary>
-        /// 費目ID
+        /// 費目Idの並び順
         /// </summary>
-        public int? HimokuId { get; set; }
+        public int? SortHimokuId { get; set; }
 
         /// <summary>
-        /// 費目名
+        /// 明細の並び順
         /// </summary>
-        public string? HimokuName { get; set; }
-
-        /// <summary>
-        /// 明細
-        /// </summary>
-        public string? Meisai { get; set; }
-
-        /// <summary>
-        /// エラーメッセージ
-        /// </summary>
-        public List<string> ErrorMessages { get; set; } = [];
-
-        /// <summary>
-        /// 費目名のセレクトリスト
-        /// </summary>
-        public List<SelectListItem> HimokuNameSelect { get; set; } = [];
-
-        /// <summary>
-        /// 明細履歴のリスト
-        /// </summary>
-        public List<string> MeisaiList { get; set; } = [];
-
-        /// <summary>
-        /// 家計簿テーブルリスト
-        /// </summary>
-        public List<KakeiboRecord> KakeiboList { get; set; } = [];
-
-        /// <summary>
-        /// ゲット送信か否か
-        /// </summary>
-        public bool IsGet { get; set; }
+        public int? SortMeisai { get; set; }
     }
 }

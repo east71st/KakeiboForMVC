@@ -1,6 +1,8 @@
 ﻿@using KakeiboForMVC.Controllers
+@using KakeiboForMVC.Models
 
 @model KakeiboForMVC.Models.DisplayViewModel
+
 <div id="main">
     <div class="container">
         <!-- コンソールの表示 -->
@@ -46,6 +48,10 @@
                         </ul>
                     </div>
                 }
+                <input asp-for="SortId" id="sortId" class="sortElements tempElements" type="hidden" />
+                <input asp-for="SortHiduke" id="sortHiduke" class="sortElements tempElements" type="hidden" />
+                <input asp-for="SortHimokuId" id="sortHimokuId" class="sortElements tempElements" type="hidden" />
+                <input asp-for="SortMeisai" id="sortMeisai" class="sortElements tempElements" type="hidden" />
             </form>
             <input asp-for="IsGet" id="isGet" type="hidden" />
         </div>
@@ -74,10 +80,30 @@
                         <table id="table">
                             <thead>
                                 <tr class="head-row">
-                                    <th class="fixed-row-col" style="width: auto; min-width: 5rem;">ID</th>
-                                    <th class="fixed-row" style="width: auto; min-width: 6rem;">日付</th>
-                                    <th class="fixed-row" style="width: auto; min-width: 10rem;">費目</th>
-                                    <th class="fixed-row" style="width: 50rem;">明細</th>
+                                    <th class="fixed-row-col" style="width: auto; min-width: 5rem;">
+                                        <span>ID</span>
+                                        <span class="sortSymbols no-print-element" data-sort-element="sortId">
+                                            @Common.SortSymbolDict[@Model.SortId!.Value]
+                                        </span>
+                                    </th>
+                                    <th class="fixed-row" style="width: auto; min-width: 6rem;">
+                                        <span>日付</span>
+                                        <span class="sortSymbols no-print-element" data-sort-element="sortHiduke">
+                                            @Common.SortSymbolDict[@Model.SortHiduke!.Value]
+                                        </span>
+                                    </th>
+                                    <th class="fixed-row" style="width: auto; min-width: 10rem;">
+                                        <span>費目</span>
+                                        <span class="sortSymbols no-print-element" data-sort-element="sortHimokuId">
+                                            @Common.SortSymbolDict[@Model.SortHimokuId!.Value]
+                                        </span>
+                                    </th>
+                                    <th class="fixed-row" style="width: 50rem;">
+                                        <span>明細</span>
+                                        <span class="sortSymbols no-print-element" data-sort-element="sortMeisai">
+                                            @Common.SortSymbolDict[@Model.SortMeisai!.Value]
+                                        </span>
+                                    </th>
                                     <th class="fixed-row" style="width: auto; min-width: 6rem;">収入</th>
                                     <th class="fixed-row" style="width: auto; min-width: 6rem;">支出</th>
                                     <th class="fixed-row no-screen-element"

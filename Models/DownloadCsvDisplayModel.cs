@@ -13,8 +13,16 @@ namespace KakeiboForMVC.Models
 
         public int? HimokuId { get; set; }
 
-        public  string? HimokuName { get; set; }
+        public string? HimokuName { get; set; }
 
         public string? Meisai { get; set; }
+
+        public int? SortId { get; set; }
+
+        public int? SortHiduke { get; set; }
+
+        public int? SortHimokuId { get; set; }
+
+        public int? SortMeisai { get; set; }
     }
 }

@@ -61,5 +61,16 @@ namespace KakeiboForMVC.Models
         /// 数値表示用書式"###,###"
         /// </summary>
         public static string DisplayNumberFormat { get; set; } = "###,###";
+
+        /// <summary>
+        /// 並び順の表示文字列
+        /// </summary>
+        public static Dictionary<int, string> SortSymbolDict { get; set; } = new()
+        {
+            [1] = "▲",
+            [2] = "▼",
+            [-1] = "△",
+            [-2] = "▽"
+        };
     }
 }
