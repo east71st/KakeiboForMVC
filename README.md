@@ -1,3 +1,7 @@
+
+![家計簿_ソート]()
+
+
 <h2>ポートフォリオKakeiboForMVC(家計簿ソフト)について</h2>
 <session>
   <h3>【機能について】</h3>
@@ -107,6 +111,17 @@
           </div>
           <ul>
             <li>表示画面の家計簿データのCSVファイルをダウンロードできます。</li>
+          </ul>
+        </p>
+      </li>
+      <li>
+        家計簿データのソート表示機能
+        <p>
+          <div>
+            <img src="https://github.com/user-attachments/assets/721d9e79-599e-4775-a6ff-da0ec0e36622">
+          </div>
+          <ul>
+            <li>表示画面の家計簿データの表示をソートできます。</li>
           </ul>
         </p>
       </li>
