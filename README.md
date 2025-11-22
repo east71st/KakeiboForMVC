@@ -1,7 +1,3 @@
-
-![家計簿_ソート]()
-
-
 <h2>ポートフォリオKakeiboForMVC(家計簿ソフト)について</h2>
 <session>
   <h3>【機能について】</h3>
@@ -10,9 +6,9 @@
       <li>
         家計簿データの入力機能
         <p>
-            <div style="display:flex; flex-direction:row;">
             <div>
-              <img src="https://github.com/user-attachments/assets/65441287-c37f-434b-915a-7d91de265d87">
+            <div>
+              <img src="https://github.com/user-attachments/assets/65441287-c37f-434b-915a-7d91de265d87" class="width-fit" style="max-width: 50%; height: auto;">
             </div>
             <div>
               <ul>
