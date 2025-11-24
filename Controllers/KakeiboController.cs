@@ -613,7 +613,7 @@ namespace KakeiboForMVC.Controllers
                 );
             }
 
-            var encoding = new System.Text.UTF8Encoding(true);
+            var encoding = new UTF8Encoding(true);
             byte[] csvBytes = encoding.GetBytes(sb.ToString());
             var contentType = "text/csv; charset=utf-8";
 
@@ -1025,7 +1025,7 @@ namespace KakeiboForMVC.Controllers
         private static async Task<Dictionary<int, string>> GetHimokuNameDict(
             KakeiboForMVCContext context)
         {
-            return await context.HIMOKU.ToDictionaryAsync(x => x.ID, x => x.NAME);
+            return await context.HIMOKU.ToDictionaryAsync(x => x.ID, x => x.NAME) ?? [];
         }
 
         /// <summary>
