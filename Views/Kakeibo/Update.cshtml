@@ -1,4 +1,8 @@
 ﻿@model KakeiboForMVC.Models.UpdateViewModel
+@{
+    string dateFormat = Common.DisplayDateFormat;
+    string numberFormat = Common.DisplayNumberFormat;
+}
 
 <div id="main">
     <div class="container">
@@ -61,13 +65,13 @@
                 {
                     <div id="table-title">
                         <div style="margin-left: 0.5rem;">
-                            @Model.FirstDate?.ToString(Common.DisplayDateFormat)
+                            @Model.FirstDate?.ToString(@dateFormat)
                         </div>
                         @if (Model.FirstDate != Model.LastDate)
                         {
                             <div style="margin-left: 0.5rem;">～</div>
                             <div style="margin-left: 0.5rem;">
-                                @Model.LastDate?.ToString(Common.DisplayDateFormat)
+                                @Model.LastDate?.ToString(@dateFormat)
                             </div>
                         }
                         <div style="margin-left: 0.5rem;">家計簿</div>

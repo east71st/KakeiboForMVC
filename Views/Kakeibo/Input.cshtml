@@ -1,6 +1,9 @@
 ﻿@using KakeiboForMVC.Models
 
 @model KakeiboForMVC.Models.InputViewModel
+@{
+    string numberFormat = Common.DisplayNumberFormat;
+}
 
 <div id="main">
     <div class="container">
@@ -84,11 +87,11 @@
                                 {
                                     <tr class="body-row">
                                         <th class="fixd-col number-col">@item.Id</th>
-                                        <td class="date-col">@item.Hiduke?.ToString(Common.DisplayShortDateFormat)</td>
+                                        <td class="date-col">@item.Hiduke?.ToString(@numberFormat)</td>
                                         <td class="text-col">@item.HimokuName</td>
                                         <td class="text-col">@item.Meisai</td>
-                                        <td class="number-col">@item.NyukinGaku?.ToString(Common.DisplayNumberFormat)</td>
-                                        <td class="number-col">@item.ShukinGaku?.ToString(Common.DisplayNumberFormat)</td>
+                                        <td class="number-col">@item.NyukinGaku?.ToString(@numberFormat)</td>
+                                        <td class="number-col">@item.ShukinGaku?.ToString(@numberFormat)</td>
                                         <td class="no-screen-element"></td>
                                     </tr>
                                 }

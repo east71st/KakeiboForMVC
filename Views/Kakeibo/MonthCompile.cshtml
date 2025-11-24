@@ -7,6 +7,7 @@
     string lastMonth = DateTime.Parse(Model.LastMonth!).ToString(Common.DisplayDateFormat);
 
     DataTable table = Model.CompileKakeiboTable;
+    string numberFormat = Common.DisplayNumberFormat;
 }
 <div id="main">
     <div class="container">
@@ -84,14 +85,14 @@
                                             {
                                                 Decimal kingaku = (Decimal)@row[i];
                                                 <td class="number-col">
-                                                    @kingaku.ToString(Common.DisplayNumberFormat)
+                                                    @kingaku.ToString(@numberFormat)
                                                 </td>
                                             }
                                             @if (!Model.FirstMonth!.Substring(0, 7).Equals(Model.LastMonth!.Substring(0, 7)))
                                             {
                                                 Decimal kingaku = (Decimal)@row[table.Columns.Count - 1];
                                                 <td class="number-col">
-                                                    @kingaku.ToString(Common.DisplayNumberFormat)
+                                                    @kingaku.ToString(@numberFormat)
                                                 </td>
                                             }
                                         </tr>
@@ -104,14 +105,14 @@
                                             {
                                                 Decimal kingaku = (Decimal)@row[i];
                                                 <td class="number-col">
-                                                    @kingaku.ToString(Common.DisplayNumberFormat)
+                                                    @kingaku.ToString(@numberFormat)
                                                 </td>
                                             }
                                             @if (!Model.FirstMonth!.Substring(0, 7).Equals(Model.LastMonth!.Substring(0, 7)))
                                             {
                                                 Decimal kingaku = (Decimal)@row[table.Columns.Count - 1];
                                                 <td class="number-col">
-                                                    @kingaku.ToString(Common.DisplayNumberFormat)
+                                                    @kingaku.ToString(@numberFormat)
                                                 </td>
                                             }
                                         </tr>
