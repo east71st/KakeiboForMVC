@@ -6,9 +6,9 @@
       <li>
         家計簿データの入力機能
         <p>
-            <div style="display:flex; flex-direction:row;">
             <div>
-              <img src="https://github.com/user-attachments/assets/65441287-c37f-434b-915a-7d91de265d87">
+            <div>
+              <img src="https://github.com/user-attachments/assets/65441287-c37f-434b-915a-7d91de265d87" class="width-fit" style="max-width: 50%; height: auto;">
             </div>
             <div>
               <ul>
@@ -107,6 +107,17 @@
           </div>
           <ul>
             <li>表示画面の家計簿データのCSVファイルをダウンロードできます。</li>
+          </ul>
+        </p>
+      </li>
+      <li>
+        家計簿データのソート表示機能
+        <p>
+          <div>
+            <img src="https://github.com/user-attachments/assets/721d9e79-599e-4775-a6ff-da0ec0e36622">
+          </div>
+          <ul>
+            <li>表示画面の家計簿データの表示をソートできます。</li>
           </ul>
         </p>
       </li>
