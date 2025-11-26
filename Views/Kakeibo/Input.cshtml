@@ -2,6 +2,7 @@
 
 @model KakeiboForMVC.Models.InputViewModel
 @{
+    string shortDateFormat = Common.DisplayShortDateFormat;
     string numberFormat = Common.DisplayNumberFormat;
 }
 
@@ -87,7 +88,7 @@
                                 {
                                     <tr class="body-row">
                                         <th class="fixd-col number-col">@item.Id</th>
-                                        <td class="date-col">@item.Hiduke?.ToString(@numberFormat)</td>
+                                        <td class="date-col">@item.Hiduke?.ToString(@shortDateFormat)</td>
                                         <td class="text-col">@item.HimokuName</td>
                                         <td class="text-col">@item.Meisai</td>
                                         <td class="number-col">@item.NyukinGaku?.ToString(@numberFormat)</td>
