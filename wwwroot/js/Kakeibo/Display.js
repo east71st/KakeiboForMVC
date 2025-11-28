@@ -291,7 +291,6 @@
 
             const responseData = await response.json();
 
-            const x = responseData.meisaiList;
             this.#meisaiList.innerHTML = "";
             for (const item of responseData.meisaiList) {
                 const option = document.createElement('option');

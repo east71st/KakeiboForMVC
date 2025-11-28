@@ -156,12 +156,13 @@
      * @param {Event} e
      */
     #updateButtonOnClick(e) {
-        const updateId = e.target.dataset.id;
-        const updateHiduke = document.getElementById(e.target.dataset.hidukeId).value;
-        const updateHimokuId = document.getElementById(e.target.dataset.himokuidId).value;
-        const updateMeisai = document.getElementById(e.target.dataset.meisaiId).value;
-        const updateNyukinGaku = document.getElementById(e.target.dataset.nyukingakuId).value;
-        const updateShukinGaku = document.getElementById(e.target.dataset.shukingakuId).value;
+        const dataset = e.target.dataset;
+        const updateId = dataset.id;
+        const updateHiduke = document.getElementById(dataset.hidukeId).value;
+        const updateHimokuId = document.getElementById(dataset.himokuidId).value;
+        const updateMeisai = document.getElementById(dataset.meisaiId).value;
+        const updateNyukinGaku = document.getElementById(dataset.nyukingakuId).value;
+        const updateShukinGaku = document.getElementById(dataset.shukingakuId).value;
 
         this.#updateForm.action = '/Kakeibo/Update/?' +
             `FirstDate=${this.#firstDate.value}&` +
@@ -255,7 +256,6 @@
 
             const responseData = await response.json();
 
-            const x = responseData.meisaiList;
             this.#meisaiList.innerHTML = "";
             for (const item of responseData.meisaiList) {
                 const option = document.createElement('option');
