@@ -635,6 +635,9 @@ namespace KakeiboForMVC.Controllers
                 $"{meisaiFilter}" +
                 $"_{DateTime.Today.ToString(Common.DataDateShortFormat)}.csv";
 
+            string message = $"CSVファイル '{fileName}' がユーザーによってダウンロードされました。ファイルサイズ: {csvBytes.Length} bytes。";
+            _logger.LogInformation(message, fileName, csvBytes.Length);
+
             return File(csvBytes, contentType, fileName);
         }
 
