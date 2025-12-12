@@ -82,7 +82,7 @@
     #comfirmDialog = null;
 
     /**
-     * はいボタン
+     * ＯＫボタン
      */
     #okButton = null;
     /**
@@ -117,7 +117,7 @@
         this.#tableArea = document.getElementById('table-area');
         this.#copy = document.getElementById('copy');
         this.#table = document.getElementById('table');
-        this.#comfirmDialog = document.getElementById('confirmDialog');
+        this.#comfirmDialog = document.getElementById('comfirmDialog');
         this.#okButton = document.getElementById('okButton');
         this.#cancelButton = document.getElementById('cancelButton')
 
@@ -236,6 +236,8 @@
     #cancelButtonOnClick(e) {
         this.#showDialog.value = 'False';
         this.#comfirmDialog.close('cancel');
+        // 初期表示フォーカス設定
+        this.#firstDate.focus();
     }
 
     /**
@@ -293,9 +295,10 @@
             // はいボタン→#okButtonOnCrick
             // キャンセルボタン→#cancelButtonOnClick
             this.#comfirmDialog.showModal();
+        } else {
+            // 初期表示フォーカス設定
+            this.#firstDate.focus();
         }
-        // 初期表示フォーカス設定
-        this.#firstDate.focus();
     }
 }
 

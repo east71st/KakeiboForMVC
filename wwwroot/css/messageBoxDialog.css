@@ -1,0 +1,74 @@
+﻿message-box {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+    message-box .body {
+        width: fit-content;
+        height: fit-content;
+        padding: 1rem;
+        border-radius: 0.2rem;
+        border: 1px solid;
+        background: white;
+        box-shadow: 0 0.2rem 0.2rem rgba(0, 0, 0, 0.2);
+    }
+
+    message-box .title {
+        font-size: var(--font-size-l);
+        font-weight: bold;
+        padding-left: 2rem;
+        position: relative;
+    }
+
+    message-box .message {
+        margin-top: 0.5rem;
+        padding-left: 2rem;
+    }
+
+    message-box .button-container {
+        display: flex;
+        margin-top: 0.5rem;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    message-box button.flat {
+        cursor: pointer;
+    }
+
+    /* アイコンのスタイル */
+    message-box.information .title::before,
+    message-box.exclamation .title::before,
+    message-box.question .title::before {
+        content: '';
+        width: 1.5rem;
+        height: 1.5rem;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    /* アイコン画像の指定 */
+    message-box.information .title::before {
+        background-image: url('/image/info.png');
+    }
+
+    message-box.exclamation .title::before {
+        background-image: url('/image/error.png');
+    }
+
+    message-box.question .title::before {
+        background-image: url('/image/warning.png');
+    }

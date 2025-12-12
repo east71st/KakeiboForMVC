@@ -5,7 +5,7 @@ namespace KakeiboForMVC.Data
 {
     public class KakeiboForMVCContext : DbContext
     {
-        public KakeiboForMVCContext (DbContextOptions<KakeiboForMVCContext> options)
+        public KakeiboForMVCContext(DbContextOptions<KakeiboForMVCContext> options)
             : base(options)
         {
         }

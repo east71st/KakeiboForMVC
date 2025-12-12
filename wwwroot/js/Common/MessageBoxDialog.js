@@ -66,13 +66,15 @@ class MessageBoxElement extends HTMLElement {
         this.Title.textContent = title;
         this.Message.textContent = message;
 
-        return new Promise(resolve => {
+        document.body.insertAdjacentElement("beforeend", this);
+
+        const promise = new Promise(resolve => {
             for (let type of buttonTypes) {
                 let button = document.createElement("button");
                 let caption;
 
                 switch (type) {
-                    case MessageBoxResult.Ok: caption = "OK"; break;
+                    case MessageBoxResult.Ok: caption = "ＯＫ"; break;
                     case MessageBoxResult.Cancel: caption = "キャンセル"; break;
                     case MessageBoxResult.Yes: caption = "はい"; break;
                     case MessageBoxResult.No: caption = "いいえ"; break;
@@ -102,8 +104,8 @@ class MessageBoxElement extends HTMLElement {
             }
         });
 
-        document.body.insertAdjacentElement("beforeend", this);
         this.SetDefaultFocus();
+        return promise;
     }
 
     SetDefaultFocus() {

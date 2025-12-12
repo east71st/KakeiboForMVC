@@ -1,5 +1,9 @@
 ﻿@model KakeiboForMVC.Models.HimokuViewModel
 
+@section Css {
+    <link rel="stylesheet" href="~/css/messageBoxDialog.css" asp-append-version="true" />
+}
+
 <div id="main">
     <div class="container">
         <!-- コンソールの表示 -->
@@ -98,5 +102,6 @@
 }
 
 @section Scripts {
+    <script src="~/js/Common/MessageBoxDialog.js" asp-append-version="true"></script>
     <script src="~/js/Himoku/Update.js" asp-append-version="true"></script>
 }

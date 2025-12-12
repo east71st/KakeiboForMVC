@@ -150,8 +150,12 @@
         </div>
     </div>
 
-    <dialog id="confirmDialog">
-        <div class="container">
+    <dialog id="comfirmDialog" class="message-dialog">
+        <div class="title">
+            <div class="icon"></div>
+            <div>確認</div>
+        </div>
+        <div class="message-area">
             <div style="display:flex; flex-direction:column; align-items:flex-start;">
                 <div>ID：@Model.ConfirmId</div>
                 <div>日付：@Model.ConfirmHiduke?.ToString(Common.DisplayDateFormat)</div>
@@ -160,10 +164,10 @@
                 <div>金額：@Model.ConfirmKingaku</div>
             </div>
             <div style="margin-top:0.5rem;">削除してもよろしいですか？</div>
-            <div class="flex-row">
-                <button id="okButton" style="margin-right:0.5rem;">はい</button>
-                <button id="cancelButton">キャンセル</button>
-            </div>
+        </div>
+        <div class="button-area">
+            <button id="okButton">ＯＫ</button>
+            <button id="cancelButton">キャンセル</button>
         </div>
     </dialog>
 </div>

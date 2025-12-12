@@ -176,18 +176,21 @@
     #windowOnLoad() {
         // 確認ダイアログ表示フラグがTrueの場合、確認ダイアログを表示
         if (this.#showDialog.value === 'True') {
-            const result = window.confirm('削除してもよろしいですか？');
-            // 確認ダイアログの結果によって処理を分岐
-            if (result == true) {
-                this.#deleteForm.action = this.#deletFormUrl(this.#deleteId.value);
-                this.#deleteForm.submit();
-            }
-            else {
-                this.#showDialog.value = 'False';
-            }
+            MessageBox.Confirm('削除してもよろしいですか？', '確認').then(result => {
+                if (result === MessageBoxResult.Ok) {
+                    this.#deleteForm.action = this.#deletFormUrl(this.#deleteId.value);
+                    this.#deleteForm.submit();
+                }
+                else {
+                    this.#showDialog.value = 'False';
+                    // 初期表示フォーカス設定
+                    this.#nameText.focus();
+                }
+            });
+        } else {
+            // 初期表示フォーカス設定
+            this.#nameText.focus();
         }
-        // 初期表示フォーカス設定
-        this.#nameText.focus();
     }
 }
 
