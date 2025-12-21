@@ -292,7 +292,7 @@
         // 確認ダイアログ表示フラグがTrueの場合、確認ダイアログを表示
         if (this.#showDialog.value === 'True') {
             // 確認ダイアログの結果によって処理を分岐
-            // はいボタン→#okButtonOnCrick
+            // ＯＫボタン→#okButtonOnCrick
             // キャンセルボタン→#cancelButtonOnClick
             this.#comfirmDialog.showModal();
         } else {
